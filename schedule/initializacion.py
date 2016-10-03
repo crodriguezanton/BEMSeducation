@@ -6,7 +6,6 @@ from schedule.models import Semester, WeeklyTimetableEntry, ClassDay, TimetableE
 
 def generate_timetable_entries(semester):
 
-    assert isinstance(semester, Semester)
     delta = semester.start - semester.end
     wtes=WeeklyTimetableEntry.objects.all()
 
