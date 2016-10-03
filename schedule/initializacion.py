@@ -11,7 +11,7 @@ def generate_timetable_entries(semester):
 
     for i in range(delta.days + 1):
         day = semester.start + timedelta(days=i)
-        fwtes = wtes.filter(day=ClassDay.objects.get(day=DAY_CHOICES[day.isoweekday()]))
+        fwtes = wtes.filter(day=ClassDay.objects.get(day=day.isoweekday()))
 
         for fwte in fwtes:
 
