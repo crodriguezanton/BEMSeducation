@@ -84,7 +84,7 @@ class ClassDay(models.Model):
     day = models.IntegerField(default=1, choices=DAY_CHOICES)
 
     def __unicode__(self):
-        return self.name
+        return self.get_day_display()
 
     def is_today(self):
         if datetime.today().isoweekday() == self.number:
