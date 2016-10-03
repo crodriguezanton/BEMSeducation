@@ -143,9 +143,9 @@ class WeeklyTimetableEntry(models.Model):
 
     def __unicode__(self):
         if self.subject is not None and self.group is not None:
-            return self.subject.shortName + " - " + self.group.name + " (" + self.date.name + " " + self.time.__unicode__() + ")"
+            return self.subject.short_name + " - " + self.group.name + " (" + self.day.__unicode__() + " " + self.unit.__unicode__() + ")"
         else:
-            return "(" + self.date.name + " " + self.time.__unicode__() + ")"
+            return "(" + self.date.name + " " + self.unit.__unicode__() + ")"
 
     def get_list(self):
         if not self.subject.major:
