@@ -54,7 +54,7 @@ class Subject(models.Model):
     major = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return self.shortName + ": " + self.name
+        return self.short_name + ": " + self.name
 
 
 class MajorSubject(models.Model):
@@ -71,7 +71,7 @@ class MajorSubject(models.Model):
     teacher = models.ForeignKey(Teacher)
 
     def __unicode__(self):
-        return self.shortName + ": " + self.name + " - " + self.subject.name
+        return self.short_name + ": " + self.name + " - " + self.subject.name
 
 
 class ClassDay(models.Model):
