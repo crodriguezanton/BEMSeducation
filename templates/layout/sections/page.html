@@ -1,0 +1,90 @@
+<div class="page animsition">
+{% block page %}
+{% if page_aside %}
+<div class="page-aside">
+    {% block aside %}
+      <div class="page-aside-switch">
+        <i class="icon wb-chevron-left" aria-hidden="true"></i>
+        <i class="icon wb-chevron-right" aria-hidden="true"></i>
+      </div>
+
+      <div class="page-aside-inner scrollable is-enabled scrollable-vertical" data-plugin="pageAsideScroll" style="position: relative;">
+        <div data-role="container" class="scrollable-container" style="height: 236px; width: 259px;">
+          <div data-role="content" class="scrollable-content" style="width: 259px;">
+              {% block aside_content %}
+            <section class="page-aside-section">
+              <h5 class="page-aside-title">Main</h5>
+              <div class="list-group">
+                <a class="list-group-item active" href="javascript:void(0)"><i class="icon wb-dashboard" aria-hidden="true"></i>Overview</a>
+                <a class="list-group-item" href="javascript:void(0)"><i class="icon wb-pluse" aria-hidden="true"></i>Activity</a>
+                <a class="list-group-item" href="javascript:void(0)"><i class="icon wb-heart" aria-hidden="true"></i>Dearest</a>
+                <a class="list-group-item" href="javascript:void(0)"><i class="icon wb-folder" aria-hidden="true"></i>Folders</a>
+              </div>
+            </section>
+            <section class="page-aside-section">
+              <h5 class="page-aside-title">Filter</h5>
+              <div class="list-group">
+                <a class="list-group-item" href="javascript:void(0)"><i class="icon wb-image" aria-hidden="true"></i>Images</a>
+                <a class="list-group-item" href="javascript:void(0)"><i class="icon wb-volume-high" aria-hidden="true"></i>Audio</a>
+                <a class="list-group-item" href="javascript:void(0)"><i class="icon wb-camera" aria-hidden="true"></i>Video</a>
+                <a class="list-group-item" href="javascript:void(0)"><i class="icon wb-file" aria-hidden="true"></i>Notes</a>
+                <a class="list-group-item" href="javascript:void(0)"><i class="icon wb-link-intact" aria-hidden="true"></i>Links</a>
+                <a class="list-group-item" href="javascript:void(0)"><i class="icon wb-order" aria-hidden="true"></i>Files</a>
+              </div>
+            </section>
+              {% endblock aside_content %}
+          </div>
+        </div>
+      <div class="scrollable-bar scrollable-bar-vertical scrollable-bar-hide" draggable="false"><div class="scrollable-bar-handle" style="height: 78.0958px;"></div></div></div>
+      <!---page-aside-inner-->
+    {% endblock aside %}
+    </div>
+<div class="page-main">
+{% endif %}
+    {% block page_header %}
+      <div class="page-header">
+        <h1 class="page-title">{% block page_title %}Title{% endblock page_title %}</h1>
+        <ol class="breadcrumb">
+            {% block breadcrumb %}
+          <li><a href="../index.html">Home</a></li>
+          <li class="active">You are Here</li>
+            {% endblock breadcrumb %}
+        </ol>
+        <div class="page-header-actions">
+            {% block page_header_actions %}
+          <div class="row no-space width-250 hidden-xs">
+            <div class="col-xs-4">
+              <div class="counter">
+                <span class="counter-number font-weight-medium">8371</span>
+                <div class="counter-label">Purchases</div>
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <div class="counter">
+                <span class="counter-number font-weight-medium">1024</span>
+                <div class="counter-label">Members</div>
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <div class="counter">
+                <span class="counter-number font-weight-medium">$38,823</span>
+                <div class="counter-label">Today Profit</div>
+              </div>
+            </div>
+          </div>
+            {% endblock page_header_actions %}
+        </div>
+      </div>
+        {% endblock page_header %}
+    {% block page_content %}
+    <div class="page-content">
+        {% block content %}
+            Page content
+        {% endblock %}
+    </div>
+    {% endblock page_content %}
+{% if page_aside %}
+</div>
+{% endif %}
+{% endblock page %}
+  </div>
