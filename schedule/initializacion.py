@@ -9,7 +9,8 @@ def generate_timetable_entries(semester):
 
     delta = semester.start - semester.end
     wtes=WeeklyTimetableEntry.objects.all()
-
+    print(wtes)
+    print(delta)
     for i in range(delta.days + 1):
         print(str(i))
         day = semester.start + timedelta(days=i)
