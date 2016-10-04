@@ -1,3 +1,4 @@
+from __future__ import print_function
 from datetime import timedelta
 
 from schedule.constants import DAY_CHOICES
@@ -10,11 +11,12 @@ def generate_timetable_entries(semester):
     wtes=WeeklyTimetableEntry.objects.all()
 
     for i in range(delta.days + 1):
+        print(str(i))
         day = semester.start + timedelta(days=i)
         fwtes = wtes.filter(day=ClassDay.objects.get(day=day.isoweekday()))
-
+        print(fwtes.all())
         for fwte in fwtes:
-
+            print('loop')
             TimetableEntry.objects.get_or_create(
                 weekly_timetable_entry=fwte,
                 day=day,
