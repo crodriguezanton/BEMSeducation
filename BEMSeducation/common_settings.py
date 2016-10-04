@@ -56,6 +56,7 @@ ADDON_APPS = [
     'debug_toolbar',
     'model_utils',
     'rest_framework',
+    'raven.contrib.django.raven_compat',
 ]
 
 LOCAL_APPS = [
