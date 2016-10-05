@@ -1,25 +1,31 @@
+# coding=utf-8
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import ListView
+from django_filters.views import FilterView
 
+from attendance.filters import AttendanceEntryFilter
 from attendance.models import AttendanceEntry
 from institution.models import Group, Stage, Grade
 from main.models import Teacher, Student
 from schedule.models import Semester
 
 
-class AttendanceEntryListView(ListView, LoginRequiredMixin):
+class AttendanceEntryListView(FilterView, LoginRequiredMixin):
     model = AttendanceEntry
+    filterset_class = AttendanceEntryFilter
 
     def get_context_data(self, **kwargs):
         context = super(AttendanceEntryListView, self).get_context_data(**kwargs)
 
         context['title'] = "Faltes d'assistència"
         context['description'] = ''
+        context['page_aside'] = True
 
         context['groups'] = Group.objects.all()
         context['stages'] = Stage.objects.all()
         context['grades'] = Grade.objects.all()
+
 
         return context
 
@@ -27,9 +33,10 @@ class AttendanceEntryListView(ListView, LoginRequiredMixin):
         if 'filter' in self.kwargs:
             if self.kwargs['filter'] == 'tutoria':
                 return AttendanceEntry.objects.filter(
-                    student__group=self.request.bemsprofile.teacher.group_set.all()).all().order_by("-date")
+                    student__group=self.request.bemsprofile.teacher.group_set.all()).all().order_by("-timetable_entry__date")
         else:
-            return AttendanceEntry.objects.filter(teacher=self.request.teacher).all().order_by("-date")
+            #return AttendanceEntry.objects.filter(teacher=self.request.teacher).all().order_by("-date")
+            return AttendanceEntry.objects.all().order_by("-timetable_entry__date")
 
 
 class RankingListView(ListView, LoginRequiredMixin):

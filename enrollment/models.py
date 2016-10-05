@@ -22,6 +22,11 @@ class YearEnroll(models.Model):
     group = models.ForeignKey(Group, blank=True, null=True)
 
 
+class StudentStatus(models.Model):
+    student = models.OneToOneField(Student)
+    group = models.OneToOneField(Group)
+
+
 class Enroll(models.Model):
 
     class Meta:

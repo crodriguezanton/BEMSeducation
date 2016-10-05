@@ -23,5 +23,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('BEMSauth.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^$', MaintenanceView.as_view(), name='index')
+    url(r'^$', MaintenanceView.as_view(), name='index'),
+    url(r'^attendance/', include('attendance.urls', namespace='attendance')),
+    url(r'^enrollment/', include('enrollment.urls', namespace='enrollment')),
+    url(r'^institution/', include('institution.urls', namespace='institution')),
+    url(r'schedule/', include('schedule.urls', namespace='schedule')),
 ]

@@ -1,0 +1,140 @@
+{% extends 'layout/base.html' %}
+{% load i18n %}
+{% block page_attr %}bg-white{% endblock %}
+{% block aside %}
+    <div class="page-aside-switch">
+        <i class="icon wb-chevron-left" aria-hidden="true"></i>
+        <i class="icon wb-chevron-right" aria-hidden="true"></i>
+      </div>
+      <div class="page-aside-inner">
+          <section class="page-aside-section">
+          <h5 class="page-aside-title">{% trans "Grade" %}</h5>
+              {% for grade in grades %}
+                <a class="list-group-item" href="#unit-{{ unit.pk }}"><span class="label label-outline label-dark">{{ grade.short_name }}</span>&nbsp;&nbsp;{{ grade.name }}</a>
+              {% endfor %}
+        </section>
+        <section class="page-aside-section">
+          <h5 class="page-aside-title">{% trans "Stage" %}</h5>
+          <div class="list-group">
+              {% for stage in stages %}
+                <a class="list-group-item" href="#unit-{{ unit.pk }}"><span class="label label-outline label-dark">{{ stage.short_name }}</span>&nbsp;&nbsp;{{ stage.name }}</a>
+              {% endfor %}
+          </div>
+        </section>
+      </div>
+{% endblock aside %}
+{% block page_title %}{{ title }}{% endblock page_title %}
+{% block test %}teteet{% endblock %}
+{% block page_content %}
+      <!-- Contacts Content -->
+
+      <div class="page-content page-content-table">
+          <!-- Actions -->
+        <!--<div class="page-content-actions">
+          <div class="pull-right">
+            <div class="dropdown">
+              <button type="button" class="btn btn-pure dropdown-toggle" data-toggle="dropdown"
+              aria-expanded="false">
+                More
+                <span class="icon wb-chevron-down-mini" aria-hidden="true"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="javascript:void(0)">More</a></li>
+                <li><a href="javascript:void(0)">More</a></li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-outline btn-default btn-md empty-btn">Empty All</button>
+          </div>
+          <div class="btn-group">
+            <div class="dropdown">
+              <button class="btn btn-icon btn-pure btn-default dropdown-toggle" data-toggle="dropdown"
+              aria-expanded="false" type="button"><i class="icon wb-folder" aria-hidden="true"></i></button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="javascript:void(0)">work</a></li>
+                <li><a href="javascript:void(0)">Family</a></li>
+                <li><a href="javascript:void(0)">Private</a></li>
+                <li><a href="javascript:void(0)">Friends</a></li>
+                <li class="divider"></li>
+                <li><a href="javascript:void(0)">Trash</a></li>
+                <li><a href="javascript:void(0)">Spam</a></li>
+              </ul>
+            </div>
+            <div class="dropdown">
+              <button class="btn btn-icon btn-pure btn-default dropdown-toggle" data-toggle="dropdown"
+              aria-expanded="false" type="button"><i class="icon wb-tag" aria-hidden="true"></i></button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="javascript:void(0)">work</a></li>
+                <li><a href="javascript:void(0)">Family</a></li>
+                <li><a href="javascript:void(0)">Private</a></li>
+                <li><a href="javascript:void(0)">Friends</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>-->
+          <table class="table tablesaw" data-tablesaw-mode="stack" data-plugin="animateList"
+        data-animate="fade" data-child="tr" data-selectable="selectable">
+              <thead>
+                <tr>
+                  <th class="cell-60" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3"></th>
+                  <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3">{% trans "Name" %}</th>
+                    <th class="cell-300" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">{% trans "Subject" %}</th>
+                  <th class="cell-300" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3">{% trans "Day" %}</th>
+                    <th class="cell-300" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4"></th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for entry in attendanceentry_list %}
+              <tr>
+              <td class="cell-60 responsive-hide">
+                  {% if entry.type.char == "F" %}
+                <span class="status status-lg status-away"></span>
+                  {% elif entry.type.char == "R" %}
+                <span class="status status-lg status-busy"></span>
+                  {% else %}
+                <span class="status status-lg status-online"></span>
+                  {% endif %}
+              </td>
+              <td>
+                <a class="avatar" href="/students/profile/{{ entry.student.pk }}">
+                  <img class="img-responsive" src="{{ entry.student.image }}"
+                  alt="...">
+                </a>
+                <b>{{ entry.student.last_name }}</b>, {{ entry.student.first_name }}
+              </td>
+              <td><span class="label label-outline label-primary">{{ entry.timetable_entry.weekly_timetable_entry.subject.short_name }}</span> <small>{{ entry.timetable_entry.weekly_timetable_entry.subject.name }}</small></td>
+              <td class="cell-300">{{ entry.timetable_entry.date|date:"d/m/Y" }} {{ entry.timetable_entry.weekly_timetable_entry.unit.start|time:"H:i" }}</td>
+              <td class="cell-300">
+                <input type="checkbox" class="to-labelauty btn-justify" id="{{ entry.pk }}" name="justify"
+                               data-plugin="labelauty" data-labelauty="Justifica|Justificat" {% if entry.is_justified %}checked{% endif %}/>
+              </td>
+            </tr>
+              {% endfor %}
+              </tbody>
+          </table>
+
+      {{ filter.form.as_p }}
+
+          <nav>
+                    <ul class="pagination">
+                      <li class="{% if not page_obj.has_previous %}disabled{% endif %}">
+
+                        <a href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% endif %}" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+
+                    {% for page_num in paginator.page_range %}
+                      <li class="{% if page_obj.number == page_num %}active{% endif %}"><a href="?page={{ page_num }}">{{ page_num }} <span class="sr-only">(current)</span></a></li>
+                    {% endfor %}
+                      <li class="{% if not page_obj.has_next %}disabled{% endif %}">
+                        <a href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% endif %}" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+
+
+
+      </div>
+{% endblock page_content %}
