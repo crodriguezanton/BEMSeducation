@@ -1,17 +1,5 @@
 from BEMSeducation.common_settings import *
-
-# Database
-# https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': '130.211.87.224',
-        'NAME': 'bems',
-        'USER': 'root',
-        'PASSWORD': 'beatbcn4113',
-    }
-}
+from BEMSauth.private_settings import *
 
 """ Static files and media (CSS, JavaScript, Images) """
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]

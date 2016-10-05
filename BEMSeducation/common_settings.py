@@ -51,7 +51,7 @@ ADDON_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     #'allauth.socialaccount.providers.facebook',
-    #'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.google',
     #'allauth.socialaccount.providers.linkedin_oauth2',
     'debug_toolbar',
     'model_utils',
@@ -123,6 +123,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+)
+
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
