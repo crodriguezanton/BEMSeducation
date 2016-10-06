@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load i18n %}
 <html class="no-js css-menubar" lang="en">
 <head>
   <meta charset="utf-8">
@@ -48,11 +49,11 @@
   data-animsition-out="fade-out">>
     <div class="page-content vertical-align-middle">
       <i class="icon wb-settings icon-spin page-maintenance-icon" aria-hidden="true"></i>
-      <h2>En Manteniment</h2>
-      <p>EN UNS DIES PODREU TORNAR A ACCEDIR A BEMS.CAT</p>
+      <h2>{% trans 'Under maintenance' %}</h2>
+      <p>{% trans 'IN SOME DAYS YOU WILL BE ABLE TO GET BACK TO BEMS' %}</p>
       <footer class="page-copyright">
         <p>POWERED BY beat.bcn</p>
-        <p>© 2016. All RIGHT RESERVED.</p>
+        <p>© 2016. {% trans 'ALL RIGHTS RESERVED' %}.</p>
         <div class="social">
             <a href="http://twitter.com/beatbcn">
               <i class="icon bd-twitter" aria-hidden="true"></i>
