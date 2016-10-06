@@ -12,4 +12,4 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
 DEBUG = False
-ALLOWED_HOSTS = ['bems.cat']
+ALLOWED_HOSTS = ['.bems.cat']
