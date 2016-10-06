@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    {{ filter.form }}
-</body>
-</html>
+{% extends 'layout/base.html' %}
+{% load studentstatus %}
+{% block content %}
+    {% for s in object_list %}
+        {% studentstatus s object_list %}
+            Bla bla bla {{ student }}
+        {% endstudentstatus %}
+    {% endfor %}
+
+
+
+{% endblock %}

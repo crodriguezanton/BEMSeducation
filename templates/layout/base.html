@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+{% load i18n %}
 <html class="no-js css-menubar" lang="en">
 <head>
     {% block meta %}
@@ -51,6 +51,7 @@
         <link rel="stylesheet" href="/static/fonts/font-awesome/font-awesome.min.css">
         <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
     {% endblock css %}
+    {% block extra_css %}{% endblock %}
     <!--[if lt IE 9]>
 <script src="/static/vendor/html5shiv/html5shiv.min.js"></script>
 <![endif]-->
@@ -368,7 +369,7 @@
                 </li>
                 <li>
                     <a href="/accounts/logout" title="Chat">
-                        Surt <span class="icon wb-power" aria-hidden="true" style="margin-left: 5px;"></span>
+                        {% trans 'Logout' %} <span class="icon wb-power" aria-hidden="true" style="margin-left: 5px;"></span>
                     </a>
                 </li>
             </ul>
@@ -471,5 +472,6 @@
 <!-- Footer -->
 {% include 'layout/sections/footer.html' %}
 {% include 'layout/sections/scripts.html' %}
+{% block extra_js %}{% endblock %}
 </body>
 </html>

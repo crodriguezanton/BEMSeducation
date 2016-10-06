@@ -1,3 +1,4 @@
+{% load i18n %}
 <link rel="stylesheet" href="/static/css/font-awesome.min.css">
 <div class="site-menubar">
     <div class="site-menubar-body">
@@ -5,45 +6,45 @@
             <div>
                 <div>
                     <ul class="site-menu">
-                        <li class="site-menu-category">General</li>
+                        <li class="site-menu-category">{% trans 'General' %}</li>
                         <li class="site-menu-item">
                             <a href="{% url 'index' %}">
                                 <i class="site-menu-icon wb-dashboard" aria-hidden="true"></i>
-                                <span class="site-menu-title">{% block test %}{% endblock %}Dashboard</span>
+                                <span class="site-menu-title">{% trans 'Dashboard' %}</span>
                             </a>
                         </li>
                         <li class="site-menu-item">
                             <a href="javascript:void(0)">
                                 <i class="site-menu-icon fa-envelope" aria-hidden="true"></i>
-                                <span class="site-menu-title">Messages</span>
+                                <span class="site-menu-title">{% trans 'Messages' %}</span>
                             </a>
                         </li>
                         <li class="site-menu-item">
                             <a href="javascript:void(0)">
                                 <i class="site-menu-icon fa-calendar" aria-hidden="true"></i>
-                                <span class="site-menu-title">Calendar</span>
+                                <span class="site-menu-title">{% trans 'Calendar' %}</span>
                             </a>
                         </li>
                         <li class="site-menu-item has-sub">
                             <a href="javascript:void(0)">
                                 <i class="site-menu-icon fa-table" aria-hidden="true"></i>
-                                <span class="site-menu-title">Schedule</span>
+                                <span class="site-menu-title">{% trans 'Schedule' %}</span>
                                 <span class="site-menu-arrow"></span>
                             </a>
                             <ul class="site-menu-sub">
                                 <li class="site-menu-item">
                                     <a class="animsition-link" href="{% url 'index' %}">
-                                        <span class="site-menu-title">My Timetable</span>
+                                        <span class="site-menu-title">{% trans 'My Timetable' %}</span>
                                     </a>
                                 </li>
                                 <li class="site-menu-item">
                                     <a class="animsition-link" href="../layouts/menu-collapsed-alt.html">
-                                        <span class="site-menu-title">Timetable Search</span>
+                                        <span class="site-menu-title">{% trans 'Timetable Search' %}</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="site-menu-category">Academical</li>
+                        <li class="site-menu-category">{% trans 'Academical' %}</li>
                         <li class="site-menu-item has-sub">
                             <a href="javascript:void(0)">
                                 <i class="site-menu-icon fa-graduation-cap" aria-hidden="true"></i>
@@ -53,12 +54,12 @@
                             <ul class="site-menu-sub">
                                 <li class="site-menu-item">
                                     <a class="animsition-link" href="../layouts/menu-collapsed.html">
-                                        <span class="site-menu-title">My Timetable</span>
+                                        <span class="site-menu-title">{% trans 'Students' %}</span>
                                     </a>
                                 </li>
                                 <li class="site-menu-item">
                                     <a class="animsition-link" href="../layouts/menu-collapsed-alt.html">
-                                        <span class="site-menu-title">Timetable Search</span>
+                                        <span class="site-menu-title">{% trans 'Enroll' %}</span>
                                     </a>
                                 </li>
                             </ul>
@@ -72,12 +73,22 @@
                             <ul class="site-menu-sub">
                                 <li class="site-menu-item">
                                     <a class="animsition-link" href="../layouts/menu-collapsed.html">
-                                        <span class="site-menu-title">My Timetable</span>
+                                        <span class="site-menu-title">{% trans 'Students' %}</span>
                                     </a>
                                 </li>
                                 <li class="site-menu-item">
                                     <a class="animsition-link" href="../layouts/menu-collapsed-alt.html">
-                                        <span class="site-menu-title">Timetable Search</span>
+                                        <span class="site-menu-title">{% trans 'Attendance' %}</span>
+                                    </a>
+                                </li>
+                                <li class="site-menu-item">
+                                    <a class="animsition-link" href="../layouts/menu-collapsed-alt.html">
+                                        <span class="site-menu-title">{% trans 'Ranking' %}</span>
+                                    </a>
+                                </li>
+                                <li class="site-menu-item">
+                                    <a class="animsition-link" href="../layouts/menu-collapsed-alt.html">
+                                        <span class="site-menu-title">{% trans 'Incidents' %}</span>
                                     </a>
                                 </li>
                             </ul>
@@ -85,18 +96,23 @@
                         <li class="site-menu-item has-sub">
                             <a href="javascript:void(0)">
                                 <i class="site-menu-icon fa-check" aria-hidden="true"></i>
-                                <span class="site-menu-title">Attendance</span>
+                                <span class="site-menu-title">{% trans 'Attendance' %}</span>
                                 <span class="site-menu-arrow"></span>
                             </a>
                             <ul class="site-menu-sub">
                                 <li class="site-menu-item">
-                                    <a class="animsition-link" href="../layouts/menu-collapsed.html">
-                                        <span class="site-menu-title">My Timetable</span>
+                                    <a class="animsition-link" href="{% url 'attendance:call-today' %}">
+                                        <span class="site-menu-title">{% trans 'Call' %}</span>
                                     </a>
                                 </li>
                                 <li class="site-menu-item">
                                     <a class="animsition-link" href="../layouts/menu-collapsed-alt.html">
-                                        <span class="site-menu-title">Timetable Search</span>
+                                        <span class="site-menu-title">{% trans 'Review' %}</span>
+                                    </a>
+                                </li>
+                                <li class="site-menu-item">
+                                    <a class="animsition-link" href="../layouts/menu-collapsed-alt.html">
+                                        <span class="site-menu-title">{% trans 'Ranking' %}</span>
                                     </a>
                                 </li>
                             </ul>
@@ -104,33 +120,38 @@
                         <li class="site-menu-item has-sub">
                             <a href="javascript:void(0)">
                                 <i class="site-menu-icon wb-clipboard" aria-hidden="true"></i>
-                                <span class="site-menu-title">Incidents</span>
+                                <span class="site-menu-title">{% trans 'Incidents' %}</span>
                                 <span class="site-menu-arrow"></span>
                             </a>
                             <ul class="site-menu-sub">
                                 <li class="site-menu-item">
                                     <a class="animsition-link" href="../layouts/menu-collapsed.html">
-                                        <span class="site-menu-title">My Timetable</span>
+                                        <span class="site-menu-title">{% trans 'New Incident' %}</span>
                                     </a>
                                 </li>
                                 <li class="site-menu-item">
                                     <a class="animsition-link" href="../layouts/menu-collapsed-alt.html">
-                                        <span class="site-menu-title">Timetable Search</span>
+                                        <span class="site-menu-title">{% trans 'My Incidents' %}</span>
+                                    </a>
+                                </li>
+                                <li class="site-menu-item">
+                                    <a class="animsition-link" href="../layouts/menu-collapsed-alt.html">
+                                        <span class="site-menu-title">{% trans 'Manage' %}</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="site-menu-category">Evaluation</li>
+                        <li class="site-menu-category">{% trans 'Evaluation' %}</li>
                         <li class="site-menu-item">
                             <a href="javascript:void(0)">
                                 <i class="site-menu-icon wb-book" aria-hidden="true"></i>
-                                <span class="site-menu-title">Report</span>
+                                <span class="site-menu-title">{% trans 'Report' %}</span>
                             </a>
                         </li>
                         <li class="site-menu-item">
                             <a href="javascript:void(0)">
                                 <i class="site-menu-icon fa-file-text" aria-hidden="true"></i>
-                                <span class="site-menu-title">Tutory Report</span>
+                                <span class="site-menu-title">{% trans 'Tutory Report' %}</span>
                             </a>
                         </li>
                     </ul>
@@ -141,13 +162,13 @@
     <div class="site-menubar-footer">
         {% block menubar_footer %}
             <a href="//admin.bems.cat" class="fold-show" data-placement="top" data-toggle="tooltip"
-               data-original-title="Settings">
+               data-original-title="{% trans 'Administration' %}">
                 <span class="icon wb-settings" aria-hidden="true"></span>
             </a>
             <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Lock">
                 <span class="icon wb-eye-close" aria-hidden="true"></span>
             </a>
-            <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
+            <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="{% trans 'Logout' %}">
                 <span class="icon wb-power" aria-hidden="true"></span>
             </a>
         {% endblock menubar_footer %}

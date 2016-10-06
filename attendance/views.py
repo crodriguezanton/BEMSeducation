@@ -2,13 +2,14 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import ListView
+from django.views.generic.dates import DayArchiveView, TodayArchiveView
 from django_filters.views import FilterView
 
 from attendance.filters import AttendanceEntryFilter, StudentFilter
 from attendance.models import AttendanceEntry
 from institution.models import Group, Stage, Grade
 from main.models import Teacher, Student
-from schedule.models import Semester
+from schedule.models import Semester, TimetableEntry
 
 
 class AttendanceEntryListView(FilterView, LoginRequiredMixin):
@@ -89,3 +90,26 @@ class RankingListView(FilterView, LoginRequiredMixin):
 
         return sorted(students, key=lambda t: t.total, reverse=True)
 
+
+class CallView(DayArchiveView):
+    model = TimetableEntry
+    date_field = 'date'
+    allow_future = True
+    allow_empty = True
+
+    def get_context_data(self, **kwargs):
+        context = super(CallView, self).get_context_data()
+
+        context['page_aside'] = True
+
+        return context
+
+    def get_queryset(self):
+        qs = super(DayArchiveView, self).get_queryset()
+        return qs
+
+
+class TodayCallView(TodayArchiveView):
+    model = TimetableEntry
+    date_field = 'date'
+    allow_empty = True

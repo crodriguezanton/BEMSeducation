@@ -1,0 +1,379 @@
+{% extends 'layout/base.html' %}
+{% load studentstatus i18n %}
+{% block extra_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/static/css/extra_css.css">
+{% endblock %}
+{% block aside %}
+<div class="page-aside-switch">
+        <i class="icon wb-chevron-left" aria-hidden="true"></i>
+        <i class="icon wb-chevron-right" aria-hidden="true"></i>
+      </div>
+      <div class="page-aside-inner">
+          <br>
+          <div class="row no-space" style="position:relative">
+              <div class="col-sm-3 vertical-align-middle">
+                  <a class="list-group-item" href="{% url 'attendance:call' day=previous_day.day month=previous_day|date:'b' year=previous_day.year %}" style="padding: 30px"><i class="icon fa-step-backward" aria-hidden="true"></i></a>
+              </div>
+              <div class="col-sm-6">
+                  <div class="panel panel-bordered panel-danger" style=" margin: 0px 10px; text-align: center;
+-webkit-box-shadow: 0px 0px 3px 1px rgba(177,177,178,0.75); -moz-box-shadow: 0px 0px 3px 1px rgba(177,177,178,0.75); box-shadow: 0px 0px 3px 1px rgba(177,177,178,0.75);">
+              <div class="panel-heading">
+                <b>{{day|date:'M'}}</b>
+              </div>
+              <div class="panel-content" style="padding-bottom: 10px">
+                <h1 style="margin: 10px 0px 0px;">{{day|date:'d'}}</h1>
+              </div>
+          </div>
+              </div>
+              <div class="col-sm-3">
+                  <a class="list-group-item" href="{% url 'attendance:call' day=next_day.day month=next_day|date:'b' year=next_day.year %}" style="text-align: right; padding: 30px; {% if is_today %}visibility: hidden;{% endif %}" ><i class="icon fa-step-forward" aria-hidden="true"></i></a>
+              </div>
+          </div>
+        <section class="page-aside-section">
+          <h5 class="page-aside-title">{% trans 'Classes' %}</h5>
+          <div class="list-group">
+              {% for te in timetableentry_list %}
+              {% if not unit.is_major %}
+            <a class="list-group-item" href="#unit-{{ te.pk }}"><span class="label label-outline label-dark">{{ te.weekly_timetable_entry.unit.start|time:"H:i" }}</span>&nbsp;&nbsp;{{ te.weekly_timetable_entry.subject.short_name }} <small>{{ te.weekly_timetable_entry.group }}</small></a>
+              {% else %}
+              <a class="list-group-item" href="#unit-{{ te.pk }}"><span class="label label-outline label-dark">{{ te.weekly_timetable_entry.unit.start|time:"H:i" }}</span>&nbsp;&nbsp;{{ te.weekly_timetable_entry.major.short_name }} <small>{{ te.weekly_timetable_entry.subject.name }}</small></a>
+              {% endif %}
+              {% endfor %}
+          </div>
+        </section>
+        <section class="page-aside-section">
+          <h5 class="page-aside-title">{% trans 'Change date' %}</h5>
+          <div class="list-group">
+              <a class="list-group-item {% if is_today %} active {% endif %}" href="/attendance/call/today"><i class="icon fa-play" aria-hidden="true"></i>  {% trans 'Today' %}</a>
+              {% if day.ClassDay.number == 1 %}
+              <a class="list-group-item {% if is_1day %} active {% endif %}" href="/attendance/call/1day"><i class="icon fa-step-backward" aria-hidden="true"></i>  &nbsp;{% trans 'Last Friday' %}</a>
+              <a class="list-group-item {% if is_2day %} active {% endif %}" href="/attendance/call/2day"><i class="icon fa-fast-backward" aria-hidden="true"></i>  {% trans 'Last Tuesday' %}</a>
+              {% elif day.ClassDay.number == 2 %}
+              <a class="list-group-item {% if is_1day %} active {% endif %}" href="/attendance/call/1day"><i class="icon fa-step-backward" aria-hidden="true"></i>  &nbsp;{% trans 'Yesterday' %}</a>
+              <a class="list-group-item {% if is_2day %} active {% endif %}" href="/attendance/call/2day"><i class="icon fa-fast-backward" aria-hidden="true"></i>  {% trans 'Last Friday' %}/a>
+              {% else %}
+              <a class="list-group-item {% if is_1day %} active {% endif %}" href="/attendance/call/1day"><i class="icon fa-step-backward" aria-hidden="true"></i>  &nbsp;{% trans 'Yesterday' %}</a>
+              <a class="list-group-item {% if is_2day %} active {% endif %}" href="/attendance/call/2day"><i class="icon fa-fast-backward" aria-hidden="true"></i>  {% trans 'Two days before' %}</a>
+              {% endif %}
+              <button class="list-group-item" data-target="#examplePositionSidebar" data-toggle="modal" type="button"><i class="icon fa-calendar" aria-hidden="true"></i>  {% trans 'Select date' %}</button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="examplePositionSidebar" aria-hidden="true" aria-labelledby="examplePositionSidebar"
+                        role="dialog" tabindex="-1">
+                          <div class="modal-dialog modal-sidebar modal-sm">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                                <h4 class="modal-title"><i class="icon fa-calendar" aria-hidden="true"></i> {% trans 'Select date' %}</h4>
+                              </div>
+                              <div class="modal-body">
+                                <p>{% trans 'Choose the date you want to call attendance' %}</p>
+                                  <div id="inlineDatepicker" data-autoclose="false" style="padding: 0 20px"></div>
+                                  <input type="hidden" id="inputHiddenInline" />
+                              </div>
+                              <div class="modal-footer">
+                                <a id="changeDateButton" href="/attendance/call/" class="btn btn-primary btn-block">{% trans 'Accept' %}</a>
+                                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">{% trans 'Cancel' %}</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- End Modal -->
+          </div>
+        </section>
+      </div>
+{% endblock %}
+{% block page_header %}
+{% endblock %}
+{% block page_content %}
+    <div class="page-content" style="height: -webkit-calc(100vh - 110px);height: -o-calc(100vh - 110px); /* opera */height: -moz-calc(100vh - 110px); overflow: auto;">
+          {% for te in timetableentry_list %}
+        <div class="panel panel-bordered" id="unit-{{ unit.pk }}" style="max-width: 900px; margin-right: auto; margin-left: auto;">
+          <div class="panel-heading">
+              {% if not te.weekly_timetable_entry.is_major %}
+            <h3 class="panel-title"><span class="label label-danger" style="margin: 0 10px 0 0">{{ te.weekly_timetable_entry.subject.short_name }}</span>  {{ te.weekly_timetable_entry.subject.name }}  <small>{{ te.weekly_timetable_entry.group }}</small></h3>
+              {% else %}
+              <h3 class="panel-title"><span class="label label-info" style="margin: 0 10px 0 0">{{ unit.major.shortName }}</span>  {{ unit.major.name }}  <small>{{ unit.subject.name }}</small></h3>
+              {% endif %}
+              <div class="panel-actions">
+              <i class="icon wb-map" aria-hidden="true"></i> {{ te.weekly_timetable_entry.classroom.name }} &nbsp&nbsp
+              <i class="icon wb-time" aria-hidden="true"></i> {{ te.weekly_timetable_entry.unit.start|time:"H:i" }} - {{ te.weekly_timetable_entry.unit.end|time:"H:i" }}
+          </div>
+          </div>
+            {% if te.weekly_timetable_entry.is_later and day == today %}
+            <div class="alert alert-danger" role="alert">
+            {% trans 'The class has not started yet, so you cannot call attendance.' %}
+            </div>
+            {% endif %}
+            {% if te.get_student_list.count %}
+          <table class="table table-hover">
+              {% else %}
+          <div class="alert alert-warning" role="alert">
+              {% trans "There're no students in this class." %}
+            </div>
+          <table class="table table-hover" >
+              {% endif %}
+              <thead>
+                <tr>
+                    <th width="90px" class="hidden-xs hidden-sm"></th>
+                    <th width="10px"></th>
+                    <th>
+                        {% trans 'Student' %}
+                    </th>
+                    <th></th>
+                </tr>
+
+              </thead>
+              <tbody>
+                {% for student in te.get_student_list %}
+                    {% studentstatus student te %}
+                <tr>
+                    <td style="vertical-align:middle" class="hidden-xs hidden-sm">
+                        <a class="navbar-avatar dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" role="button">
+                          <span class="avatar {% if status == "P" %}avatar-online{% endif %}{% if status == "R" %}avatar-busy{% endif %}{% if status == "F" %}avatar-away{% endif %}" id="img-{{te.pk}}-{{student.pk}}">
+                            <img src="{{ student.get_profile_image }}" alt="...">
+                            <i></i>
+                          </span>
+                        </a>
+                        <!--<ul class="dropdown-menu" role="menu">
+                          <li role="presentation">
+                            <a href="javascript:void(0)" role="menuitem"><i class="icon wb-eye" aria-hidden="true"></i> Veure faltes</a>
+                          </li>
+                          <li class="divider" role="presentation"></li>
+                          <li role="presentation">
+                            <a href="javascript:void(0)" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Veure Perfil</a>
+                          </li>
+                          <li role="presentation">
+                            <a href="javascript:void(0)" role="menuitem"><i class="icon wb-settings" aria-hidden="true"></i> Editar Perfil</a>
+                          </li>
+                        </ul>-->
+                    </td>
+                    <td></td>
+                    <td style="vertical-align:middle">
+                        <b>{{ student.last_name }}</b>, {{ student.first_name }}
+                    </td>
+                    {% if te.is_later and is_today %}
+                    <td></td>
+                    {% else %}
+                    <td class="pull-right" style="vertical-align:middle">
+                        <div class="btn-group" data-toggle="buttons" role="group">
+                      <label class="btn btn-outline {% if status == "P" %}active btn-success{% endif %}{% if status == "R" %}btn-warning{% endif %}{% if status == "F" %}btn-danger{% endif %} btn-attendance" id="P-{{te.pk}}-{{student.pk}}" onclick="addfalta(event);">
+                        <input type="radio" name="options" autocomplete="off">
+                        <i class="icon wb-check text-active" aria-hidden="true"></i>                        <div class="hidden-xs" style="display: inline">{% trans 'Present' %}</div>
+                      </label>
+                      <label class="btn btn-outline {% if status == "P" %}btn-success{% endif %}{% if status == "R" %}active btn-warning{% endif %}{% if status == "F" %}btn-danger{% endif %} btn-attendance" id="R-{{te.pk}}-{{student.pk}}" onclick="addfalta(event);">
+                        <input type="radio" name="options" autocomplete="off">
+                        <i class="icon wb-time text-active" aria-hidden="true"></i>                        <div class="hidden-xs" style="display: inline">{% trans 'Delay' %}</div>
+                      </label>
+                      <label class="btn btn-outline {% if status == "P" %} btn-success{% endif %}{% if status == "R" %}btn-warning{% endif %}{% if status == "F" %}active btn-danger{% endif %} btn-attendance" id="F-{{te.pk}}-{{student.pk}}" onclick="addfalta(event);">
+                        <input type="radio" name="options" autocomplete="off">
+                        <i class="icon wb-close text-active" aria-hidden="true"></i>                        <div class="hidden-xs" style="display: inline">{% trans 'Absent' %}</div>
+                      </label>
+                    </div>
+                    </td>
+                    {% endif %}
+                </tr>
+                    {% endstudentstatus %}
+                {% endfor %}
+              </tbody>
+          </table>
+            <div class="panel-footer" style="text-align: right">
+                {% if te.get_student.list.count %}
+                Presents: <span class="green-600">{{ unit.list.p }}</span>   Retards: <span class="orange-600">{{ unit.list.r }}</span>  Absents: <span class="red-600">{{ unit.list.f }}</span>
+                {% endif %}
+            </div>
+        </div>
+          {% endfor %}
+      </div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <script src="/static/js/components/bootstrap-datepicker.js"></script>
+<script>
+    $(document).ready(function(){
+        $.fn.datepicker.dates['ca'] = {
+            days: ["Diumenge", "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres", "Dissabte"],
+            daysShort: ["Diu",  "Dil", "Dmt", "Dmc", "Dij", "Div", "Dis"],
+            daysMin: ["dg", "dl", "dt", "dc", "dj", "dv", "ds"],
+            months: ["Gener", "Febrer", "Març", "Abril", "Maig", "Juny", "Juliol", "Agost", "Setembre", "Octubre", "Novembre", "Desembre"],
+            monthsShort: ["Gen", "Feb", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Des"],
+            today: "Avui",
+            clear: "Esborrar",
+            weekStart: 1,
+            format: "dd/mm/yyyy"
+        };
+        $('#inlineDatepicker').datepicker({
+            weekStart: 1,
+            daysOfWeekDisabled: [0,6],
+            language: 'ca',
+            endDate: '0d'
+        });
+        $("#inlineDatepicker").on("changeDate", function(event) {
+          $("#inputHiddenInline").val(
+          );
+            document.getElementById("changeDateButton").href = "/attendance/call/date/" + $("#inlineDatepicker").datepicker('getFormattedDate');
+        });
+    var status = Array();
+        $(".btn-attendance").click(function(event) {
+            var id1 = event.target.id;
+            var pieces = id1.split("-");
+            var idimg = "img-" + pieces[1] + "-" + pieces[2];
+            var idinfo = "info-" + pieces[1] + "-" + pieces[2];
+            if(pieces[0] == "P"){
+                var id2 = "R-" + pieces[1] + "-" + pieces[2];
+                var id3 = "F-" + pieces[1] + "-" + pieces[2];
+                $("#"+id1).removeClass("btn-warning");
+                $("#"+id1).removeClass("btn-danger")
+                $("#"+id1).addClass("btn-success")
+                $("#"+id2).removeClass("btn-warning")
+                $("#"+id2).removeClass("btn-danger")
+                $("#"+id2).addClass("btn-success")
+                $("#"+id3).removeClass("btn-warning")
+                $("#"+id3).removeClass("btn-danger")
+                $("#"+id3).addClass("btn-success")
+                $("#"+idimg).addClass("avatar-online")
+                $("#"+idimg).removeClass("avatar-busy")
+                $("#"+idimg).removeClass("avatar-away")
+                status[pieces[1] + "-" + pieces[2]] = "btn-success";
+            } else if(pieces[0] == "R"){
+                var id2 = "P-" + pieces[1] + "-" + pieces[2];
+                var id3 = "F-" + pieces[1] + "-" + pieces[2];
+                $("#"+id1).addClass("btn-warning")
+                $("#"+id1).removeClass("btn-danger")
+                $("#"+id1).removeClass("btn-success")
+                $("#"+id2).addClass("btn-warning")
+                $("#"+id2).removeClass("btn-danger")
+                $("#"+id2).removeClass("btn-success")
+                $("#"+id3).addClass("btn-warning")
+                $("#"+id3).removeClass("btn-danger")
+                $("#"+id3).removeClass("btn-success")
+                $("#"+idimg).removeClass("avatar-online")
+                $("#"+idimg).addClass("avatar-busy")
+                $("#"+idimg).removeClass("avatar-away")
+                status[pieces[1] + "-" + pieces[2]] = "btn-warning";
+            } else {
+                var id2 = "P-" + pieces[1] + "-" + pieces[2];
+                var id3 = "R-" + pieces[1] + "-" + pieces[2];
+                $("#"+id1).removeClass("btn-warning")
+                $("#"+id1).addClass("btn-danger")
+                $("#"+id1).removeClass("btn-success")
+                $("#"+id2).removeClass("btn-warning")
+                $("#"+id2).addClass("btn-danger")
+                $("#"+id2).removeClass("btn-success")
+                $("#"+id3).removeClass("btn-warning")
+                $("#"+id3).addClass("btn-danger")
+                $("#"+id3).removeClass("btn-success")
+                $("#"+idimg).removeClass("avatar-online")
+                $("#"+idimg).removeClass("avatar-busy")
+                $("#"+idimg).addClass("avatar-away")
+                $("#"+idinfo).hide();
+                status[pieces[1] + "-" + pieces[2]] = "btn-danger";
+            }
+        });
+        $(".btn-attendance").hover(function () {
+          var id1 = this.id;
+          var pieces = id1.split("-");
+          if($(this).hasClass("btn-success")){
+            status[pieces[1] + "-" + pieces[2]] = "btn-success";
+          } else if ($(this).hasClass("btn-warning")){
+            status[pieces[1] + "-" + pieces[2]] = "btn-warning";
+          } else {
+            status[pieces[1] + "-" + pieces[2]] = "btn-danger";
+          }
+          if(pieces[0] == "P"){
+                var id2 = "R-" + pieces[1] + "-" + pieces[2];
+                var id3 = "F-" + pieces[1] + "-" + pieces[2];
+                $("#"+id1).removeClass("btn-warning")
+                $("#"+id1).removeClass("btn-danger")
+                $("#"+id1).addClass("btn-success")
+                $("#"+id2).removeClass("btn-warning")
+                $("#"+id2).removeClass("btn-danger")
+                $("#"+id2).addClass("btn-success")
+                $("#"+id3).removeClass("btn-warning")
+                $("#"+id3).removeClass("btn-danger")
+                $("#"+id3).addClass("btn-success")
+            } else if(pieces[0] == "R"){
+                var id2 = "P-" + pieces[1] + "-" + pieces[2];
+                var id3 = "F-" + pieces[1] + "-" + pieces[2];
+                $("#"+id1).addClass("btn-warning")
+                $("#"+id1).removeClass("btn-danger")
+                $("#"+id1).removeClass("btn-success")
+                $("#"+id2).addClass("btn-warning")
+                $("#"+id2).removeClass("btn-danger")
+                $("#"+id2).removeClass("btn-success")
+                $("#"+id3).addClass("btn-warning")
+                $("#"+id3).removeClass("btn-danger")
+                $("#"+id3).removeClass("btn-success")
+            } else {
+                var id2 = "P-" + pieces[1] + "-" + pieces[2];
+                var id3 = "R-" + pieces[1] + "-" + pieces[2];
+                $("#"+id1).removeClass("btn-warning")
+                $("#"+id1).addClass("btn-danger")
+                $("#"+id1).removeClass("btn-success")
+                $("#"+id2).removeClass("btn-warning")
+                $("#"+id2).addClass("btn-danger")
+                $("#"+id2).removeClass("btn-success")
+                $("#"+id3).removeClass("btn-warning")
+                $("#"+id3).addClass("btn-danger")
+                $("#"+id3).removeClass("btn-success")
+            }
+        }, function (){
+            var id1 = this.id;
+            var pieces = id1.split("-");
+            if(pieces[0] == "P"){
+                var id2 = "R-" + pieces[1] + "-" + pieces[2];
+                var id3 = "F-" + pieces[1] + "-" + pieces[2];
+            } else if(pieces[0] == "R"){
+                var id2 = "P-" + pieces[1] + "-" + pieces[2];
+                var id3 = "F-" + pieces[1] + "-" + pieces[2];
+            } else {
+                var id2 = "P-" + pieces[1] + "-" + pieces[2];
+                var id3 = "R-" + pieces[1] + "-" + pieces[2];
+            }
+            $("#"+id1).removeClass("btn-warning")
+            $("#"+id1).removeClass("btn-danger")
+            $("#"+id1).removeClass("btn-success")
+            $("#"+id2).removeClass("btn-warning")
+            $("#"+id2).removeClass("btn-danger")
+            $("#"+id2).removeClass("btn-success")
+            $("#"+id3).removeClass("btn-warning")
+            $("#"+id3).removeClass("btn-danger")
+            $("#"+id3).removeClass("btn-success")
+            $("#"+id1).addClass(status[pieces[1] + "-" + pieces[2]])
+            $("#"+id2).addClass(status[pieces[1] + "-" + pieces[2]])
+            $("#"+id3).addClass(status[pieces[1] + "-" + pieces[2]])
+        });
+    });
+    /*$('a[href^="#"]').click(function() {
+        $('.page-content').animate({ scrollTop: $(this.hash).offset().top - 100 }, 500);
+        return false;
+        e.preventDefault();
+    });*/
+    /*function addfalta(event){
+        console.log(event.target.id);
+        var pieces = event.target.id.split("-");
+        var day = $("#day").val();
+        console.log(day);
+        var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+            url : "/schedule/add_entry/", // the endpoint
+            type : "POST", // http method
+            data : { day: day, status: pieces[0], unit: pieces[1], student: pieces[2]}, // data sent with the post request
+            // handle a successful response
+            success : function(json) {
+                console.log(json); // log the returned json to the console
+                console.log("success"); // another sanity check
+            },
+            // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+                $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                //console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+        });
+    }*/
+</script>
+{% endblock %}
