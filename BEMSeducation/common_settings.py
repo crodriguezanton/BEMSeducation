@@ -55,7 +55,7 @@ ADDON_APPS = [
     'model_utils',
     'rest_framework',
     'raven.contrib.django.raven_compat',
-
+    'rosetta',
 ]
 
 LOCAL_APPS = [
@@ -76,6 +76,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.admindocs.middleware.XViewMiddleware',
     'BEMSeducation.middleware.AtopdedTo110DebugMiddleware'
 ]
@@ -93,6 +94,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -138,7 +140,20 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ca'
+
+from django.utils.translation import ugettext_lazy as _
+
+LANGUAGES = [
+    ('ca', _('Catalan')),
+    ('es', _('Spanish')),
+    ('en', _('English')),
+    ('fr', _('French'))
+]
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
 
 TIME_ZONE = 'UTC'
 
@@ -164,50 +179,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-RAVEN_CONFIG = {
-    'dsn': 'https://80379e3334ac409290319ae4f7f20929:db8d47a4fd1245549ca770978408d721@sentry.io/103682',
-}
+ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-    'formatters': {
-        'verbose': {
-            'format': '%(levelname)s %(asctime)s %(module)s '
-                      '%(process)d %(thread)d %(message)s'
-        },
-    },
-    'handlers': {
-        'sentry': {
-            'level': 'WARNING', # To capture more than ERROR, change to WARNING, INFO, etc.
-            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-            'tags': {'custom-tag': 'x'},
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
-        }
-    },
-    'loggers': {
-        'root': {
-            'level': 'WARNING',
-            'handlers': ['sentry'],
-        },
-        'django.db.backends': {
-            'level': 'ERROR',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-        'raven': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-        'sentry.errors': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-    },
-}
+YANDEX_TRANSLATE_KEY = 'trnsl.1.1.20161006T211337Z.1fd2f2567935d26b.534684f65a63d0b88099615696dad0ccbd061260'
