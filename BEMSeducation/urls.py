@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^enrollment/', include('enrollment.urls', namespace='enrollment')),
     url(r'^institution/', include('institution.urls', namespace='institution')),
     url(r'schedule/', include('schedule.urls', namespace='schedule')),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 
 if 'rosetta' in settings.INSTALLED_APPS:
