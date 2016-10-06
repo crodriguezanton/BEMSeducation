@@ -10,3 +10,6 @@ STATIC_ROOT = os.path.join(ENV_PATH, '../static_server/static/')
 # This one is just useful during development, on production statics and media should be served by nginx / apache
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
+
+DEBUG = False
+ALLOWED_HOSTS = ['bems.cat']

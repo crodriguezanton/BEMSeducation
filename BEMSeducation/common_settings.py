@@ -26,9 +26,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '94wa^q7s1v0*3w=1uq9s6_n=@6^@s=&+5&jz%wqd@szmglonv5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = ['beat.bcn']
 
 
 # Application definition
