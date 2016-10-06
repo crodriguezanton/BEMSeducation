@@ -36,7 +36,7 @@ class AttendanceEntryListView(FilterView, LoginRequiredMixin):
                     student__group=self.request.bemsprofile.teacher.group_set.all()).all().order_by("-timetable_entry__date")
         else:
             #return AttendanceEntry.objects.filter(teacher=self.request.teacher).all().order_by("-date")
-            return AttendanceEntry.objects.all().order_by("-date")
+            return AttendanceEntry.objects.all().order_by("-timetable_entry__date")
 
 
 class RankingListView(FilterView, LoginRequiredMixin):
