@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
+from django.core.wsgi import get_wsgi_application
+from raven.contrib.django.raven_compat.middleware.wsgi import Sentry
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,9 +26,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '94wa^q7s1v0*3w=1uq9s6_n=@6^@s=&+5&jz%wqd@szmglonv5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['beat.bcn']
 
 
 # Application definition
@@ -55,6 +58,7 @@ ADDON_APPS = [
     'model_utils',
     'rest_framework',
     'raven.contrib.django.raven_compat',
+
 ]
 
 LOCAL_APPS = [
@@ -162,3 +166,53 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+RAVEN_CONFIG = {
+    'dsn': 'https://80379e3334ac409290319ae4f7f20929:db8d47a4fd1245549ca770978408d721@sentry.io/103682',
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s '
+                      '%(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'sentry': {
+            'level': 'ERROR', # To capture more than ERROR, change to WARNING, INFO, etc.
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+            'tags': {'custom-tag': 'x'},
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'root': {
+            'level': 'WARNING',
+            'handlers': ['sentry'],
+        },
+        'django.db.backends': {
+            'level': 'ERROR',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'raven': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'sentry.errors': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+    },
+}
+
+SENTRY_CLIENT = 'raven.contrib.django.raven_compat.DjangoClient'

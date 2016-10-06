@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views.generic import ListView
 from django_filters.views import FilterView
 
-from attendance.filters import AttendanceEntryFilter
+from attendance.filters import AttendanceEntryFilter, StudentFilter
 from attendance.models import AttendanceEntry
 from institution.models import Group, Stage, Grade
 from main.models import Teacher, Student
@@ -36,12 +36,13 @@ class AttendanceEntryListView(FilterView, LoginRequiredMixin):
                     student__group=self.request.bemsprofile.teacher.group_set.all()).all().order_by("-timetable_entry__date")
         else:
             #return AttendanceEntry.objects.filter(teacher=self.request.teacher).all().order_by("-date")
-            return AttendanceEntry.objects.all().order_by("-timetable_entry__date")
+            return AttendanceEntry.objects.all().order_by("-date")
 
 
-class RankingListView(ListView, LoginRequiredMixin):
+class RankingListView(FilterView, LoginRequiredMixin):
     model = Student
-    template_name = "attendance/ranking_list.html"
+    template_name = "attendance/ranking_filter.html"
+    filterset_class = StudentFilter
     paginate_by = 20
 
     def get_context_data(self, **kwargs):
@@ -54,31 +55,30 @@ class RankingListView(ListView, LoginRequiredMixin):
         context['stages'] = Stage.objects.all()
         context['semesters'] = Semester.objects.all()
         context['grades'] = Grade.objects.all()
-        context['filter'] = self.kwargs.get('filter', 'ALL')
+        #context['filter'] = self.kwargs.get('filter', 'ALL')
         context['semester'] = self.kwargs.get('semester', '')
 
         return context
 
-    def get_queryset(self):
+    def student_things(self):
 
         students = Student.objects.all()
 
-        if 'filter' in self.kwargs:
-            if self.kwargs['filter'] == 'tutoria':
-                groups = Teacher.objects.get(bemsuser__user=self.request.user).group_set.all()
-                students = students.filter(group=groups).order_by("surname", "name")
-            elif self.kwargs['filter'] == 'ESO':
-                students = students.filter(group__grade__stage__shortName="ESO")
-            elif self.kwargs['filter'] == 'BTX':
-                students = students.filter(group__grade__stage__shortName="BTX")
-
         for student in students:
             if 'semester' in self.kwargs:
-                period = Semester.objects.get(shortName=self.kwargs['semester'])
-                student.faltes = student.attendanceentry_set.filter(type__char="F", date__gte=period.start, date__lte=period.end).count()
-                student.justificades = student.attendanceentry_set.filter(type__char="J", date__gte=period.start, date__lte=period.end).count()
-                student.retards = student.attendanceentry_set.filter(type__char="R", date__gte=period.start, date__lte=period.end).count()
-                student.consergeria = student.attendanceentry_set.filter(type__char="C", date__gte=period.start, date__lte=period.end).count()
+                period = Semester.objects.get(short_name=self.kwargs['semester'])
+                student.faltes = student.attendanceentry_set.filter(type__char="F",
+                                                                    timetable_entry__date__gte=period.start,
+                                                                    timetable_entry__date__lte=period.end).count()
+                student.justificades = student.attendanceentry_set.filter(type__char="J",
+                                                                          timetable_entry__date__gte=period.start,
+                                                                          timetable_entry__date__lte=period.end).count()
+                student.retards = student.attendanceentry_set.filter(type__char="R",
+                                                                     timetable_entry__date__gte=period.start,
+                                                                     timetable_entry__date__lte=period.end).count()
+                student.consergeria = student.attendanceentry_set.filter(type__char="C",
+                                                                         timetable_entry__date__gte=period.start,
+                                                                         timetable_entry__date__lte=period.end).count()
                 student.total = student.faltes * 3 + student.retards
             else:
                 student.faltes = student.attendanceentry_set.filter(type__char="F").count()
@@ -88,3 +88,4 @@ class RankingListView(ListView, LoginRequiredMixin):
                 student.total = student.faltes * 3 + student.retards
 
         return sorted(students, key=lambda t: t.total, reverse=True)
+
