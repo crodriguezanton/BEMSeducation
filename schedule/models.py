@@ -199,6 +199,19 @@ class TimetableEntry(models.Model):
     date = models.DateField(blank=True, null=True)
     active = models.BooleanField(default=True)
 
+    def get_student_list(self):
+
+        return Student.objects.all()
+
+    def get_student_status(self, student):
+
+        entry = student.attendanceentry_set.filter(timetable_entry=self).first()
+
+        if entry:
+            return entry.type.char
+        else:
+            return 'P'
+
 
 class NonLectivePeriod(PolymorphicModel):
     class Meta:
