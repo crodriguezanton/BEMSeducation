@@ -29,6 +29,7 @@ class AttendanceEntry(TimeStampedModel):
     class Meta:
         verbose_name = _('Attendance Entry')
         verbose_name_plural = _('Attendance Entries')
+        unique_together = ('student', 'timetable_entry')
 
     student = models.ForeignKey(Student)
     timetable_entry = models.ForeignKey(TimetableEntry, blank=True, null=True)
