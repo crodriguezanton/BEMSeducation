@@ -1,0 +1,437 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-06 23:11+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: BEMSeducation/common_settings.py:146
+msgid "Catalan"
+msgstr ""
+
+#: BEMSeducation/common_settings.py:147
+msgid "Spanish"
+msgstr ""
+
+#: BEMSeducation/common_settings.py:148
+msgid "English"
+msgstr ""
+
+#: BEMSeducation/common_settings.py:149
+msgid "French"
+msgstr ""
+
+#: attendance/models.py:14
+msgid "Attendance Type"
+msgstr ""
+
+#: attendance/models.py:15
+msgid "Attendance Types"
+msgstr ""
+
+#: attendance/models.py:30
+msgid "Attendance Entry"
+msgstr ""
+
+#: attendance/models.py:31
+msgid "Attendance Entries"
+msgstr ""
+
+#: enrollment/models.py:14
+msgid "Student Enrollment"
+msgstr ""
+
+#: enrollment/models.py:15
+msgid "Student Enrollments"
+msgstr ""
+
+#: enrollment/models.py:33
+msgid "Class Enrollment"
+msgstr ""
+
+#: enrollment/models.py:34
+msgid "Class Enrollments"
+msgstr ""
+
+#: enrollment/models.py:43
+msgid "Subject Enrollment"
+msgstr ""
+
+#: enrollment/models.py:44
+msgid "Subject Enrollments"
+msgstr ""
+
+#: enrollment/models.py:52
+msgid "Major Subject Enrollment"
+msgstr ""
+
+#: enrollment/models.py:53
+msgid "Major Subject Enrollments"
+msgstr ""
+
+#: institution/models.py:12 templates/attendance/attendanceentry_filter.html:17
+msgid "Stage"
+msgstr ""
+
+#: institution/models.py:13
+msgid "Stages"
+msgstr ""
+
+#: institution/models.py:25 templates/attendance/attendanceentry_filter.html:11
+msgid "Grade"
+msgstr ""
+
+#: institution/models.py:26
+msgid "Grades"
+msgstr ""
+
+#: institution/models.py:39
+msgid "Classroom"
+msgstr ""
+
+#: institution/models.py:40
+msgid "Classrooms"
+msgstr ""
+
+#: institution/models.py:53
+msgid "Group"
+msgstr ""
+
+#: institution/models.py:54
+msgid "Groups"
+msgstr ""
+
+#: main/models.py:13
+msgid "BEMS.education Instance"
+msgstr ""
+
+#: main/models.py:14
+msgid "BEMS.education Instances"
+msgstr ""
+
+#: main/models.py:22
+msgid "Parent Profile"
+msgstr ""
+
+#: main/models.py:23
+msgid "Parent Profiles"
+msgstr ""
+
+#: main/models.py:27
+msgid "Parent"
+msgstr ""
+
+#: main/models.py:33
+msgid "Student Profile"
+msgstr ""
+
+#: main/models.py:34
+msgid "Student Profiles"
+msgstr ""
+
+#: main/models.py:40 templates/schedule/timetableentry_archive_day.html:124
+msgid "Student"
+msgstr ""
+
+#: main/models.py:46
+msgid "Teacher Profile"
+msgstr ""
+
+#: main/models.py:47
+msgid "Teacher Profiles"
+msgstr ""
+
+#: main/models.py:51
+msgid "Teacher"
+msgstr ""
+
+#: schedule/constants.py:4
+msgid "Monday"
+msgstr ""
+
+#: schedule/constants.py:5
+msgid "Tuesday"
+msgstr ""
+
+#: schedule/constants.py:6
+msgid "Wednesday"
+msgstr ""
+
+#: schedule/constants.py:7
+msgid "Thursday"
+msgstr ""
+
+#: schedule/constants.py:8
+msgid "Friday"
+msgstr ""
+
+#: schedule/constants.py:9
+msgid "Saturday"
+msgstr ""
+
+#: schedule/constants.py:10
+msgid "Sunday"
+msgstr ""
+
+#: schedule/models.py:19
+msgid "Semester"
+msgstr ""
+
+#: schedule/models.py:20
+msgid "Semesters"
+msgstr ""
+
+#: schedule/models.py:33
+msgid "School Year"
+msgstr ""
+
+#: schedule/models.py:34
+msgid "School Years"
+msgstr ""
+
+#: schedule/models.py:47 templates/attendance/attendanceentry_filter.html:80
+msgid "Subject"
+msgstr ""
+
+#: schedule/models.py:48
+msgid "Subjects"
+msgstr ""
+
+#: schedule/models.py:63
+msgid "Major Subject"
+msgstr ""
+
+#: schedule/models.py:64
+msgid "Major Subjects"
+msgstr ""
+
+#: schedule/models.py:80
+msgid "Class Day"
+msgstr ""
+
+#: schedule/models.py:81
+msgid "Class Days"
+msgstr ""
+
+#: schedule/models.py:106
+msgid "Class Unit"
+msgstr ""
+
+#: schedule/models.py:107
+msgid "Class Units"
+msgstr ""
+
+#: schedule/models.py:134
+msgid "Weekly Timetable Entry"
+msgstr ""
+
+#: schedule/models.py:135
+msgid "Weekly Timetable Entries"
+msgstr ""
+
+#: schedule/models.py:195 schedule/models.py:196
+msgid "Timetable Entry"
+msgstr ""
+
+#: schedule/models.py:218
+msgid "Non Lective Period"
+msgstr ""
+
+#: schedule/models.py:219
+msgid "Non Lective Periods"
+msgstr ""
+
+#: templates/attendance/attendanceentry_filter.html:79
+msgid "Name"
+msgstr ""
+
+#: templates/attendance/attendanceentry_filter.html:81
+msgid "Day"
+msgstr ""
+
+#: templates/layout/base.html:372 templates/layout/sections/menubar.html:171
+msgid "Logout"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:9
+msgid "General"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:13
+msgid "Dashboard"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:19
+msgid "Messages"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:25
+msgid "Calendar"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:31
+msgid "Schedule"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:37
+msgid "My Timetable"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:42
+msgid "Timetable Search"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:47
+msgid "Academical"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:57
+#: templates/layout/sections/menubar.html:76
+msgid "Students"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:62
+msgid "Enroll"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:81
+#: templates/layout/sections/menubar.html:99
+msgid "Attendance"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:86
+#: templates/layout/sections/menubar.html:115
+msgid "Ranking"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:91
+#: templates/layout/sections/menubar.html:123
+msgid "Incidents"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:105
+msgid "Call"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:110
+msgid "Review"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:129
+msgid "New Incident"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:134
+msgid "My Incidents"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:139
+msgid "Manage"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:144
+msgid "Evaluation"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:148
+msgid "Report"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:154
+msgid "Tutory Report"
+msgstr ""
+
+#: templates/layout/sections/menubar.html:165
+msgid "Administration"
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:34
+msgid "Classes"
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:46
+msgid "Change date"
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:48
+msgid "Today"
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:50
+#: templates/schedule/timetableentry_archive_day.html:54
+msgid "Last Friday"
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:51
+msgid "Last Tuesday"
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:53
+#: templates/schedule/timetableentry_archive_day.html:56
+msgid "Yesterday"
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:57
+msgid "Two days before"
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:59
+#: templates/schedule/timetableentry_archive_day.html:70
+msgid "Select date"
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:73
+msgid "Choose the date you want to call attendance"
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:78
+msgid "Accept"
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:79
+msgid "Cancel"
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:108
+msgid "The class has not started yet, so you cannot call attendance."
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:115
+msgid "There're no students in this class."
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:165
+msgid "Present"
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:169
+msgid "Delay"
+msgstr ""
+
+#: templates/schedule/timetableentry_archive_day.html:173
+msgid "Absent"
+msgstr ""
+
+#: templates/special/maintenance.html:52
+msgid "Under maintenance"
+msgstr ""
+
+#: templates/special/maintenance.html:53
+msgid "IN SOME DAYS YOU WILL BE ABLE TO GET BACK TO BEMS"
+msgstr ""
+
+#: templates/special/maintenance.html:56
+msgid "ALL RIGHTS RESERVED"
+msgstr ""

@@ -1,0 +1,441 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-06 23:11+0200\n"
+"PO-Revision-Date: 2016-10-06 21:24+0000\n"
+"Last-Translator: Carlos Rodriguez Anton <carlos@beatbcn.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.7.12\n"
+
+#: BEMSeducation/common_settings.py:146
+msgid "Catalan"
+msgstr "Català"
+
+#: BEMSeducation/common_settings.py:147
+msgid "Spanish"
+msgstr "Espanyol"
+
+#: BEMSeducation/common_settings.py:148
+msgid "English"
+msgstr "Anglès"
+
+#: BEMSeducation/common_settings.py:149
+msgid "French"
+msgstr "Francès"
+
+#: attendance/models.py:14
+msgid "Attendance Type"
+msgstr "Tipus d'Assistència"
+
+#: attendance/models.py:15
+msgid "Attendance Types"
+msgstr "Tipus d'Assistència"
+
+#: attendance/models.py:30
+msgid "Attendance Entry"
+msgstr "Registre d'Assistència"
+
+#: attendance/models.py:31
+msgid "Attendance Entries"
+msgstr "Registres d'Assistència"
+
+#: enrollment/models.py:14
+msgid "Student Enrollment"
+msgstr "Matrícula de l'Alumnat"
+
+#: enrollment/models.py:15
+msgid "Student Enrollments"
+msgstr "Matrícules de l'Alumnat"
+
+#: enrollment/models.py:33
+msgid "Class Enrollment"
+msgstr "Matrícula de Classe"
+
+#: enrollment/models.py:34
+msgid "Class Enrollments"
+msgstr "Matrícules de Classe"
+
+#: enrollment/models.py:43
+msgid "Subject Enrollment"
+msgstr "Matrícula d'Assignatura"
+
+#: enrollment/models.py:44
+msgid "Subject Enrollments"
+msgstr "Matrícules d'Assignatura"
+
+#: enrollment/models.py:52
+msgid "Major Subject Enrollment"
+msgstr "Matrícula d'Assignatura de Modalitat"
+
+#: enrollment/models.py:53
+msgid "Major Subject Enrollments"
+msgstr "Matrícules d'Assignatura de Modalitat"
+
+#: institution/models.py:12
+#: templates/attendance/attendanceentry_filter.html:17
+msgid "Stage"
+msgstr "Fase"
+
+#: institution/models.py:13
+msgid "Stages"
+msgstr "Fases"
+
+#: institution/models.py:25
+#: templates/attendance/attendanceentry_filter.html:11
+msgid "Grade"
+msgstr "Curs"
+
+#: institution/models.py:26
+msgid "Grades"
+msgstr "Cursos"
+
+#: institution/models.py:39
+msgid "Classroom"
+msgstr "Aula"
+
+#: institution/models.py:40
+msgid "Classrooms"
+msgstr "Aules"
+
+#: institution/models.py:53
+msgid "Group"
+msgstr "Grup"
+
+#: institution/models.py:54
+msgid "Groups"
+msgstr "Grups"
+
+#: main/models.py:13
+msgid "BEMS.education Instance"
+msgstr "Instància BEMS.education"
+
+#: main/models.py:14
+msgid "BEMS.education Instances"
+msgstr "Instàncies BEMS.education"
+
+#: main/models.py:22
+msgid "Parent Profile"
+msgstr "Perfil de Pare/Mare"
+
+#: main/models.py:23
+msgid "Parent Profiles"
+msgstr "Perfil de Pares/Mares"
+
+#: main/models.py:27
+msgid "Parent"
+msgstr "Pare/Mare"
+
+#: main/models.py:33
+msgid "Student Profile"
+msgstr "Perfil d'Estudiant"
+
+#: main/models.py:34
+msgid "Student Profiles"
+msgstr "Perfils d'Estudiant"
+
+#: main/models.py:40 templates/schedule/timetableentry_archive_day.html:124
+msgid "Student"
+msgstr "Estudiant"
+
+#: main/models.py:46
+msgid "Teacher Profile"
+msgstr "Perfil de Professor"
+
+#: main/models.py:47
+msgid "Teacher Profiles"
+msgstr "Perfils de Professor"
+
+#: main/models.py:51
+msgid "Teacher"
+msgstr "Professor"
+
+#: schedule/constants.py:4
+msgid "Monday"
+msgstr "Dilluns"
+
+#: schedule/constants.py:5
+msgid "Tuesday"
+msgstr "Dimarts"
+
+#: schedule/constants.py:6
+msgid "Wednesday"
+msgstr "Dimecres"
+
+#: schedule/constants.py:7
+msgid "Thursday"
+msgstr "Dijous"
+
+#: schedule/constants.py:8
+msgid "Friday"
+msgstr "Divendres"
+
+#: schedule/constants.py:9
+msgid "Saturday"
+msgstr "Dissabte"
+
+#: schedule/constants.py:10
+msgid "Sunday"
+msgstr "Diumenge"
+
+#: schedule/models.py:19
+msgid "Semester"
+msgstr "Semestre"
+
+#: schedule/models.py:20
+msgid "Semesters"
+msgstr "Semestres"
+
+#: schedule/models.py:33
+msgid "School Year"
+msgstr "Curs Escolar"
+
+#: schedule/models.py:34
+msgid "School Years"
+msgstr "Cursos Escolars"
+
+#: schedule/models.py:47 templates/attendance/attendanceentry_filter.html:80
+msgid "Subject"
+msgstr "Assignatura"
+
+#: schedule/models.py:48
+msgid "Subjects"
+msgstr "Assignatures"
+
+#: schedule/models.py:63
+msgid "Major Subject"
+msgstr "Assignatura de Modalitat"
+
+#: schedule/models.py:64
+msgid "Major Subjects"
+msgstr "Assignatures de Modalitat"
+
+#: schedule/models.py:80
+msgid "Class Day"
+msgstr "Dia de Classe"
+
+#: schedule/models.py:81
+msgid "Class Days"
+msgstr "Dies de Classe"
+
+#: schedule/models.py:106
+msgid "Class Unit"
+msgstr "Unitat de Classe"
+
+#: schedule/models.py:107
+msgid "Class Units"
+msgstr "Unitats de Classe"
+
+#: schedule/models.py:134
+msgid "Weekly Timetable Entry"
+msgstr "Registre d'Horari Setmanal"
+
+#: schedule/models.py:135
+msgid "Weekly Timetable Entries"
+msgstr "Registres d'Horari Setmanal"
+
+#: schedule/models.py:195 schedule/models.py:196
+msgid "Timetable Entry"
+msgstr "Registre d'Horari"
+
+#: schedule/models.py:218
+msgid "Non Lective Period"
+msgstr "Període no Lectiu"
+
+#: schedule/models.py:219
+msgid "Non Lective Periods"
+msgstr "Períodes no Lectius"
+
+#: templates/attendance/attendanceentry_filter.html:79
+msgid "Name"
+msgstr "Nom"
+
+#: templates/attendance/attendanceentry_filter.html:81
+msgid "Day"
+msgstr "Dia"
+
+#: templates/layout/base.html:372 templates/layout/sections/menubar.html:171
+msgid "Logout"
+msgstr "Sortir"
+
+#: templates/layout/sections/menubar.html:9
+msgid "General"
+msgstr "General"
+
+#: templates/layout/sections/menubar.html:13
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: templates/layout/sections/menubar.html:19
+msgid "Messages"
+msgstr "Missatges"
+
+#: templates/layout/sections/menubar.html:25
+msgid "Calendar"
+msgstr "Calendari"
+
+#: templates/layout/sections/menubar.html:31
+msgid "Schedule"
+msgstr "Horari"
+
+#: templates/layout/sections/menubar.html:37
+msgid "My Timetable"
+msgstr "El Meu Horari"
+
+#: templates/layout/sections/menubar.html:42
+msgid "Timetable Search"
+msgstr "Cerca d'Horaris"
+
+#: templates/layout/sections/menubar.html:47
+msgid "Academical"
+msgstr "Acadèmic"
+
+#: templates/layout/sections/menubar.html:57
+#: templates/layout/sections/menubar.html:76
+msgid "Students"
+msgstr "Estudiants"
+
+#: templates/layout/sections/menubar.html:62
+msgid "Enroll"
+msgstr "Matrícula"
+
+#: templates/layout/sections/menubar.html:81
+#: templates/layout/sections/menubar.html:99
+msgid "Attendance"
+msgstr "Assistència"
+
+#: templates/layout/sections/menubar.html:86
+#: templates/layout/sections/menubar.html:115
+msgid "Ranking"
+msgstr "Ranking"
+
+#: templates/layout/sections/menubar.html:91
+#: templates/layout/sections/menubar.html:123
+msgid "Incidents"
+msgstr "Incidències"
+
+#: templates/layout/sections/menubar.html:105
+msgid "Call"
+msgstr "Passar llista"
+
+#: templates/layout/sections/menubar.html:110
+msgid "Review"
+msgstr "Revisió"
+
+#: templates/layout/sections/menubar.html:129
+msgid "New Incident"
+msgstr "Nova Incidència"
+
+#: templates/layout/sections/menubar.html:134
+msgid "My Incidents"
+msgstr "Les meves Incidències"
+
+#: templates/layout/sections/menubar.html:139
+msgid "Manage"
+msgstr "Gestionar"
+
+#: templates/layout/sections/menubar.html:144
+msgid "Evaluation"
+msgstr "Avaluació"
+
+#: templates/layout/sections/menubar.html:148
+msgid "Report"
+msgstr "Informe"
+
+#: templates/layout/sections/menubar.html:154
+msgid "Tutory Report"
+msgstr "Informe de Tutoria"
+
+#: templates/layout/sections/menubar.html:165
+msgid "Administration"
+msgstr "Administració"
+
+#: templates/schedule/timetableentry_archive_day.html:34
+msgid "Classes"
+msgstr "Classes"
+
+#: templates/schedule/timetableentry_archive_day.html:46
+msgid "Change date"
+msgstr "Canvi de data"
+
+#: templates/schedule/timetableentry_archive_day.html:48
+msgid "Today"
+msgstr "Avui"
+
+#: templates/schedule/timetableentry_archive_day.html:50
+#: templates/schedule/timetableentry_archive_day.html:54
+msgid "Last Friday"
+msgstr "Divendres Passat"
+
+#: templates/schedule/timetableentry_archive_day.html:51
+msgid "Last Tuesday"
+msgstr "Dijous Passat"
+
+#: templates/schedule/timetableentry_archive_day.html:53
+#: templates/schedule/timetableentry_archive_day.html:56
+msgid "Yesterday"
+msgstr "Ahir"
+
+#: templates/schedule/timetableentry_archive_day.html:57
+msgid "Two days before"
+msgstr "Abans d'ahir"
+
+#: templates/schedule/timetableentry_archive_day.html:59
+#: templates/schedule/timetableentry_archive_day.html:70
+msgid "Select date"
+msgstr "Seleccioneu data"
+
+#: templates/schedule/timetableentry_archive_day.html:73
+msgid "Choose the date you want to call attendance"
+msgstr "Escull el dia que vols passar llista"
+
+#: templates/schedule/timetableentry_archive_day.html:78
+msgid "Accept"
+msgstr "Acceptar"
+
+#: templates/schedule/timetableentry_archive_day.html:79
+msgid "Cancel"
+msgstr "Cancel·la"
+
+#: templates/schedule/timetableentry_archive_day.html:108
+msgid "The class has not started yet, so you cannot call attendance."
+msgstr "La classe encara no ha començat, així que no podeu passar llista."
+
+#: templates/schedule/timetableentry_archive_day.html:115
+msgid "There're no students in this class."
+msgstr "No hi ha estudiants en aquesta classe."
+
+#: templates/schedule/timetableentry_archive_day.html:165
+msgid "Present"
+msgstr "Present"
+
+#: templates/schedule/timetableentry_archive_day.html:169
+msgid "Delay"
+msgstr "Retard"
+
+#: templates/schedule/timetableentry_archive_day.html:173
+msgid "Absent"
+msgstr "Falta"
+
+#: templates/special/maintenance.html:52
+msgid "Under maintenance"
+msgstr "En manteniment"
+
+#: templates/special/maintenance.html:53
+msgid "IN SOME DAYS YOU WILL BE ABLE TO GET BACK TO BEMS"
+msgstr "EN ALGUNS DIES PODREU TORNAR A UTILITZAR BEMS"
+
+#: templates/special/maintenance.html:56
+msgid "ALL RIGHTS RESERVED"
+msgstr "TOTS ELS DRETS RESERVATS"

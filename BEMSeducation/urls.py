@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from BEMSeducation import settings
 from main.views import MaintenanceView
 
 urlpatterns = [
@@ -29,3 +30,8 @@ urlpatterns = [
     url(r'^institution/', include('institution.urls', namespace='institution')),
     url(r'schedule/', include('schedule.urls', namespace='schedule')),
 ]
+
+if 'rosetta' in settings.INSTALLED_APPS:
+    urlpatterns += [
+        url(r'^rosetta/', include('rosetta.urls')),
+    ]
