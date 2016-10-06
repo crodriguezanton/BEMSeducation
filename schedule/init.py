@@ -7,19 +7,14 @@ from schedule.models import Semester, WeeklyTimetableEntry, ClassDay, TimetableE
 
 def generate_timetable_entries(semester):
 
-    delta = semester.start - semester.end
+    delta = semester.end - semester.start
     wtes=WeeklyTimetableEntry.objects.all()
-    print(wtes)
-    print(delta)
     for i in range(delta.days + 1):
-        print(str(i))
         day = semester.start + timedelta(days=i)
-        fwtes = wtes.filter(day=ClassDay.objects.get(day=day.isoweekday()))
-        print(fwtes.all())
+        fwtes = wtes.filter(day=ClassDay.objects.filter(day=day.isoweekday()).first())
         for fwte in fwtes:
-            print('loop')
             TimetableEntry.objects.get_or_create(
                 weekly_timetable_entry=fwte,
-                day=day,
+                date=day,
                 active=fwte.class_active(day)
             )
