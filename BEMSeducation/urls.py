@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 from BEMSeducation import settings
 from main.views import MaintenanceView
@@ -36,3 +38,17 @@ if 'rosetta' in settings.INSTALLED_APPS:
     urlpatterns += [
         url(r'^rosetta/', include('rosetta.urls')),
     ]
+
+
+def handler404(request):
+    response = render_to_response('special/404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+
+def handler500(request):
+    response = render_to_response('special/500.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 500
+    return response
