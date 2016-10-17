@@ -56,6 +56,9 @@ ADDON_APPS = [
     'rest_framework',
     'raven.contrib.django.raven_compat',
     'rosetta',
+    'easy_thumbnails',
+    'filer',
+    'mptt',
 ]
 
 LOCAL_APPS = [
@@ -68,17 +71,17 @@ LOCAL_APPS = [
 
 INSTALLED_APPS = DJANGO_APPS + BEMS_APPS + ADDON_APPS + LOCAL_APPS
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.admindocs.middleware.XViewMiddleware',
-    'BEMSeducation.middleware.AtopdedTo110DebugMiddleware'
+#   'BEMSeducation.middleware.AtopdedTo110DebugMiddleware'
 ]
 
 ROOT_URLCONF = 'BEMSeducation.urls'
@@ -92,9 +95,9 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.i18n',
             ],
         },
     },

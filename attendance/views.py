@@ -89,27 +89,3 @@ class RankingListView(FilterView, LoginRequiredMixin):
                 student.total = student.faltes * 3 + student.retards
 
         return sorted(students, key=lambda t: t.total, reverse=True)
-
-
-class CallView(DayArchiveView):
-    model = TimetableEntry
-    date_field = 'date'
-    allow_future = True
-    allow_empty = True
-
-    def get_context_data(self, **kwargs):
-        context = super(CallView, self).get_context_data()
-
-        context['page_aside'] = True
-
-        return context
-
-    def get_queryset(self):
-        qs = super(DayArchiveView, self).get_queryset()
-        return qs
-
-
-class TodayCallView(TodayArchiveView):
-    model = TimetableEntry
-    date_field = 'date'
-    allow_empty = True

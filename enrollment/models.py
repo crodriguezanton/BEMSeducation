@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _
 
 from institution.models import Group
 from main.models import Student
-from schedule.models import SchoolYear, Semester, Subject, MajorSubject
+from schedule.models import SchoolYear, Semester, Subject
 
 
 class YearEnroll(models.Model):
@@ -44,12 +44,3 @@ class ClassEnroll(Enroll):
         verbose_name_plural = _('Subject Enrollments')
 
     subject = models.ForeignKey(Subject)
-
-
-class MajorEnroll(Enroll):
-
-    class Meta:
-        verbose_name = _('Major Subject Enrollment')
-        verbose_name_plural = _('Major Subject Enrollments')
-
-    major = models.ForeignKey(MajorSubject, blank=True, null=True)

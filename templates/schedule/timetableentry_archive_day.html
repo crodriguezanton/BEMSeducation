@@ -13,7 +13,7 @@
           <br>
           <div class="row no-space" style="position:relative">
               <div class="col-sm-3 vertical-align-middle">
-                  <a class="list-group-item" href="{% url 'attendance:call' day=previous_day.day month=previous_day|date:'b' year=previous_day.year %}" style="padding: 30px"><i class="icon fa-step-backward" aria-hidden="true"></i></a>
+                  <a class="list-group-item" href="{% url 'attendance:call' day=previous_day.day month=previous_day.month year=previous_day.year %}" style="padding: 30px"><i class="icon fa-step-backward" aria-hidden="true"></i></a>
               </div>
               <div class="col-sm-6">
                   <div class="panel panel-bordered panel-danger" style=" margin: 0px 10px; text-align: center;
@@ -27,7 +27,7 @@
           </div>
               </div>
               <div class="col-sm-3">
-                  <a class="list-group-item" href="{% url 'attendance:call' day=next_day.day month=next_day|date:'b' year=next_day.year %}" style="text-align: right; padding: 30px; {% if is_today %}visibility: hidden;{% endif %}" ><i class="icon fa-step-forward" aria-hidden="true"></i></a>
+                  <a class="list-group-item" href="{% url 'attendance:call' day=next_day.day month=next_day.month year=next_day.year %}" style="text-align: right; padding: 30px; {% if is_today %}visibility: hidden;{% endif %}" ><i class="icon fa-step-forward" aria-hidden="true"></i></a>
               </div>
           </div>
         <section class="page-aside-section">
