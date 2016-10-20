@@ -56,6 +56,7 @@ ADDON_APPS = [
     'rest_framework',
     'raven.contrib.django.raven_compat',
     'rosetta',
+    'polymorphic',
     #'easy_thumbnails',
     #'filer',
     #'mptt',
