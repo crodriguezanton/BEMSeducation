@@ -56,9 +56,9 @@ ADDON_APPS = [
     'rest_framework',
     'raven.contrib.django.raven_compat',
     'rosetta',
-    'easy_thumbnails',
-    'filer',
-    'mptt',
+    #'easy_thumbnails',
+    #'filer',
+    #'mptt',
 ]
 
 LOCAL_APPS = [
