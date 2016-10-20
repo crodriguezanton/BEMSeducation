@@ -1,7 +1,7 @@
 from django_filters import FilterSet
 
 from attendance.models import AttendanceEntry
-from main.models import Student
+from education.models import Student
 
 
 class AttendanceEntryFilter(FilterSet):

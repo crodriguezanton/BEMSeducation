@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
 
-from main.models import Teacher
+from education.models import Teacher
 from schedule.models import TimetableEntry, ClassUnit, ClassDay
 
 

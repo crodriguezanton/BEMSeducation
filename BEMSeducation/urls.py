@@ -19,7 +19,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from BEMSeducation import settings
-from main.views import MaintenanceView
+from education.views import MaintenanceView
 
 urlpatterns = [
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

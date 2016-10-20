@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _
 from model_utils.models import TimeStampedModel
 
 from attendance.constants import ATTENDANCE_TYPE_CHOICES
-from main.models import Student, BEMSeducationInstance
+from education.models import Student
 from schedule.models import TimetableEntry
 
 

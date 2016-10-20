@@ -8,8 +8,8 @@ from django.utils.translation import gettext as _
 from model_utils.models import TimeFramedModel
 from polymorphic.models import PolymorphicModel
 
-from institution.models import Grade, Group, Classroom, Stage
-from main.models import BEMSeducationInstance, Teacher, Student
+from institution.models import Grade, Group, Classroom, Stage, Institution
+from education.models import BEMSeducationInstance, Teacher, Student
 from schedule.constants import DAY_CHOICES
 
 
@@ -20,7 +20,8 @@ class Semester(TimeFramedModel):
         verbose_name_plural = _('Semesters')
 
     name = models.CharField(max_length=200)
-    instance = models.ForeignKey(BEMSeducationInstance, blank=True, null=True)
+    instance = models.ForeignKey(BEMSeducationInstance)
+    institution = models.ForeignKey(Institution, blank=True, null=True)
     short_name = models.CharField(max_length=6)
 
     def __unicode__(self):
@@ -35,7 +36,8 @@ class SchoolYear(models.Model):
 
     name = models.CharField(max_length=200)
     short_name = models.CharField(max_length=6)
-    instance = models.ForeignKey(BEMSeducationInstance, blank=True, null=True)
+    instance = models.ForeignKey(BEMSeducationInstance)
+    institution = models.ForeignKey(Institution, blank=True, null=True)
     start = models.DateField()
     end = models.DateField()
     semesters = models.ManyToManyField(Semester)
@@ -48,6 +50,8 @@ class SubjectCategory(models.Model):
 
     name = models.CharField(max_length=200)
     short_name = models.CharField(max_length=20)
+    instance = models.ForeignKey(BEMSeducationInstance)
+    institution = models.ForeignKey(Institution, blank=True, null=True)
 
 
 class Subject(models.Model):
@@ -58,7 +62,8 @@ class Subject(models.Model):
 
     name = models.CharField(max_length=200)
     short_name = models.CharField(max_length=20)
-    instance = models.ForeignKey(BEMSeducationInstance, blank=True, null=True)
+    instance = models.ForeignKey(BEMSeducationInstance)
+    institution = models.ForeignKey(Institution, blank=True, null=True)
     default_classroom = models.ForeignKey(Classroom, blank=True, null=True)
     stage = models.ForeignKey(Stage, blank=True, null=True)
     grade = models.ForeignKey(Grade, blank=True, null=True)
@@ -75,7 +80,8 @@ class ClassDay(models.Model):
         verbose_name = _('Class Day')
         verbose_name_plural = _('Class Days')
 
-    instance = models.ForeignKey(BEMSeducationInstance, blank=True, null=True)
+    instance = models.ForeignKey(BEMSeducationInstance)
+    institution = models.ForeignKey(Institution, blank=True, null=True)
     day = models.IntegerField(default=1, choices=DAY_CHOICES)
 
     def __unicode__(self):
@@ -101,7 +107,8 @@ class ClassUnit(models.Model):
         verbose_name = _('Class Unit')
         verbose_name_plural = _('Class Units')
 
-    instance = models.ForeignKey(BEMSeducationInstance, blank=True, null=True)
+    instance = models.ForeignKey(BEMSeducationInstance)
+    institution = models.ForeignKey(Institution, blank=True, null=True)
     number = models.IntegerField(default=1)
     days = models.ManyToManyField(ClassDay)
     start = models.TimeField()
@@ -129,6 +136,8 @@ class WeeklyTimetableEntry(models.Model):
         verbose_name = _('Weekly Timetable Entry')
         verbose_name_plural = _('Weekly Timetable Entries')
 
+    instance = models.ForeignKey(BEMSeducationInstance)
+    institution = models.ForeignKey(Institution, blank=True, null=True)
     group = models.ForeignKey(Group, blank=True, null=True)
     teacher = models.ForeignKey(Teacher, blank=True, null=True)
     subject = models.ForeignKey(Subject, blank=True, null=True)
@@ -197,6 +206,8 @@ class NonLectivePeriod(PolymorphicModel):
         verbose_name = _('Non Lective Period')
         verbose_name_plural = _('Non Lective Periods')
 
+    instance = models.ForeignKey(BEMSeducationInstance)
+    institution = models.ForeignKey(Institution, blank=True, null=True)
     stages = models.ManyToManyField(Stage)
     grades = models.ManyToManyField(Grade)
     groups = models.ManyToManyField(Group)

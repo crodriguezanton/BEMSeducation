@@ -1,7 +1,7 @@
 from django.template import Node, Library, TemplateSyntaxError
 from django.utils import six
 
-from main.models import Student
+from education.models import Student
 from schedule.models import TimetableEntry
 
 register = Library()

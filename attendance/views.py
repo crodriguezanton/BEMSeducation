@@ -8,7 +8,7 @@ from django_filters.views import FilterView
 from attendance.filters import AttendanceEntryFilter, StudentFilter
 from attendance.models import AttendanceEntry
 from institution.models import Group, Stage, Grade
-from main.models import Teacher, Student
+from education.models import Teacher, Student
 from schedule.models import Semester, TimetableEntry
 
 

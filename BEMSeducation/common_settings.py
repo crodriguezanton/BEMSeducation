@@ -65,7 +65,7 @@ LOCAL_APPS = [
     'attendance',
     'enrollment',
     'institution',
-    'main',
+    'education',
     'schedule',
 ]
 
