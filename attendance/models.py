@@ -4,24 +4,9 @@ from django.db import models
 from django.utils.translation import gettext as _
 from model_utils.models import TimeStampedModel
 
-from main.models import Student, BEMSeducationInstance
+from attendance.constants import ATTENDANCE_TYPE_CHOICES
+from education.models import Student
 from schedule.models import TimetableEntry
-
-
-class AttendanceType(models.Model):
-
-    class Meta:
-        verbose_name = _('Attendance Type')
-        verbose_name_plural = _('Attendance Types')
-        unique_together = ('instance', 'char')
-
-    name = models.CharField(max_length=100)
-    instance = models.ForeignKey(BEMSeducationInstance, blank=True, null=True)
-    char = models.CharField(max_length=3)
-    weight = models.IntegerField(default=0)
-
-    def __unicode__(self):
-        return self.char + ": " + self.name
 
 
 class AttendanceEntry(TimeStampedModel):
@@ -33,9 +18,7 @@ class AttendanceEntry(TimeStampedModel):
 
     student = models.ForeignKey(Student)
     timetable_entry = models.ForeignKey(TimetableEntry, blank=True, null=True)
-    type = models.ForeignKey(AttendanceType)
+    type = models.CharField(max_length=3, choices=ATTENDANCE_TYPE_CHOICES, default='F')
 
     def is_justified(self):
-        if self.type == AttendanceType.objects.get(char='J'):
-            return True
-        return False
+        return self.type is 'J'

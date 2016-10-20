@@ -1,14 +1,14 @@
 from django_filters import FilterSet
 
 from attendance.models import AttendanceEntry
-from main.models import Student
+from education.models import Student
 
 
 class AttendanceEntryFilter(FilterSet):
     class Meta:
         model = AttendanceEntry
         fields = {
-            'type__char':                                              ['exact'],
+            'type':                                                    ['exact'],
             'student__first_name':                                     ['exact', 'icontains'],
             'student__last_name':                                      ['exact', 'icontains'],
             'student__studentstatus__group__short_name':               ['exact'],

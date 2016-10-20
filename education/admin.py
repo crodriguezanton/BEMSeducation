@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from main.models import *
+from education.models import *
 
 admin.site.register(BEMSeducationInstance)
 admin.site.register(Parent)
