@@ -72,7 +72,7 @@ LOCAL_APPS = [
 
 INSTALLED_APPS = DJANGO_APPS + BEMS_APPS + ADDON_APPS + LOCAL_APPS
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -82,7 +82,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.admindocs.middleware.XViewMiddleware',
-#   'BEMSeducation.middleware.AtopdedTo110DebugMiddleware'
+    'BEMSeducation.middleware.AtopdedTo110DebugMiddleware'
 ]
 
 ROOT_URLCONF = 'BEMSeducation.urls'
