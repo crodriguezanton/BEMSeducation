@@ -85,6 +85,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.admindocs.middleware.XViewMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'BEMSeducation.middleware.ProfileMiddleware'
 ]
 
 ROOT_URLCONF = 'BEMSeducation.urls'
