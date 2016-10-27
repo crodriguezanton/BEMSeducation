@@ -125,7 +125,7 @@
                 <tr>
                     <td style="vertical-align:middle" class="hidden-xs hidden-sm">
                         <a class="navbar-avatar dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" role="button">
-                          <span class="avatar {% if status == "P" %}avatar-online{% endif %}{% if status == "R" %}avatar-busy{% endif %}{% if status == "F" %}avatar-away{% endif %}" id="img:{{te.pk}}:{{student.pk}}">
+                          <span class="avatar {% if status == "P" %}avatar-online{% endif %}{% if status == "R" %}avatar-busy{% endif %}{% if status == "F" %}avatar-away{% endif %}" id="img_{{te.pk}}_{{student.pk}}">
                             <img src="{{ student.get_profile_image }}" alt="...">
                             <i></i>
                           </span>
@@ -152,15 +152,15 @@
                     {% else %}
                     <td style="vertical-align:middle">
                         <div class="btn-group pull-right" data-toggle="buttons" role="group">
-                      <label class="btn btn-outline {% if status == "P" %}active btn-success{% endif %}{% if status == "R" %}btn-warning{% endif %}{% if status == "F" %}btn-danger{% endif %} btn-attendance" id="P:{{te.pk}}:{{student.pk}}" onclick="addfalta(event);">
+                      <label class="btn btn-outline {% if status == "P" %}active btn-success{% endif %}{% if status == "R" %}btn-warning{% endif %}{% if status == "F" %}btn-danger{% endif %} btn-attendance" id="P_{{te.pk}}_{{student.pk}}" onclick="addfalta(event);">
                         <input type="radio" name="options" autocomplete="off">
                         <i class="icon wb-check text-active" aria-hidden="true"></i>                        <div class="hidden-xs" style="display: inline">{% trans 'Present' %}</div>
                       </label>
-                      <label class="btn btn-outline {% if status == "P" %}btn-success{% endif %}{% if status == "R" %}active btn-warning{% endif %}{% if status == "F" %}btn-danger{% endif %} btn-attendance" id="R:{{te.pk}}:{{student.pk}}" onclick="addfalta(event);">
+                      <label class="btn btn-outline {% if status == "P" %}btn-success{% endif %}{% if status == "R" %}active btn-warning{% endif %}{% if status == "F" %}btn-danger{% endif %} btn-attendance" id="R_{{te.pk}}_{{student.pk}}" onclick="addfalta(event);">
                         <input type="radio" name="options" autocomplete="off">
                         <i class="icon wb-time text-active" aria-hidden="true"></i>                        <div class="hidden-xs" style="display: inline">{% trans 'Delay' %}</div>
                       </label>
-                      <label class="btn btn-outline {% if status == "P" %} btn-success{% endif %}{% if status == "R" %}btn-warning{% endif %}{% if status == "F" %}active btn-danger{% endif %} btn-attendance" id="F:{{te.pk}}:{{student.pk}}" onclick="addfalta(event);">
+                      <label class="btn btn-outline {% if status == "P" %} btn-success{% endif %}{% if status == "R" %}btn-warning{% endif %}{% if status == "F" %}active btn-danger{% endif %} btn-attendance" id="F_{{te.pk}}_{{student.pk}}" onclick="addfalta(event);">
                         <input type="radio" name="options" autocomplete="off">
                         <i class="icon wb-close text-active" aria-hidden="true"></i>                        <div class="hidden-xs" style="display: inline">{% trans 'Absent' %}</div>
                       </label>
