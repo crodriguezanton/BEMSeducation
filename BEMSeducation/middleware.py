@@ -1,10 +1,3 @@
-from debug_toolbar.middleware import DebugToolbarMiddleware
-from django.http import HttpResponseRedirect
-from django.urls import set_urlconf
-from django.utils.deprecation import MiddlewareMixin
-
-from BEMSconsole import settings
-
 
 class ProfileMiddleware(object):
     def __init__(self, get_response=None):
@@ -23,4 +16,3 @@ class ProfileMiddleware(object):
         # the view is called.
 
         return response
-
