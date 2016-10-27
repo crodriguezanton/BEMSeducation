@@ -150,8 +150,8 @@
                     {% if te.is_later and is_today %}
                     <td></td>
                     {% else %}
-                    <td class="pull-right" style="vertical-align:middle">
-                        <div class="btn-group" data-toggle="buttons" role="group">
+                    <td style="vertical-align:middle">
+                        <div class="btn-group pull-right" data-toggle="buttons" role="group">
                       <label class="btn btn-outline {% if status == "P" %}active btn-success{% endif %}{% if status == "R" %}btn-warning{% endif %}{% if status == "F" %}btn-danger{% endif %} btn-attendance" id="P-{{te.pk}}-{{student.pk}}" onclick="addfalta(event);">
                         <input type="radio" name="options" autocomplete="off">
                         <i class="icon wb-check text-active" aria-hidden="true"></i>                        <div class="hidden-xs" style="display: inline">{% trans 'Present' %}</div>
