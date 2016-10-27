@@ -125,7 +125,7 @@
                 <tr>
                     <td style="vertical-align:middle" class="hidden-xs hidden-sm">
                         <a class="navbar-avatar dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" role="button">
-                          <span class="avatar {% if status == "P" %}avatar-online{% endif %}{% if status == "R" %}avatar-busy{% endif %}{% if status == "F" %}avatar-away{% endif %}" id="img-{{te.pk}}-{{student.pk}}">
+                          <span class="avatar {% if status == "P" %}avatar-online{% endif %}{% if status == "R" %}avatar-busy{% endif %}{% if status == "F" %}avatar-away{% endif %}" id="img:{{te.pk}}:{{student.pk}}">
                             <img src="{{ student.get_profile_image }}" alt="...">
                             <i></i>
                           </span>
@@ -152,15 +152,15 @@
                     {% else %}
                     <td style="vertical-align:middle">
                         <div class="btn-group pull-right" data-toggle="buttons" role="group">
-                      <label class="btn btn-outline {% if status == "P" %}active btn-success{% endif %}{% if status == "R" %}btn-warning{% endif %}{% if status == "F" %}btn-danger{% endif %} btn-attendance" id="P-{{te.pk}}-{{student.pk}}" onclick="addfalta(event);">
+                      <label class="btn btn-outline {% if status == "P" %}active btn-success{% endif %}{% if status == "R" %}btn-warning{% endif %}{% if status == "F" %}btn-danger{% endif %} btn-attendance" id="P:{{te.pk}}:{{student.pk}}" onclick="addfalta(event);">
                         <input type="radio" name="options" autocomplete="off">
                         <i class="icon wb-check text-active" aria-hidden="true"></i>                        <div class="hidden-xs" style="display: inline">{% trans 'Present' %}</div>
                       </label>
-                      <label class="btn btn-outline {% if status == "P" %}btn-success{% endif %}{% if status == "R" %}active btn-warning{% endif %}{% if status == "F" %}btn-danger{% endif %} btn-attendance" id="R-{{te.pk}}-{{student.pk}}" onclick="addfalta(event);">
+                      <label class="btn btn-outline {% if status == "P" %}btn-success{% endif %}{% if status == "R" %}active btn-warning{% endif %}{% if status == "F" %}btn-danger{% endif %} btn-attendance" id="R:{{te.pk}}:{{student.pk}}" onclick="addfalta(event);">
                         <input type="radio" name="options" autocomplete="off">
                         <i class="icon wb-time text-active" aria-hidden="true"></i>                        <div class="hidden-xs" style="display: inline">{% trans 'Delay' %}</div>
                       </label>
-                      <label class="btn btn-outline {% if status == "P" %} btn-success{% endif %}{% if status == "R" %}btn-warning{% endif %}{% if status == "F" %}active btn-danger{% endif %} btn-attendance" id="F-{{te.pk}}-{{student.pk}}" onclick="addfalta(event);">
+                      <label class="btn btn-outline {% if status == "P" %} btn-success{% endif %}{% if status == "R" %}btn-warning{% endif %}{% if status == "F" %}active btn-danger{% endif %} btn-attendance" id="F:{{te.pk}}:{{student.pk}}" onclick="addfalta(event);">
                         <input type="radio" name="options" autocomplete="off">
                         <i class="icon wb-close text-active" aria-hidden="true"></i>                        <div class="hidden-xs" style="display: inline">{% trans 'Absent' %}</div>
                       </label>
@@ -211,12 +211,11 @@
     var status = Array();
         $(".btn-attendance").click(function(event) {
             var id1 = event.target.id;
-            var pieces = id1.split("-");
-            var idimg = "img-" + pieces[1] + "-" + pieces[2];
-            var idinfo = "info-" + pieces[1] + "-" + pieces[2];
+            var pieces = id1.split(":");
+            var idimg = "img:" + pieces[1] + ":" + pieces[2];
             if(pieces[0] == "P"){
-                var id2 = "R-" + pieces[1] + "-" + pieces[2];
-                var id3 = "F-" + pieces[1] + "-" + pieces[2];
+                var id2 = "R:" + pieces[1] + ":" + pieces[2];
+                var id3 = "F:" + pieces[1] + ":" + pieces[2];
                 $("#"+id1).removeClass("btn-warning");
                 $("#"+id1).removeClass("btn-danger")
                 $("#"+id1).addClass("btn-success")
@@ -229,10 +228,10 @@
                 $("#"+idimg).addClass("avatar-online")
                 $("#"+idimg).removeClass("avatar-busy")
                 $("#"+idimg).removeClass("avatar-away")
-                status[pieces[1] + "-" + pieces[2]] = "btn-success";
+                status[pieces[1] + ":" + pieces[2]] = "btn-success";
             } else if(pieces[0] == "R"){
-                var id2 = "P-" + pieces[1] + "-" + pieces[2];
-                var id3 = "F-" + pieces[1] + "-" + pieces[2];
+                var id2 = "P:" + pieces[1] + ":" + pieces[2];
+                var id3 = "F:" + pieces[1] + ":" + pieces[2];
                 $("#"+id1).addClass("btn-warning")
                 $("#"+id1).removeClass("btn-danger")
                 $("#"+id1).removeClass("btn-success")
@@ -245,10 +244,10 @@
                 $("#"+idimg).removeClass("avatar-online")
                 $("#"+idimg).addClass("avatar-busy")
                 $("#"+idimg).removeClass("avatar-away")
-                status[pieces[1] + "-" + pieces[2]] = "btn-warning";
+                status[pieces[1] + ":" + pieces[2]] = "btn-warning";
             } else {
-                var id2 = "P-" + pieces[1] + "-" + pieces[2];
-                var id3 = "R-" + pieces[1] + "-" + pieces[2];
+                var id2 = "P:" + pieces[1] + ":" + pieces[2];
+                var id3 = "R:" + pieces[1] + ":" + pieces[2];
                 $("#"+id1).removeClass("btn-warning")
                 $("#"+id1).addClass("btn-danger")
                 $("#"+id1).removeClass("btn-success")
@@ -261,23 +260,22 @@
                 $("#"+idimg).removeClass("avatar-online")
                 $("#"+idimg).removeClass("avatar-busy")
                 $("#"+idimg).addClass("avatar-away")
-                $("#"+idinfo).hide();
-                status[pieces[1] + "-" + pieces[2]] = "btn-danger";
+                status[pieces[1] + ":" + pieces[2]] = "btn-danger";
             }
         });
         $(".btn-attendance").hover(function () {
           var id1 = this.id;
-          var pieces = id1.split("-");
+          var pieces = id1.split(":");
           if($(this).hasClass("btn-success")){
-            status[pieces[1] + "-" + pieces[2]] = "btn-success";
+            status[pieces[1] + ":" + pieces[2]] = "btn-success";
           } else if ($(this).hasClass("btn-warning")){
-            status[pieces[1] + "-" + pieces[2]] = "btn-warning";
+            status[pieces[1] + ":" + pieces[2]] = "btn-warning";
           } else {
-            status[pieces[1] + "-" + pieces[2]] = "btn-danger";
+            status[pieces[1] + ":" + pieces[2]] = "btn-danger";
           }
           if(pieces[0] == "P"){
-                var id2 = "R-" + pieces[1] + "-" + pieces[2];
-                var id3 = "F-" + pieces[1] + "-" + pieces[2];
+                var id2 = "R:" + pieces[1] + ":" + pieces[2];
+                var id3 = "F:" + pieces[1] + ":" + pieces[2];
                 $("#"+id1).removeClass("btn-warning")
                 $("#"+id1).removeClass("btn-danger")
                 $("#"+id1).addClass("btn-success")
@@ -288,8 +286,8 @@
                 $("#"+id3).removeClass("btn-danger")
                 $("#"+id3).addClass("btn-success")
             } else if(pieces[0] == "R"){
-                var id2 = "P-" + pieces[1] + "-" + pieces[2];
-                var id3 = "F-" + pieces[1] + "-" + pieces[2];
+                var id2 = "P:" + pieces[1] + ":" + pieces[2];
+                var id3 = "F:" + pieces[1] + ":" + pieces[2];
                 $("#"+id1).addClass("btn-warning")
                 $("#"+id1).removeClass("btn-danger")
                 $("#"+id1).removeClass("btn-success")
@@ -300,8 +298,8 @@
                 $("#"+id3).removeClass("btn-danger")
                 $("#"+id3).removeClass("btn-success")
             } else {
-                var id2 = "P-" + pieces[1] + "-" + pieces[2];
-                var id3 = "R-" + pieces[1] + "-" + pieces[2];
+                var id2 = "P:" + pieces[1] + ":" + pieces[2];
+                var id3 = "R:" + pieces[1] + ":" + pieces[2];
                 $("#"+id1).removeClass("btn-warning")
                 $("#"+id1).addClass("btn-danger")
                 $("#"+id1).removeClass("btn-success")
@@ -314,16 +312,16 @@
             }
         }, function (){
             var id1 = this.id;
-            var pieces = id1.split("-");
+            var pieces = id1.split(":");
             if(pieces[0] == "P"){
-                var id2 = "R-" + pieces[1] + "-" + pieces[2];
-                var id3 = "F-" + pieces[1] + "-" + pieces[2];
+                var id2 = "R:" + pieces[1] + ":" + pieces[2];
+                var id3 = "F:" + pieces[1] + ":" + pieces[2];
             } else if(pieces[0] == "R"){
-                var id2 = "P-" + pieces[1] + "-" + pieces[2];
-                var id3 = "F-" + pieces[1] + "-" + pieces[2];
+                var id2 = "P:" + pieces[1] + ":" + pieces[2];
+                var id3 = "F:" + pieces[1] + ":" + pieces[2];
             } else {
-                var id2 = "P-" + pieces[1] + "-" + pieces[2];
-                var id3 = "R-" + pieces[1] + "-" + pieces[2];
+                var id2 = "P:" + pieces[1] + ":" + pieces[2];
+                var id3 = "R:" + pieces[1] + ":" + pieces[2];
             }
             $("#"+id1).removeClass("btn-warning")
             $("#"+id1).removeClass("btn-danger")
@@ -334,9 +332,9 @@
             $("#"+id3).removeClass("btn-warning")
             $("#"+id3).removeClass("btn-danger")
             $("#"+id3).removeClass("btn-success")
-            $("#"+id1).addClass(status[pieces[1] + "-" + pieces[2]])
-            $("#"+id2).addClass(status[pieces[1] + "-" + pieces[2]])
-            $("#"+id3).addClass(status[pieces[1] + "-" + pieces[2]])
+            $("#"+id1).addClass(status[pieces[1] + ":" + pieces[2]])
+            $("#"+id2).addClass(status[pieces[1] + ":" + pieces[2]])
+            $("#"+id3).addClass(status[pieces[1] + ":" + pieces[2]])
         });
     });
     /*$('a[href^="#"]').click(function() {
