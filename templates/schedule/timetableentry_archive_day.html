@@ -211,11 +211,11 @@
     var status = Array();
         $(".btn-attendance").click(function(event) {
             var id1 = event.target.id;
-            var pieces = id1.split(":");
-            var idimg = "img:" + pieces[1] + ":" + pieces[2];
+            var pieces = id1.split("_");
+            var idimg = "img_" + pieces[1] + "_" + pieces[2];
             if(pieces[0] == "P"){
-                var id2 = "R:" + pieces[1] + ":" + pieces[2];
-                var id3 = "F:" + pieces[1] + ":" + pieces[2];
+                var id2 = "R_" + pieces[1] + "_" + pieces[2];
+                var id3 = "F_" + pieces[1] + "_" + pieces[2];
                 $("#"+id1).removeClass("btn-warning");
                 $("#"+id1).removeClass("btn-danger")
                 $("#"+id1).addClass("btn-success")
@@ -228,10 +228,10 @@
                 $("#"+idimg).addClass("avatar-online")
                 $("#"+idimg).removeClass("avatar-busy")
                 $("#"+idimg).removeClass("avatar-away")
-                status[pieces[1] + ":" + pieces[2]] = "btn-success";
+                status[pieces[1] + "_" + pieces[2]] = "btn-success";
             } else if(pieces[0] == "R"){
-                var id2 = "P:" + pieces[1] + ":" + pieces[2];
-                var id3 = "F:" + pieces[1] + ":" + pieces[2];
+                var id2 = "P_" + pieces[1] + "_" + pieces[2];
+                var id3 = "F_" + pieces[1] + "_" + pieces[2];
                 $("#"+id1).addClass("btn-warning")
                 $("#"+id1).removeClass("btn-danger")
                 $("#"+id1).removeClass("btn-success")
@@ -244,10 +244,10 @@
                 $("#"+idimg).removeClass("avatar-online")
                 $("#"+idimg).addClass("avatar-busy")
                 $("#"+idimg).removeClass("avatar-away")
-                status[pieces[1] + ":" + pieces[2]] = "btn-warning";
+                status[pieces[1] + "_" + pieces[2]] = "btn-warning";
             } else {
-                var id2 = "P:" + pieces[1] + ":" + pieces[2];
-                var id3 = "R:" + pieces[1] + ":" + pieces[2];
+                var id2 = "P_" + pieces[1] + "_" + pieces[2];
+                var id3 = "R_" + pieces[1] + "_" + pieces[2];
                 $("#"+id1).removeClass("btn-warning")
                 $("#"+id1).addClass("btn-danger")
                 $("#"+id1).removeClass("btn-success")
@@ -260,22 +260,22 @@
                 $("#"+idimg).removeClass("avatar-online")
                 $("#"+idimg).removeClass("avatar-busy")
                 $("#"+idimg).addClass("avatar-away")
-                status[pieces[1] + ":" + pieces[2]] = "btn-danger";
+                status[pieces[1] + "_" + pieces[2]] = "btn-danger";
             }
         });
         $(".btn-attendance").hover(function () {
           var id1 = this.id;
-          var pieces = id1.split(":");
+          var pieces = id1.split("_");
           if($(this).hasClass("btn-success")){
-            status[pieces[1] + ":" + pieces[2]] = "btn-success";
+            status[pieces[1] + "_" + pieces[2]] = "btn-success";
           } else if ($(this).hasClass("btn-warning")){
-            status[pieces[1] + ":" + pieces[2]] = "btn-warning";
+            status[pieces[1] + "_" + pieces[2]] = "btn-warning";
           } else {
-            status[pieces[1] + ":" + pieces[2]] = "btn-danger";
+            status[pieces[1] + "_" + pieces[2]] = "btn-danger";
           }
           if(pieces[0] == "P"){
-                var id2 = "R:" + pieces[1] + ":" + pieces[2];
-                var id3 = "F:" + pieces[1] + ":" + pieces[2];
+                var id2 = "R_" + pieces[1] + "_" + pieces[2];
+                var id3 = "F_" + pieces[1] + "_" + pieces[2];
                 $("#"+id1).removeClass("btn-warning")
                 $("#"+id1).removeClass("btn-danger")
                 $("#"+id1).addClass("btn-success")
@@ -286,8 +286,8 @@
                 $("#"+id3).removeClass("btn-danger")
                 $("#"+id3).addClass("btn-success")
             } else if(pieces[0] == "R"){
-                var id2 = "P:" + pieces[1] + ":" + pieces[2];
-                var id3 = "F:" + pieces[1] + ":" + pieces[2];
+                var id2 = "P_" + pieces[1] + "_" + pieces[2];
+                var id3 = "F_" + pieces[1] + "_" + pieces[2];
                 $("#"+id1).addClass("btn-warning")
                 $("#"+id1).removeClass("btn-danger")
                 $("#"+id1).removeClass("btn-success")
@@ -298,8 +298,8 @@
                 $("#"+id3).removeClass("btn-danger")
                 $("#"+id3).removeClass("btn-success")
             } else {
-                var id2 = "P:" + pieces[1] + ":" + pieces[2];
-                var id3 = "R:" + pieces[1] + ":" + pieces[2];
+                var id2 = "P_" + pieces[1] + "_" + pieces[2];
+                var id3 = "R_" + pieces[1] + "_" + pieces[2];
                 $("#"+id1).removeClass("btn-warning")
                 $("#"+id1).addClass("btn-danger")
                 $("#"+id1).removeClass("btn-success")
@@ -312,16 +312,16 @@
             }
         }, function (){
             var id1 = this.id;
-            var pieces = id1.split(":");
+            var pieces = id1.split("_");
             if(pieces[0] == "P"){
-                var id2 = "R:" + pieces[1] + ":" + pieces[2];
-                var id3 = "F:" + pieces[1] + ":" + pieces[2];
+                var id2 = "R_" + pieces[1] + "_" + pieces[2];
+                var id3 = "F_" + pieces[1] + "_" + pieces[2];
             } else if(pieces[0] == "R"){
-                var id2 = "P:" + pieces[1] + ":" + pieces[2];
-                var id3 = "F:" + pieces[1] + ":" + pieces[2];
+                var id2 = "P_" + pieces[1] + "_" + pieces[2];
+                var id3 = "F_" + pieces[1] + "_" + pieces[2];
             } else {
-                var id2 = "P:" + pieces[1] + ":" + pieces[2];
-                var id3 = "R:" + pieces[1] + ":" + pieces[2];
+                var id2 = "P_" + pieces[1] + "_" + pieces[2];
+                var id3 = "R_" + pieces[1] + "_" + pieces[2];
             }
             $("#"+id1).removeClass("btn-warning")
             $("#"+id1).removeClass("btn-danger")
@@ -332,9 +332,9 @@
             $("#"+id3).removeClass("btn-warning")
             $("#"+id3).removeClass("btn-danger")
             $("#"+id3).removeClass("btn-success")
-            $("#"+id1).addClass(status[pieces[1] + ":" + pieces[2]])
-            $("#"+id2).addClass(status[pieces[1] + ":" + pieces[2]])
-            $("#"+id3).addClass(status[pieces[1] + ":" + pieces[2]])
+            $("#"+id1).addClass(status[pieces[1] + "_" + pieces[2]])
+            $("#"+id2).addClass(status[pieces[1] + "_" + pieces[2]])
+            $("#"+id3).addClass(status[pieces[1] + "_" + pieces[2]])
         });
     });
     /*$('a[href^="#"]').click(function() {
