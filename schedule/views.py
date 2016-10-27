@@ -40,7 +40,7 @@ class CallView(DayArchiveView):
         return context
 
     def get_queryset(self):
-        return super(CallView, self).get_queryset().filter(teacher=self.request.profile)
+        return super(CallView, self).get_queryset().filter(weekly_timetable_entry__teacher=self.request.profile)
 
 
 class TodayCallView(TodayArchiveView):
@@ -54,4 +54,4 @@ class TodayCallView(TodayArchiveView):
         return context
 
     def get_queryset(self):
-        return super(TodayCallView, self).get_queryset().filter(teacher=self.request.profile)
+        return super(TodayCallView, self).get_queryset().filter(weekly_timetable_entry__teacher=self.request.profile)
