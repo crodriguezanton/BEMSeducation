@@ -186,7 +186,7 @@ def generate_timetable_entries(semester):
         print(day)
         fwtes = wtes.filter(day=ClassDay.objects.filter(day=day.isoweekday()).first())
         for fwte in fwtes:
-            print('\t'+fwte)
+            print('\t'+fwte.__unicode__())
             TimetableEntry.objects.get_or_create(
                 weekly_timetable_entry=fwte,
                 date=day,
