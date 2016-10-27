@@ -183,8 +183,10 @@ def generate_timetable_entries(semester):
     wtes=WeeklyTimetableEntry.objects.all()
     for i in range(delta.days + 1):
         day = semester.start + timedelta(days=i)
+        print(day)
         fwtes = wtes.filter(day=ClassDay.objects.filter(day=day.isoweekday()).first())
         for fwte in fwtes:
+            print('\t'+fwte)
             TimetableEntry.objects.get_or_create(
                 weekly_timetable_entry=fwte,
                 date=day,
