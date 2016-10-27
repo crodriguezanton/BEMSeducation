@@ -187,7 +187,7 @@ class TimetableEntry(models.Model):
 
     def get_student_list(self):
 
-        return Student.objects.all()
+        return Student.objects.filter(studentstatus__group=self.weekly_timetable_entry.group)
 
     def get_student_status(self, student):
 
