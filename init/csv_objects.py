@@ -24,7 +24,6 @@ class AulesCSV(CsvModel):
 
     class Meta:
         delimiter = ","
-        dbModel = Classroom
 
 
 class GrupsCSV(CsvModel):

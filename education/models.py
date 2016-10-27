@@ -22,6 +22,8 @@ class Parent(BEMSProfile):
         verbose_name = _("Parent Profile")
         verbose_name_plural = _("Parent Profiles")
 
+    contact_email = models.EmailField(blank=True, null=True)
+
     @staticmethod
     def get_profile_name():
         return _("Parent")
@@ -33,7 +35,8 @@ class Student(BEMSProfile):
         verbose_name = _("Student Profile")
         verbose_name_plural = _("Student Profiles")
 
-    responsible = models.ManyToManyField(Parent)
+    address = models.TextField(blank=True, null=True)
+    responsible = models.ManyToManyField(Parent, blank=True, null=True)
 
     @staticmethod
     def get_profile_name():

@@ -24,7 +24,7 @@ class YearEnroll(models.Model):
 
 class StudentStatus(models.Model):
     student = models.OneToOneField(Student)
-    group = models.OneToOneField(Group)
+    group = models.ForeignKey(Group)
 
 
 class SubjectEnroll(models.Model):
