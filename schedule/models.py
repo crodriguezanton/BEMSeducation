@@ -220,7 +220,7 @@ class NonLectiveDates(NonLectivePeriod):
 
     def is_active(self, dt):
         day = dt.date()
-        return not (self.start < day and self.end > day)
+        return self.start > day or self.end < day
 
 
 class NonLectiveDay(NonLectivePeriod):
@@ -236,7 +236,7 @@ class NonLectiveHours(NonLectivePeriod):
     end = models.DateTimeField()
 
     def is_active(self, dt):
-        return not (self.start < dt and self.end > dt)
+        return self.start > dt or self.end < dt
 
 
 class ClassTrip(NonLectivePeriod):
@@ -247,4 +247,4 @@ class ClassTrip(NonLectivePeriod):
     students = models.ManyToManyField(Student, blank=True)
 
     def is_active(self, dt):
-        return not (self.start < dt and self.end > dt)
+        return self.start > dt or self.end < dt
