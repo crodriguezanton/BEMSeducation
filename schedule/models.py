@@ -14,7 +14,6 @@ from schedule.constants import DAY_CHOICES
 
 
 class Semester(TimeFramedModel):
-
     class Meta:
         verbose_name = _('Semester')
         verbose_name_plural = _('Semesters')
@@ -29,7 +28,6 @@ class Semester(TimeFramedModel):
 
 
 class SchoolYear(models.Model):
-
     class Meta:
         verbose_name = _('School Year')
         verbose_name_plural = _('School Years')
@@ -55,7 +53,6 @@ class SubjectCategory(models.Model):
 
 
 class Subject(models.Model):
-
     class Meta:
         verbose_name = _('Subject')
         verbose_name_plural = _('Subjects')
@@ -75,7 +72,6 @@ class Subject(models.Model):
 
 
 class ClassDay(models.Model):
-
     class Meta:
         verbose_name = _('Class Day')
         verbose_name_plural = _('Class Days')
@@ -102,7 +98,6 @@ class ClassDay(models.Model):
 
 
 class ClassUnit(models.Model):
-
     class Meta:
         verbose_name = _('Class Unit')
         verbose_name_plural = _('Class Units')
@@ -131,7 +126,6 @@ class ClassUnit(models.Model):
 
 
 class WeeklyTimetableEntry(models.Model):
-
     class Meta:
         verbose_name = _('Weekly Timetable Entry')
         verbose_name_plural = _('Weekly Timetable Entries')
@@ -174,11 +168,15 @@ class WeeklyTimetableEntry(models.Model):
         return self.time.is_before_or_current()
 
     def class_active(self, day):
-        return True #TODO
+        dt = datetime.combine(day, self.unit.start)
+        nonlectives = NonLectivePeriod.objects.filter(instance=self.instance)
+        for nlective in nonlectives:
+            if not nlective.is_active(dt):
+                return False
+        return True
 
 
 class TimetableEntry(models.Model):
-
     class Meta:
         verbose_name = _('Timetable Entry')
         verbose_name_plural = _('Timetable Entry')
@@ -208,29 +206,45 @@ class NonLectivePeriod(PolymorphicModel):
 
     instance = models.ForeignKey(BEMSeducationInstance)
     institution = models.ForeignKey(Institution, blank=True, null=True)
-    stages = models.ManyToManyField(Stage)
-    grades = models.ManyToManyField(Grade)
-    groups = models.ManyToManyField(Group)
+    stages = models.ManyToManyField(Stage, blank=True)
+    grades = models.ManyToManyField(Grade, blank=True)
+    groups = models.ManyToManyField(Group, blank=True)
 
     def all_institution(self):
         return not (self.stages.count() and self.grades.count() and self.groups.count())
 
 
-class NonLectiveDay(NonLectivePeriod):
+class NonLectiveDates(NonLectivePeriod):
+    start = models.DateField()
+    end = models.DateField()
 
+    def is_active(self, dt):
+        day = dt.date()
+        return not (self.start < day and self.end > day)
+
+
+class NonLectiveDay(NonLectivePeriod):
     day = models.DateField()
+
+    def is_active(self, dt):
+        day = dt.date()
+        return not self.day == day
 
 
 class NonLectiveHours(NonLectivePeriod):
-
     start = models.DateTimeField()
     end = models.DateTimeField()
 
+    def is_active(self, dt):
+        return not (self.start < dt and self.end > dt)
+
 
 class ClassTrip(NonLectivePeriod):
-
     start = models.DateTimeField()
     end = models.DateTimeField()
     location = models.CharField(max_length=200)
     description = models.TextField()
-    students = models.ManyToManyField(Student)
+    students = models.ManyToManyField(Student, blank=True)
+
+    def is_active(self, dt):
+        return not (self.start < dt and self.end > dt)

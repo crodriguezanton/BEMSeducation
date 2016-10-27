@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
+from datetime import timedelta
 from django.db.models import Q
 
 from education.models import Student, Teacher, Parent, BEMSeducationInstance
 from enrollment.models import StudentStatus, YearEnroll
 from institution.models import Group, Institution
-from schedule.models import Subject, WeeklyTimetableEntry, ClassDay, ClassUnit, SchoolYear
+from schedule.models import Subject, WeeklyTimetableEntry, ClassDay, ClassUnit, SchoolYear, TimetableEntry
 from .csv_objects import *
 
 
@@ -174,3 +175,18 @@ def import_timetable(path, instance, institution = None):
         )
 
         print('Imported: ' + entry.subject + " " + str(entry.date) + " " + str(entry.time))
+
+
+def generate_timetable_entries(semester):
+
+    delta = semester.end - semester.start
+    wtes=WeeklyTimetableEntry.objects.all()
+    for i in range(delta.days + 1):
+        day = semester.start + timedelta(days=i)
+        fwtes = wtes.filter(day=ClassDay.objects.filter(day=day.isoweekday()).first())
+        for fwte in fwtes:
+            TimetableEntry.objects.get_or_create(
+                weekly_timetable_entry=fwte,
+                date=day,
+                active=fwte.class_active(day)
+            )

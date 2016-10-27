@@ -36,7 +36,7 @@ class Student(BEMSProfile):
         verbose_name_plural = _("Student Profiles")
 
     address = models.TextField(blank=True, null=True)
-    responsible = models.ManyToManyField(Parent, blank=True, null=True)
+    responsible = models.ManyToManyField(Parent, blank=True)
 
     @staticmethod
     def get_profile_name():
