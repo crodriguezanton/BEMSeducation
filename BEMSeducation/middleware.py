@@ -8,7 +8,8 @@ class ProfileMiddleware(object):
         # Code to be executed for each request before
         # the view (and later middleware) are called.
 
-        request.profile = request.user.bemsuser.bemsprofile_set.first()
+        if request.user.is_authenticated():
+            request.profile = request.user.bemsuser.bemsprofile_set.first()
 
         response = self.get_response(request)
 
