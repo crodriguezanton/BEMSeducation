@@ -9,7 +9,8 @@ class ProfileMiddleware(object):
         # the view (and later middleware) are called.
 
         if request.user.is_authenticated():
-            request.profile = request.user.bemsuser.bemsprofile_set.first()
+            if hasattr(request.user, 'bemsuser'):
+                request.profile = request.user.bemsuser.bemsprofile_set.first()
 
         response = self.get_response(request)
 

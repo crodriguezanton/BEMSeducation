@@ -200,3 +200,12 @@ class RodesCSV(CsvModel):
 
     class Meta:
         delimiter = ';'
+
+
+class TeacherEmailCSV(CsvModel):
+    name = CharField()
+    email = CharField()
+
+    class Meta:
+        delimiter = ","
+        has_header = True
