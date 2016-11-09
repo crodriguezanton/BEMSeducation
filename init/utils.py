@@ -195,7 +195,7 @@ def generate_timetable_entries(semester):
                 active=fwte.class_active(day)
             )
 
-            
+
 def import_teacher_emails(path):
     csv = TeacherEmailCSV.import_data(data=open(path, 'rb'))
 
