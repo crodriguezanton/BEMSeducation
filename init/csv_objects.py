@@ -208,4 +208,3 @@ class TeacherEmailCSV(CsvModel):
 
     class Meta:
         delimiter = ","
-        has_header = True
