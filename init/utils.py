@@ -3,7 +3,7 @@ from __future__ import print_function
 
 from datetime import timedelta
 
-from BEMSauth.models import BEMSProfile
+from BEMSauth.models import BEMSProfile, UserRequest
 from django.db.models import Q
 
 from education.models import Student, Teacher, Parent, BEMSeducationInstance
@@ -196,9 +196,17 @@ def generate_timetable_entries(semester):
             )
 
 
-def import_teacher_emails(path):
-    csv = TeacherEmailCSV.import_data(data=open(path, 'rb'))
+def create_teacher_requests():
 
-    for entry in csv:
-        name_split = entry.name.split(",")
-        BEMSProfile.profile_search(first_name=name_split[-1], last_name=name_split[0])
+    teachers = Teacher.objects.filter(bemsuser=None)
+
+    for teacher in teachers:
+        print(teacher.__unicode__())
+        email = raw_input("email: ")
+
+        if email != "":
+            UserRequest.objects.create(
+                name = teacher.first_name,
+                email = email,
+                profile = teacher
+            )
