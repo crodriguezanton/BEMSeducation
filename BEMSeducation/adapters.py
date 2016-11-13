@@ -8,12 +8,6 @@ class AccountAdapter(DefaultAccountAdapter):
     def save_user(self, request, user, form, commit=True):
         user = super(AccountAdapter, self).save_user(request, user, form, commit=commit)
         request_id = form.cleaned_data.get('profile', "")
-        first_name = form.cleaned_data.get('first_name', "")
-        last_name = form.cleaned_data.get('last_name', "")
-
-        user.first_name = first_name
-        user.last_name = last_name
-        user.save()
 
         if not hasattr(user, 'bemsuser'):
             BEMSUser.objects.create(user=user)
@@ -32,3 +26,6 @@ class AccountAdapter(DefaultAccountAdapter):
         else:
             raise SuspiciousOperation()
         return user
+
+    def get_login_redirect_url(self, request):
+        return 'http://edu.bems.cat'
