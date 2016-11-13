@@ -20,13 +20,14 @@ from django.template import RequestContext
 
 from BEMSeducation import settings
 from education.views import MaintenanceView
+from institution.views import DashboardView
 
 urlpatterns = [
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('BEMSauth.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^$', MaintenanceView.as_view(), name='index'),
+    url(r'^$', DashboardView.as_view(), name='index'),
     url(r'^attendance/', include('attendance.urls', namespace='attendance')),
     url(r'^enrollment/', include('enrollment.urls', namespace='enrollment')),
     url(r'^institution/', include('institution.urls', namespace='institution')),
