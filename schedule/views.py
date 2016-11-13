@@ -45,7 +45,6 @@ class CallView(DayArchiveView):
 
 class TodayCallView(TodayArchiveView):
     model = TimetableEntry
-    date_field = 'date'
     allow_empty = True
 
     def get_context_data(self, **kwargs):
