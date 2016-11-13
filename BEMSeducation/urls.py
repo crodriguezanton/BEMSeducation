@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^attendance/', include('attendance.urls', namespace='attendance')),
     url(r'^enrollment/', include('enrollment.urls', namespace='enrollment')),
     url(r'^institution/', include('institution.urls', namespace='institution')),
-    url(r'schedule/', include('schedule.urls', namespace='schedule')),
+    url(r'^schedule/', include('schedule.urls', namespace='schedule')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 
@@ -44,6 +44,7 @@ if settings.DEBUG:
     urlpatterns += [
         url(r'^__debug__/', include(debug_toolbar.urls)),
     ]
+
 
 def handler404(request):
     response = render_to_response('special/404.html')
