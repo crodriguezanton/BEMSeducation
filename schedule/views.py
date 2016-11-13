@@ -34,6 +34,7 @@ class CallView(DayArchiveView):
     allow_future = True
     allow_empty = False
     month_format = '%m'
+    ordering = 'weekly_timetable_entry__unit__start'
 
     def dispatch(self, request, *args, **kwargs):
         if not self.kwargs.has_key('year'):
