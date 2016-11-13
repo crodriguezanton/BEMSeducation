@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from datetime import datetime
 from django.views.generic import TemplateView
-from django.views.generic.dates import DayArchiveView, TodayArchiveView
+from django.views.generic.dates import DayArchiveView, TodayArchiveView, _date_from_string
 
 from education.models import Teacher
 from schedule.models import TimetableEntry, ClassUnit, ClassDay
@@ -33,6 +34,29 @@ class CallView(DayArchiveView):
     allow_future = True
     allow_empty = False
     month_format = '%m'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.kwargs.has_key('year'):
+            now = datetime.now()
+            self.kwargs['year'] = now.strftime('%Y')
+            self.kwargs['month'] = now.strftime('%m')
+            self.kwargs['day'] = now.strftime('%d')
+        return super(CallView, self).dispatch(request, *args, **kwargs)
+
+    def get_dated_items(self):
+        """
+        Return (date_list, items, extra_context) for this request.
+        """
+
+        year = self.get_year()
+        month = self.get_month()
+        day = self.get_day()
+
+        date = _date_from_string(year, self.get_year_format(),
+                                 month, self.get_month_format(),
+                                 day, self.get_day_format())
+
+        return self._get_dated_items(date)
 
     def get_context_data(self, **kwargs):
         context = super(CallView, self).get_context_data()
