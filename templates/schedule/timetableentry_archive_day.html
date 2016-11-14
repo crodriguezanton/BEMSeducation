@@ -342,10 +342,13 @@
         return false;
         e.preventDefault();
     });*/
+    var test;
     function addfalta(event){
-        console.log(event.target.id);
+        test = event.target;
+        console.log(event.target);
         var pieces = event.target.id.split("_");
         if (pieces.length < 3) {
+            console.log()
             pieces = $("#"+event.target.id).parent('label').get(0).id.split("_");
         }
         var data = { status: pieces[0], entry: pieces[1], student: pieces[2]};
