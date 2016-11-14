@@ -57,6 +57,7 @@ ADDON_APPS = [
     'rosetta',
     'polymorphic',
     'django_extensions'
+    'analytical',
     # 'easy_thumbnails',
     # 'filer',
     # 'mptt',
@@ -185,3 +186,6 @@ YANDEX_TRANSLATE_KEY = 'trnsl.1.1.20161006T211337Z.1fd2f2567935d26b.534684f65a63
 INTERNAL_IPS = ['127.0.0.1']
 ACCOUNT_ADAPTER = 'BEMSeducation.adapters.AccountAdapter'
 #ACCOUNT_SIGNUP_FORM_CLASS = 'BEMSeducation.forms.SignupForm'
+
+MIXPANEL_API_TOKEN = "eaca9e120564d78a73c803435fd03710"
+GOOGLE_ANALYTICS_PROPERTY_ID = "UA-87367950-1"

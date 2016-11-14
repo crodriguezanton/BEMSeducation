@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-{% load i18n %}
+{% load i18n analytical %}
 <html class="no-js css-menubar" lang="en">
 <head>
+{% analytical_head_top %}
     {% block meta %}
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,8 +69,10 @@
     <script>
         Breakpoints();
     </script>
+{% analytical_head_bottom %}
 </head>
 <body>
+{% analytical_body_top %}
 <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -478,5 +481,6 @@
 {% include 'layout/sections/footer.html' %}
 {% include 'layout/sections/scripts.html' %}
 {% block extra_js %}{% endblock %}
+{% analytical_body_bottom %}
 </body>
 </html>
