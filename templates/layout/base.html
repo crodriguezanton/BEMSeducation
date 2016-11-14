@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="Beat.bcn">
     {% endblock meta %}
-    <title>{% block title %}{% endblock title %}</title>
+    <title>{% block title %}BEMS.xyz{% endblock title %}</title>
 
     <link rel="apple-touch-icon" sizes="57x57" href="/static/fav/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/static/fav/apple-touch-icon-60x60.png">
@@ -45,6 +45,8 @@
         <link rel="stylesheet" href="/static/vendor/intro-js/introjs.css">
         <link rel="stylesheet" href="/static/vendor/slidepanel/slidePanel.css">
         <link rel="stylesheet" href="/static/vendor/flag-icon-css/flag-icon.css">
+        <!-- Skin -->
+        <link id="skinStyle" href="/static/skins/{{ request.instance.theme|default:"red" }}.css" rel="stylesheet" type="text/css">
         <!-- Fonts -->
         <link rel="stylesheet" href="/static/fonts/web-icons/web-icons.min.css">
         <link rel="stylesheet" href="/static/fonts/brand-icons/brand-icons.min.css">

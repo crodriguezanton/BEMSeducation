@@ -195,7 +195,7 @@
             today: "Avui",
             clear: "Esborrar",
             weekStart: 1,
-            format: "dd/mm/yyyy"
+            format: "yyyy/mm/dd"
         };
         $('#inlineDatepicker').datepicker({
             weekStart: 1,
@@ -206,7 +206,7 @@
         $("#inlineDatepicker").on("changeDate", function(event) {
           $("#inputHiddenInline").val(
           );
-            document.getElementById("changeDateButton").href = "/attendance/call/date/" + $("#inlineDatepicker").datepicker('getFormattedDate');
+            document.getElementById("changeDateButton").href = "/attendance/call/archive/" + $("#inlineDatepicker").datepicker('getFormattedDate');
         });
     var status = Array();
         $(".btn-attendance").click(function(event) {
@@ -342,16 +342,13 @@
         return false;
         e.preventDefault();
     });*/
-    /*function addfalta(event){
+    function addfalta(event){
         console.log(event.target.id);
-        var pieces = event.target.id.split("-");
-        var day = $("#day").val();
-        console.log(day);
-        var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
+        var pieces = event.target.id.split("_");
         $.ajax({
-            url : "/schedule/add_entry/", // the endpoint
+            url : "{% url 'attendance:entry-add' %}", // the endpoint
             type : "POST", // http method
-            data : { day: day, status: pieces[0], unit: pieces[1], student: pieces[2]}, // data sent with the post request
+            data : { status: pieces[0], entry: pieces[1], student: pieces[2]}, // data sent with the post request
             // handle a successful response
             success : function(json) {
                 console.log(json); // log the returned json to the console
@@ -364,6 +361,6 @@
                 //console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
             }
         });
-    }*/
+    }
 </script>
 {% endblock %}
