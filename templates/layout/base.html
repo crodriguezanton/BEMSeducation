@@ -50,6 +50,7 @@
         <link rel="stylesheet" href="/static/fonts/brand-icons/brand-icons.min.css">
         <link rel="stylesheet" href="/static/fonts/font-awesome/font-awesome.min.css">
         <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,300,100,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     {% endblock css %}
     {% block extra_css %}{% endblock %}
     <!--[if lt IE 9]>
@@ -82,8 +83,10 @@
             <i class="icon wb-more-horizontal" aria-hidden="true"></i>
         </button>
         <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
-            <img class="navbar-brand-logo" src="/static/img/beatbcn.png" title="BEMS.xyz">
-            <span class="navbar-brand-text hidden-xs"> BEMS.xyz</span>
+            {% block BEMSheader %}
+                <img class="navbar-brand-logo" src="{% if request.instance.logo %}{{ request.instance.logo.url }}{% else %}/static/img/beatbcn.png{% endif %}" title="Beat.bcn" style="-webkit-filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 1));">
+                <span class="navbar-brand-text hidden-xs" style="font-weight: 300; font-family: Lato, sans-serif"> {% if request.instance %} {{ request.instance.name }} {% else %} BEMS.xyz {% endif %} </span>
+            {% endblock %}
         </div>
         <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-search"
                 data-toggle="collapse">

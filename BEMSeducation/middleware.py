@@ -11,6 +11,8 @@ class ProfileMiddleware(object):
         if request.user.is_authenticated():
             if hasattr(request.user, 'bemsuser'):
                 request.profile = request.user.bemsuser.bemsprofile_set.first()
+                if request.profile:
+                    request.instance = request.profile.bemsinstance
 
         response = self.get_response(request)
 
