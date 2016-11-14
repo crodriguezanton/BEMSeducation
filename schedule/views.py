@@ -1,3 +1,4 @@
+from django.core.exceptions import SuspiciousOperation
 from django.http import JsonResponse
 from django.shortcuts import render
 from datetime import datetime
@@ -74,7 +75,7 @@ class CallView(DayArchiveView):
 
 @csrf_exempt
 def add_entry(request):
-    if request.POST.has_key('day'):
+    if request.POST.has_key('entry'):
 
         student = Student.objects.get(pk=request.POST.get('student'))
         entryquery = AttendanceEntry.objects.filter(student=student, timetable_entry__pk=request.POST.get('entry'))
@@ -93,4 +94,4 @@ def add_entry(request):
 
         return JsonResponse({'success': True, 'entryquery': entryquery.count()})
 
-    return JsonResponse({'success': False})
+    return SuspiciousOperation()
