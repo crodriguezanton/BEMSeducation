@@ -56,7 +56,7 @@ ADDON_APPS = [
     'raven.contrib.django.raven_compat',
     'rosetta',
     'polymorphic',
-    'django_extensions'
+    'django_extensions',
     'analytical',
     # 'easy_thumbnails',
     # 'filer',
