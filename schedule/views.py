@@ -74,7 +74,7 @@ class CallView(DayArchiveView):
 
 @csrf_exempt
 def add_entry(request):
-    return JsonResponse(request.POST)
+
     if request.POST.has_key('entry'):
 
         student = Student.objects.get(pk=request.POST.get('student'))
