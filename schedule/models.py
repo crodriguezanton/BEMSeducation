@@ -51,6 +51,9 @@ class SubjectCategory(models.Model):
     instance = models.ForeignKey(BEMSeducationInstance)
     institution = models.ForeignKey(Institution, blank=True, null=True)
 
+    def __unicode__(self):
+        return self.short_name + ": " + self.name
+
 
 class Subject(models.Model):
     class Meta:
