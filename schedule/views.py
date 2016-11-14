@@ -1,4 +1,3 @@
-from django.core.exceptions import SuspiciousOperation
 from django.http import JsonResponse
 from django.shortcuts import render
 from datetime import datetime
@@ -88,10 +87,12 @@ def add_entry(request):
                 entry = entryquery[0]
                 entry.type = request.POST.get('status')
             else:
-                entry = AttendanceEntry(student=student, timetable_entry = TimetableEntry.objects.get(pk=request.POST.get('entry')), type=request.POST.get('status'))
+                entry = AttendanceEntry(student=student,
+                                        timetable_entry=TimetableEntry.objects.get(pk=request.POST.get('entry')),
+                                        type=request.POST.get('status'))
 
             entry.save()
 
         return JsonResponse({'success': True, 'entryquery': entryquery.count()})
 
-    return SuspiciousOperation()
+    return JsonResponse({'success': False})
