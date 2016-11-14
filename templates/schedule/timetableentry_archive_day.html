@@ -212,6 +212,9 @@
         $(".btn-attendance").click(function(event) {
             var id1 = event.target.id;
             var pieces = id1.split("_");
+            if (pieces.length < 3) {
+                pieces = $(event.target).parent('label').get(0).id.split("_");
+            }
             var idimg = "img_" + pieces[1] + "_" + pieces[2];
             if(pieces[0] == "P"){
                 var id2 = "R_" + pieces[1] + "_" + pieces[2];
