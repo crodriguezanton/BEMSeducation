@@ -345,6 +345,9 @@
     function addfalta(event){
         console.log(event.target.id);
         var pieces = event.target.id.split("_");
+        if (pieces.length < 3) {
+            pieces = $("#"+event.target.id).parent('label').id.split("_");
+        }
         var data = { status: pieces[0], entry: pieces[1], student: pieces[2]};
         console.log(data);
         $.ajax({
