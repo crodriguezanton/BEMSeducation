@@ -1,0 +1,153 @@
+{% extends 'layout/base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <div class="pearls row">
+        <div class="pearl current col-xs-4" id="progress-1">
+            <span class="pearl-number">1</span>
+            <span class="pearl-title">Tipus d'incidència</span>
+        </div>
+        <div class="pearl col-xs-4 " id="progress-2">
+            <span class="pearl-number">2</span>
+            <span class="pearl-title">Detalls</span>
+        </div>
+        <div class="pearl col-xs-4" id="progress-3">
+            <span class="pearl-number">3</span>
+            <span class="pearl-title">Envia</span>
+        </div>
+    </div>
+
+    <div class="panel" style="max-width: 900px; margin-right: auto; margin-left: auto;" id="step-1">
+        <div class="panel-heading">
+              <h2 class="panel-title">Nou incident</h2>
+            </div>
+            <div class="panel-body">
+              <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Alumne/a</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" multiple data-plugin="select2" data-placeholder="Cerca" id="student">
+                                {% for student in students %}
+                                    <option value="{{student.pk}}">{{student.first_name}} {{student.last_name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    {% if user.is_superuser %}
+                    <div class="form-group">
+                    {% else %}
+                    <div class="form-group" style="display:none">
+                    {% endif %}
+                        <label class="control-label col-sm-2">Professor/a</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" data-plugin="select2" data-placeholder="Cerca" id="teacher">
+                                {% for teacher in teachers %}
+                                    {% if teacher == profile %}
+                                    <option value="{{teacher.pk}}" selected>{{teacher.first_name}} {{teacher.last_name}}</option>
+                                    {% else %}
+                                    <option value="{{teacher.pk}}">{{teacher.first_name}} {{teacher.last_name}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Dia</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" data-plugin="datepicker" id="datepicker">
+                        </div>
+                        <label class="control-label col-sm-1">Hora</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" data-plugin="select2" data-placeholder="Selecciona l'hora" data-allow-clear="true" id="unit">
+                                {% for unit in units %}
+                                    <option value="{{unit.pk}}">{{unit.start|date:'H:i'}} - {{unit.end|date:'H:i'}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Descripció</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="description" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Càstig proposat <small>(opcional)</small></label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="comments" rows="5"></textarea>
+                        </div>
+                    </div>
+                    {% if user.is_superuser %}
+                    <hr>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Càstig</label>
+                        <div class="col-sm-5">
+                            <select class="form-control" data-plugin="select2" data-placeholder="Selecciona tipus de cástig" data-allow-clear="true" id="punishmentType">
+                                {% for pt in punishmentTypes %}
+                                    <option value="{{pt.pk}}">{{pt.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"><small>Dia</small></label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" data-plugin="datepicker" id="pday">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"><small>Període</small></label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" data-plugin="datepicker" id="pstart">
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" data-plugin="datepicker" id="pend">
+                        </div>
+                    </div>
+                    <hr>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">Categoria</label>
+                         <div class="col-sm-10">
+                         <select class="form-control" data-plugin="select2" data-placeholder="Selecciona categoria" data-allow-clear="true" id="category">
+                                {% for cat in categories %}
+                                    <option value="{{cat.pk}}">{{cat.name}}</option>
+                                {% endfor %}
+                            </select>
+                             </div>
+                     </div>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Opcions</label>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="to-labelauty" id="accepted" name="accepted" data-plugin="labelauty"
+                                data-labelauty="Pendent|Acceptat" checked/>
+                              </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="to-labelauty" id="returned" name="returned" data-plugin="labelauty"
+                                data-labelauty="No retornat|Retornat"/>
+                              </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="to-labelauty" id="completed" name="completed" data-plugin="labelauty"
+                                data-labelauty="No completat|Completat"/>
+                              </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="form-group" style="text-align: right">
+                      <button type="submit" id="send-report" class="btn btn-primary">Envia</button>
+                    </div>
+              </div>
+            </div>
+        <div class="panel-footer">
+        </div>
+    </div>
+    {{ form.as_p }}
+{% endblock content %}

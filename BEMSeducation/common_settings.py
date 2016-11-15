@@ -69,6 +69,7 @@ LOCAL_APPS = [
     'institution',
     'education',
     'schedule',
+    'incidents',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + BEMS_APPS + ADDON_APPS + LOCAL_APPS
