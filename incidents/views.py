@@ -3,6 +3,7 @@ from django.views.generic import CreateView
 from django.views.generic import FormView
 from django.views.generic import ListView
 
+from education.models import Student
 from incidents.forms import IncidentForm
 from incidents.models import Incident
 
@@ -22,6 +23,7 @@ class IncidentCreateView(CreateView):
         #context['units'] = ClassUnit.objects.all().order_by('start')
         #context['categories'] = IncidentCategory.objects.all()
         #context['punishmentTypes'] = PunishmentType.objects.all()
+        context['students'] = Student.objects.all()
 
         return context
 
