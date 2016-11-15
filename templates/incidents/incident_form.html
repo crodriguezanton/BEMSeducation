@@ -43,9 +43,9 @@
                             <select class="form-control" data-plugin="select2" data-placeholder="Cerca" id="teacher">
                                 {% for teacher in form.fields.teacher.choices %}
                                     {% if teacher == profile %}
-                                    <option value="{{teacher.pk}}" selected>{{teacher.first_name}} {{teacher.last_name}}</option>
+                                    <option value="{{teacher.pk}}" selected>{{teacher}}</option>
                                     {% else %}
-                                    <option value="{{teacher.pk}}">{{teacher.first_name}} {{teacher.last_name}}</option>
+                                    <option value="{{teacher.pk}}">{{teacher}}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
