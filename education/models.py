@@ -52,3 +52,9 @@ class Teacher(BEMSProfile):
     @staticmethod
     def get_profile_name():
         return _("Teacher")
+
+    def is_tutor(self):
+        return self.group_set.count() != 0
+
+    def tutoria(self):
+        return self.group_set.first()
