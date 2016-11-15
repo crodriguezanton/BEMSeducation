@@ -41,7 +41,7 @@
                         <label class="control-label col-sm-2">Professor/a</label>
                         <div class="col-sm-10">
                             <select class="form-control" data-plugin="select2" data-placeholder="Cerca" id="teacher">
-                                {% for teacher in form.teacher.queryset %}
+                                {% for teacher in form.teacher.choices %}
                                     {% if teacher == profile %}
                                     <option value="{{teacher.pk}}" selected>{{teacher.first_name}} {{teacher.last_name}}</option>
                                     {% else %}
