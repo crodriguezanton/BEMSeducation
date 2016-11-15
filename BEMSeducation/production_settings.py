@@ -11,8 +11,19 @@ STATIC_ROOT = os.path.join(BASE_DIR, '../static_server/static/')
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['.bems.cat']
+
+SESSION_COOKIE_DOMAIN = '.bems.cat'
+
+SOCIALACCOUNT_PROVIDERS = \
+    { 'google':
+        { 'SCOPE': ['profile', 'email'],
+          'AUTH_PARAMS': { 'access_type': 'online' } }}
+
+SOCIALACCOUNT_QUERY_EMAIL = True
+
+LOGIN_URL = 'http://secure.bems.cat/login/'
 
 RAVEN_CONFIG = {
     'dsn': 'https://80379e3334ac409290319ae4f7f20929:db8d47a4fd1245549ca770978408d721@sentry.io/103682',
