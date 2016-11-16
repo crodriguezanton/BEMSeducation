@@ -1,9 +1,8 @@
 /**
- * Intro.js v2.0
+ * Intro.js v2.3.0
  * https://github.com/usablica/intro.js
- * MIT licensed
  *
- * Copyright (C) 2013 usabli.ca - A weekend project by Afshin Mehrabani (@afshinmeh)
+ * Copyright (C) 2016 Afshin Mehrabani (@afshinmeh)
  */
 
 (function (root, factory) {
@@ -19,7 +18,7 @@
   }
 } (this, function (exports) {
   //Default config/variables
-  var VERSION = '2.0';
+  var VERSION = '2.3.0';
 
   /**
    * IntroJs main class
@@ -39,6 +38,10 @@
       skipLabel: 'Skip',
       /* Done button label in tooltip box */
       doneLabel: 'Done',
+      /* Hide previous button in the first step? Otherwise, it will be disabled button. */
+      hidePrev: false,
+      /* Hide next button in the last step? Otherwise, it will be disabled button. */
+      hideNext: false,
       /* Default tooltip box position */
       tooltipPosition: 'bottom',
       /* Next CSS class for tooltip boxes */
@@ -63,6 +66,8 @@
       scrollToElement: true,
       /* Set the overlay opacity */
       overlayOpacity: 0.8,
+      /* Padding to add after scrolling when element is not in the viewport (in pixels) */
+      scrollPadding: 30,
       /* Precedence of positions, when auto is enabled */
       positionPrecedence: ["bottom", "top", "right", "left"],
       /* Disable an interaction with element? */
@@ -70,7 +75,9 @@
       /* Default hint position */
       hintPosition: 'top-middle',
       /* Hint button label */
-      hintButtonLabel: 'Got it'
+      hintButtonLabel: 'Got it',
+      /* Adding animation to hints? */
+      hintAnimation: true
     };
   }
 
@@ -129,6 +136,12 @@
       //first add intro items with data-step
       for (var i = 0, elmsLength = allIntroSteps.length; i < elmsLength; i++) {
         var currentElement = allIntroSteps[i];
+
+        // skip hidden elements
+        if (currentElement.style.display == 'none') {
+          continue;
+        }
+
         var step = parseInt(currentElement.getAttribute('data-step'), 10);
 
         if (step > 0) {
@@ -695,9 +708,13 @@
           elementPosition = _getOffset(currentElement.element),
           widthHeightPadding = 10;
 
-      // if the target element is fixed, the tooltip should be fixed as well.
+      // If the target element is fixed, the tooltip should be fixed as well.
+      // Otherwise, remove a fixed class that may be left over from the previous
+      // step.
       if (_isFixed(currentElement.element)) {
         helperLayer.className += ' introjs-fixedTooltip';
+      } else {
+        helperLayer.className = helperLayer.className.replace(' introjs-fixedTooltip', '');
       }
 
       if (currentElement.position == 'floating') {
@@ -728,6 +745,17 @@
     }
 
     _setHelperLayerPosition.call(this, disableInteractionLayer);
+  }
+
+  /**
+   * Setting anchors to behave like buttons
+   *
+   * @api private
+   * @method _setAnchorAsButton
+   */
+  function _setAnchorAsButton(anchor){
+    anchor.setAttribute('role', 'button');
+    anchor.tabIndex = 0;
   }
 
   /**
@@ -793,9 +821,11 @@
         };
       }
 
-      //remove old classes
+      //remove old classes if the element still exist
       var oldShowElement = document.querySelector('.introjs-showElement');
-      oldShowElement.className = oldShowElement.className.replace(/introjs-[a-zA-Z]+/g, '').replace(/^\s+|\s+$/g, '');
+      if(oldShowElement) {
+        oldShowElement.className = oldShowElement.className.replace(/introjs-[a-zA-Z]+/g, '').replace(/^\s+|\s+$/g, '');
+      }
 
       //we should wait until the CSS3 transition is competed (it's 0.3 sec) to prevent incorrect `height` and `width` calculation
       if (self._lastShowElementTimer) {
@@ -876,7 +906,7 @@
 
         if (i === (targetElement.step-1)) anchorLink.className = 'active';
 
-        anchorLink.href = 'javascript:void(0);';
+        _setAnchorAsButton(anchorLink);
         anchorLink.innerHTML = "&nbsp;";
         anchorLink.setAttribute('data-stepnumber', this._introItems[i].step);
 
@@ -927,7 +957,7 @@
         }
       };
 
-      nextTooltipButton.href = 'javascript:void(0);';
+      _setAnchorAsButton(nextTooltipButton);
       nextTooltipButton.innerHTML = this._options.nextLabel;
 
       //previous button
@@ -939,13 +969,13 @@
         }
       };
 
-      prevTooltipButton.href = 'javascript:void(0);';
+      _setAnchorAsButton(prevTooltipButton);
       prevTooltipButton.innerHTML = this._options.prevLabel;
 
       //skip button
       var skipTooltipButton = document.createElement('a');
       skipTooltipButton.className = 'introjs-button introjs-skipbutton';
-      skipTooltipButton.href = 'javascript:void(0);';
+      _setAnchorAsButton(skipTooltipButton);
       skipTooltipButton.innerHTML = this._options.skipLabel;
 
       skipTooltipButton.onclick = function() {
@@ -983,14 +1013,28 @@
     nextTooltipButton.removeAttribute('tabIndex');
 
     if (this._currentStep == 0 && this._introItems.length > 1) {
-      prevTooltipButton.className = 'introjs-button introjs-prevbutton introjs-disabled';
-      prevTooltipButton.tabIndex = '-1';
       nextTooltipButton.className = 'introjs-button introjs-nextbutton';
+
+      if (this._options.hidePrev == true) {
+        prevTooltipButton.className = 'introjs-button introjs-prevbutton introjs-hidden';
+        nextTooltipButton.className += ' introjs-fullbutton';
+      } else {
+        prevTooltipButton.className = 'introjs-button introjs-prevbutton introjs-disabled';
+      }
+
+      prevTooltipButton.tabIndex = '-1';
       skipTooltipButton.innerHTML = this._options.skipLabel;
     } else if (this._introItems.length - 1 == this._currentStep || this._introItems.length == 1) {
       skipTooltipButton.innerHTML = this._options.doneLabel;
       prevTooltipButton.className = 'introjs-button introjs-prevbutton';
-      nextTooltipButton.className = 'introjs-button introjs-nextbutton introjs-disabled';
+
+      if (this._options.hideNext == true) {
+        nextTooltipButton.className = 'introjs-button introjs-nextbutton introjs-hidden';
+        prevTooltipButton.className += ' introjs-fullbutton';
+      } else {
+        nextTooltipButton.className = 'introjs-button introjs-nextbutton introjs-disabled';
+      }
+
       nextTooltipButton.tabIndex = '-1';
     } else {
       prevTooltipButton.className = 'introjs-button introjs-prevbutton';
@@ -1006,16 +1050,17 @@
 
     var currentElementPosition = _getPropValue(targetElement.element, 'position');
     if (currentElementPosition !== 'absolute' &&
-        currentElementPosition !== 'relative') {
+        currentElementPosition !== 'relative' &&
+        currentElementPosition !== 'fixed') {
       //change to new intro item
       targetElement.element.className += ' introjs-relativePosition';
     }
 
     var parentElm = targetElement.element.parentNode;
     while (parentElm != null) {
-      if (parentElm.tagName.toLowerCase() === 'body') break;
+      if (!parentElm.tagName || parentElm.tagName.toLowerCase() === 'body') break;
 
-      //fix The Stacking Contenxt problem.
+      //fix The Stacking Context problem.
       //More detail: https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Understanding_z_index/The_stacking_context
       var zIndex = _getPropValue(parentElm, 'z-index');
       var opacity = parseFloat(_getPropValue(parentElm, 'opacity'));
@@ -1035,11 +1080,11 @@
 
       //Scroll up
       if (top < 0 || targetElement.element.clientHeight > winHeight) {
-        window.scrollBy(0, top - 30); // 30px padding from edge to look nice
+        window.scrollBy(0, top - this._options.scrollPadding); // 30px padding from edge to look nice
 
       //Scroll down
       } else {
-        window.scrollBy(0, bottom + 100); // 70px + 30px padding from edge to look nice
+        window.scrollBy(0, bottom + 70 + this._options.scrollPadding); // 70px + 30px padding from edge to look nice
       }
     }
 
@@ -1085,7 +1130,7 @@
   function _isFixed (element) {
     var p = element.parentNode;
 
-    if (p.nodeName === 'HTML') {
+    if (!p || p.nodeName === 'HTML') {
       return false;
     }
 
@@ -1114,7 +1159,7 @@
   }
 
   /**
-   * Add overlay layer to the page
+   * Check to see if the element is in the viewport or not
    * http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
    *
    * @api private
@@ -1148,7 +1193,7 @@
     overlayLayer.className = 'introjs-overlay';
 
     //check if the target element is body, we should calculate the size of overlay layer in a better way
-    if (targetElm.tagName.toLowerCase() === 'body') {
+    if (!targetElm.tagName || targetElm.tagName.toLowerCase() === 'body') {
       styleText += 'top: 0;bottom: 0; left: 0;right: 0;position: fixed;';
       overlayLayer.setAttribute('style', styleText);
     } else {
@@ -1190,7 +1235,6 @@
   function _removeHintTooltip() {
     var tooltip = this._targetElement.querySelector('.introjs-hintReference');
 
-
     if (tooltip) {
       var step = tooltip.getAttribute('data-step');
       tooltip.parentNode.removeChild(tooltip);
@@ -1218,7 +1262,8 @@
           currentItem.element = document.querySelector(currentItem.element);
         }
 
-        currentItem.hintPosition = currentItem.hintPosition || 'top-middle';
+        currentItem.hintPosition = currentItem.hintPosition || this._options.hintPosition;
+        currentItem.hintAnimation = currentItem.hintAnimation || this._options.hintAnimation;
 
         if (currentItem.element != null) {
           this._introItems.push(currentItem);
@@ -1235,10 +1280,20 @@
       for (var i = 0, l = hints.length; i < l; i++) {
         var currentElement = hints[i];
 
+        // hint animation
+        var hintAnimation = currentElement.getAttribute('data-hintAnimation');
+
+        if (hintAnimation) {
+          hintAnimation = (hintAnimation == 'true');
+        } else {
+          hintAnimation = this._options.hintAnimation;
+        }
+
         this._introItems.push({
           element: currentElement,
           hint: currentElement.getAttribute('data-hint'),
           hintPosition: currentElement.getAttribute('data-hintPosition') || this._options.hintPosition,
+          hintAnimation: hintAnimation,
           tooltipClass: currentElement.getAttribute('data-tooltipClass'),
           position: currentElement.getAttribute('data-position') || this._options.tooltipPosition
         });
@@ -1267,6 +1322,9 @@
   function _reAlignHints() {
     for (var i = 0, l = this._introItems.length; i < l; i++) {
       var item = this._introItems[i];
+
+      if (typeof (item.targetElement) == 'undefined') continue;
+
       _alignHintPosition.call(this, item.hintPosition, item.element, item.targetElement)
     }
   }
@@ -1288,6 +1346,22 @@
     // call the callback function (if any)
     if (typeof (this._hintCloseCallback) !== 'undefined') {
       this._hintCloseCallback.call(this, stepId);
+    }
+  };
+
+  /**
+   * Hide all hints
+   *
+   * @api private
+   * @method _hideHints
+   */
+  function _hideHints() {
+    var hints = this._targetElement.querySelectorAll('.introjs-hint');
+
+    if (hints && hints.length > 0) {
+      for (var i = 0; i < hints.length; i++) {
+        _hideHint.call(this, hints[i].getAttribute('data-step'));
+      }
     }
   };
 
@@ -1317,7 +1391,7 @@
         continue;
 
       var hint = document.createElement('a');
-      hint.href = "javascript:void(0);";
+      _setAnchorAsButton(hint);
 
       (function (hint, item, i) {
         // when user clicks on the hint element
@@ -1331,6 +1405,10 @@
       }(hint, item, i));
 
       hint.className = 'introjs-hint';
+
+      if (!item.hintAnimation) {
+        hint.className += ' introjs-hint-no-anim';
+      }
 
       // hint's position should be fixed if the target element's position is fixed
       if (_isFixed(item.element)) {
@@ -1606,8 +1684,12 @@
       return this;
     },
     refresh: function() {
+      // re-align intros
       _setHelperLayerPosition.call(this, document.querySelector('.introjs-helperLayer'));
       _setHelperLayerPosition.call(this, document.querySelector('.introjs-tooltipReferenceLayer'));
+
+      //re-align hints
+      _reAlignHints.call(this);
       return this;
     },
     onbeforechange: function(providedCallback) {
@@ -1676,6 +1758,14 @@
     },
     addHints: function() {
       _populateHints.call(this, this._targetElement);
+      return this;
+    },
+    hideHint: function (stepId) {
+      _hideHint.call(this, stepId);
+      return this;
+    },
+    hideHints: function () {
+      _hideHints.call(this);
       return this;
     }
   };
