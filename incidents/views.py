@@ -25,6 +25,9 @@ class IncidentCreateView(CreateView):
         #context['punishmentTypes'] = PunishmentType.objects.all()
         context['students'] = Student.objects.all()
 
+        if self.request.GET.has_key('students'):
+            context['getstu'] = self.request.GET.getlist('students')
+
         return context
 
 

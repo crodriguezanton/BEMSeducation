@@ -4,7 +4,6 @@
 ;
 
 
-
 window.Modernizr = (function( window, document, undefined ) {
 
     var version = '2.8.3',
@@ -28,7 +27,6 @@ window.Modernizr = (function( window, document, undefined ) {
     prefixes = ' -webkit- -moz- -o- -ms- '.split(' '),
 
 
-
     omPrefixes = 'Webkit Moz O ms',
 
     cssomPrefixes = omPrefixes.split(' '),
@@ -46,7 +44,6 @@ window.Modernizr = (function( window, document, undefined ) {
     slice = classes.slice,
 
     featureName, 
-
 
     injectElementWithStyles = function( rule, callback, nodes, testnames ) {
 
@@ -88,7 +85,6 @@ window.Modernizr = (function( window, document, undefined ) {
     },
 
 
-
     isEventSupported = (function() {
 
       var TAGNAMES = {
@@ -125,7 +121,6 @@ window.Modernizr = (function( window, document, undefined ) {
       return isEventSupported;
     })(),
 
-
     _hasOwnProperty = ({}).hasOwnProperty, hasOwnProp;
 
     if ( !is(_hasOwnProperty, 'undefined') && !is(_hasOwnProperty.call, 'undefined') ) {
@@ -138,7 +133,6 @@ window.Modernizr = (function( window, document, undefined ) {
         return ((property in object) && is(object.constructor.prototype[property], 'undefined'));
       };
     }
-
 
     if (!Function.prototype.bind) {
       Function.prototype.bind = function bind(that) {
@@ -249,11 +243,9 @@ window.Modernizr = (function( window, document, undefined ) {
     };
 
 
-
     tests['webgl'] = function() {
         return !!window.WebGLRenderingContext;
     };
-
 
     tests['touch'] = function() {
         var bool;
@@ -270,16 +262,13 @@ window.Modernizr = (function( window, document, undefined ) {
     };
 
 
-
     tests['geolocation'] = function() {
         return 'geolocation' in navigator;
     };
 
-
     tests['postmessage'] = function() {
       return !!window.postMessage;
     };
-
 
     tests['websqldatabase'] = function() {
       return !!window.openDatabase;
@@ -306,7 +295,6 @@ window.Modernizr = (function( window, document, undefined ) {
         return 'WebSocket' in window || 'MozWebSocket' in window;
     };
 
-
     tests['rgba'] = function() {
         setCss('background-color:rgba(150,255,150,.5)');
 
@@ -332,7 +320,6 @@ window.Modernizr = (function( window, document, undefined ) {
     };
 
 
-
     tests['borderradius'] = function() {
         return testPropsAll('borderRadius');
     };
@@ -345,23 +332,19 @@ window.Modernizr = (function( window, document, undefined ) {
         return document.createElement('div').style.textShadow === '';
     };
 
-
     tests['opacity'] = function() {
                 setCssAll('opacity:.55');
 
                     return (/^0.55$/).test(mStyle.opacity);
     };
 
-
     tests['cssanimations'] = function() {
         return testPropsAll('animationName');
     };
 
-
     tests['csscolumns'] = function() {
         return testPropsAll('columnCount');
     };
-
 
     tests['cssgradients'] = function() {
         var str1 = 'background-image:',
@@ -376,16 +359,13 @@ window.Modernizr = (function( window, document, undefined ) {
         return contains(mStyle.backgroundImage, 'gradient');
     };
 
-
     tests['cssreflections'] = function() {
         return testPropsAll('boxReflect');
     };
 
-
     tests['csstransforms'] = function() {
         return !!testPropsAll('transform');
     };
-
 
     tests['csstransforms3d'] = function() {
 
@@ -400,11 +380,9 @@ window.Modernizr = (function( window, document, undefined ) {
         return ret;
     };
 
-
     tests['csstransitions'] = function() {
         return testPropsAll('transition');
     };
-
 
 
     tests['fontface'] = function() {
@@ -468,7 +446,6 @@ window.Modernizr = (function( window, document, undefined ) {
         return bool;
     };
 
-
     tests['localstorage'] = function() {
         try {
             localStorage.setItem(mod, mod);
@@ -489,16 +466,13 @@ window.Modernizr = (function( window, document, undefined ) {
         }
     };
 
-
     tests['webworkers'] = function() {
         return !!window.Worker;
     };
 
-
     tests['applicationcache'] = function() {
         return !!window.applicationCache;
     };
-
 
     tests['svg'] = function() {
         return !!document.createElementNS && !!document.createElementNS(ns.svg, 'svg').createSVGRect;
@@ -513,7 +487,6 @@ window.Modernizr = (function( window, document, undefined ) {
     tests['smil'] = function() {
         return !!document.createElementNS && /SVGAnimate/.test(toString.call(document.createElementNS(ns.svg, 'animate')));
     };
-
 
     tests['svgclippaths'] = function() {
         return !!document.createElementNS && /SVGClipPath/.test(toString.call(document.createElementNS(ns.svg, 'clipPath')));
@@ -577,7 +550,6 @@ window.Modernizr = (function( window, document, undefined ) {
 
     Modernizr.input || webforms();
 
-
      Modernizr.addTest = function ( feature, test ) {
        if ( typeof feature == 'object' ) {
          for ( var key in feature ) {
@@ -604,7 +576,6 @@ window.Modernizr = (function( window, document, undefined ) {
 
        return Modernizr; 
      };
-
 
     setCss('');
     modElem = inputElem = null;
@@ -723,7 +694,6 @@ window.Modernizr = (function( window, document, undefined ) {
             data.frag = data.createFrag();
           }
 
-
           ownerDocument.createElement = function(nodeName) {
                     if (!html5.shivMethods) {
               return data.createElem(nodeName);
@@ -795,7 +765,6 @@ window.Modernizr = (function( window, document, undefined ) {
     Modernizr._domPrefixes  = domPrefixes;
     Modernizr._cssomPrefixes  = cssomPrefixes;
 
-
     Modernizr.hasEvent      = isEventSupported;
 
     Modernizr.testProp      = function(prop){
@@ -803,7 +772,6 @@ window.Modernizr = (function( window, document, undefined ) {
     };
 
     Modernizr.testAllProps  = testPropsAll;
-
 
     Modernizr.testStyles    = injectElementWithStyles;
     Modernizr.prefixed      = function(prop, obj, elem){
@@ -813,7 +781,6 @@ window.Modernizr = (function( window, document, undefined ) {
             return testPropsAll(prop, obj, elem);
       }
     };
-
 
     docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2') +
 
