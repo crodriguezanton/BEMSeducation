@@ -1,0 +1,307 @@
+{% extends 'layout/base.html' %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/apps/forum.css">
+{% endblock %}
+
+{% block body_args %}animsition app-forum page-aside-left{% endblock %}
+{% block page_attr %}bg-white{% endblock %}
+
+{% block aside %}
+    <div class="page-aside-switch">
+        <i class="icon wb-chevron-left" aria-hidden="true"></i>
+        <i class="icon wb-chevron-right" aria-hidden="true"></i>
+      </div>
+      <div class="page-aside-inner page-aside-scroll">
+        <div data-role="container">
+          <div data-role="content">
+            <section class="page-aside-section">
+              <h5 class="page-aside-title">Introduction</h5>
+              <div class="list-group">
+                <a class="list-group-item" href="javascript:void(0)">
+                  <i class="icon wb-emoticon" aria-hidden="true"></i>
+                  <span class="list-group-item-content">Welcome</span>
+                </a>
+                <a class="list-group-item" href="javascript:void(0)">
+                  <i class="icon wb-bell" aria-hidden="true"></i>
+                  <span class="list-group-item-content">News</span>
+                </a>
+                <a class="list-group-item" href="javascript:void(0)">
+                  <i class="icon wb-clipboard" aria-hidden="true"></i>
+                  <span class="list-group-item-content">General Discussion</span>
+                </a>
+              </div>
+            </section>
+            <section class="page-aside-section">
+              <h5 class="page-aside-title">Web Application</h5>
+              <div class="list-group">
+                <a class="list-group-item" href="javascript:void(0)">
+                  <i class="icon wb-settings" aria-hidden="true"></i>
+                  <span class="list-group-item-content">Installation</span>
+                </a>
+                <a class="list-group-item" href="javascript:void(0)">
+                  <i class="icon wb-library" aria-hidden="true"></i>
+                  <span class="list-group-item-content">Configuration</span>
+                </a>
+                <a class="list-group-item" href="javascript:void(0)">
+                  <i class="icon wb-extension" aria-hidden="true"></i>
+                  <span class="list-group-item-content">Plugins</span>
+                </a>
+                <a class="list-group-item" href="javascript:void(0)">
+                  <i class="icon wb-memory" aria-hidden="true"></i>
+                  <span class="list-group-item-content">Themes</span>
+                </a>
+                <a class="list-group-item" href="javascript:void(0)">
+                  <i class="icon wb-file" aria-hidden="true"></i>
+                  <span class="list-group-item-content">Troubleshooting/Help</span>
+                </a>
+              </div>
+            </section>
+            <section class="page-aside-section">
+              <h5 class="page-aside-title">Developer’s Resources</h5>
+              <div class="list-group">
+                <a class="list-group-item" href="javascript:void(0)">
+                  <i class="icon wb-extension" aria-hidden="true"></i>
+                  <span class="list-group-item-content">Feature Requests</span>
+                </a>
+                <a class="list-group-item" href="javascript:void(0)">
+                  <i class="icon wb-memory" aria-hidden="true"></i>
+                  <span class="list-group-item-content">Technical Support</span>
+                </a>
+                <a class="list-group-item" href="javascript:void(0)">
+                  <i class="icon wb-file" aria-hidden="true"></i>
+                  <span class="list-group-item-content">Code Review</span>
+                </a>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+{% endblock %}
+
+{% block page_content %}
+    <div class="page-nav-tabs">
+        <ul class="nav nav-tabs nav-tabs-line" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="active nav-link" data-toggle="tab" href="#forum-newest" aria-controls="forum-newest"
+            aria-expanded="true" role="tab">Newest</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" data-toggle="tab" href="#forum-activity" aria-controls="forum-activity"
+            aria-expanded="false" role="tab">Activity</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" data-toggle="tab" href="#forum-answer" aria-controls="forum-answer"
+            aria-expanded="false" role="tab">Answer</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Forum Content -->
+      <div class="page-content tab-content page-content-table nav-tabs-animate">
+        <div class="tab-pane animation-fade active" id="forum-newest" role="tabpanel">
+          <table class="table is-indent">
+            <tbody>
+            {% for incident in incident_list %}
+              <tr data-url="panel.tpl" data-toggle="slidePanel">
+                <td class="pre-cell"></td>
+                <td class="cell-60 responsive-hide">
+                  <a class="avatar" href="javascript:void(0)">
+                    <img class="img-fluid" src="{{ user.bemsuser.get_profile_image }}" alt="...">
+                  </a>
+                </td>
+                <td>
+                  <div class="content">
+                    <div class="title">
+                      <div class="flags responsive-hide">
+                        <!--<span class="sticky-top label label-round label-danger"><i class="icon wb-dropup" aria-hidden="true"></i>TOP</span>-->
+                            {% if not incident.accepted %}
+                            <i class="locked icon wb-time" aria-hidden="true"></i>
+                            {% else %}
+                            <i class="locked icon wb-check-circle" aria-hidden="true"></i>
+                            {% endif %}
+                      </div>
+                      <b>{{incident.student}}</b> {{incident.description}}
+                    </div>
+                    <div class="metas">
+                      <span class="author">De {{incident.teacher}}</span>
+                      <span class="started">{{incident.date|date:'d.m.Y'}}</span>
+                      <span class="tags">{{incident.unit.start|time:'H:i'}}</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="cell-80 forum-posts">
+                  {% if incident.punishment %}
+                    <span class="num"><b>{{incident.punishment.type.name}}</b></span>
+                    {% else %}
+                    <span class="num"><b>{{incident.type.name}}</b></span>
+                    {% endif %}
+                  <span class="unit"></span>
+                </td>
+                <td class="suf-cell"></td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          <ul class="pagination pagination-gap">
+            <li class="disabled page-item"><a class="page-link" href="javascript:void(0)">Previous</a></li>
+            <li class="active page-item"><a class="page-link" href="javascript:void(0)">1 <span class="sr-only">(current)</span></a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">4</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">5</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">Next</a></li>
+          </ul>
+        </div>
+        <div class="tab-pane animation-fade" id="forum-activity" role="tabpanel">
+          <table class="table is-indent">
+            <tbody>
+              <tr data-url="panel.tpl" data-toggle="slidePanel">
+                <td class="pre-cell"></td>
+                <td class="cell-60 responsive-hide">
+                  <a class="avatar" href="javascript:void(0)">
+                    <img class="img-fluid" src="../../../../global/portraits/2.jpg" alt="...">
+                  </a>
+                </td>
+                <td>
+                  <div class="content">
+                    <div class="title">
+                      Augeri, sanos simulent atomi habet ullo consuetudine saepti.
+                      <div class="flags responsive-hide">
+                        <span class="sticky-top tag tag-round tag-danger"><i class="icon wb-dropup" aria-hidden="true"></i>TOP</span>
+                        <i class="locked icon wb-lock" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                    <div class="metas">
+                      <span class="author">By Mary Adams</span>
+                      <span class="started">1 day ago</span>
+                      <span class="tags">Plugins</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="cell-80 forum-posts">
+                  <span class="num">1</span>
+                  <span class="unit">Post</span>
+                </td>
+                <td class="suf-cell"></td>
+              </tr>
+            </tbody>
+          </table>
+          <ul class="pagination pagination-gap">
+            <li class="disabled page-item"><a class="page-link" href="javascript:void(0)">Previous</a></li>
+            <li class="active page-item"><a class="page-link" href="javascript:void(0)">1 <span class="sr-only">(current)</span></a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">4</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">5</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">Next</a></li>
+          </ul>
+        </div>
+        <div class="tab-pane animation-fade" id="forum-answer" role="tabpanel">
+          <table class="table is-indent">
+            <tbody>
+              <tr data-url="panel.tpl" data-toggle="slidePanel">
+                <td class="pre-cell"></td>
+                <td class="cell-60 responsive-hide">
+                  <a class="avatar" href="javascript:void(0)">
+                    <img class="img-fluid" src="../../../../global/portraits/2.jpg" alt="...">
+                  </a>
+                </td>
+                <td>
+                  <div class="content">
+                    <div class="title">
+                      Augeri, sanos simulent atomi habet ullo consuetudine saepti.
+                      <div class="flags responsive-hide">
+                        <span class="sticky-top tag tag-round tag-danger"><i class="icon wb-dropup" aria-hidden="true"></i>TOP</span>
+                        <i class="locked icon wb-lock" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                    <div class="metas">
+                      <span class="author">By Mary Adams</span>
+                      <span class="started">1 day ago</span>
+                      <span class="tags">Plugins</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="cell-80 forum-posts">
+                  <span class="num">1</span>
+                  <span class="unit">Post</span>
+                </td>
+                <td class="suf-cell"></td>
+              </tr>
+            </tbody>
+          </table>
+          <ul class="pagination pagination-gap">
+            <li class="disabled page-item"><a class="page-link" href="javascript:void(0)">Previous</a></li>
+            <li class="active page-item"><a class="page-link" href="javascript:void(0)">1 <span class="sr-only">(current)</span></a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">4</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">5</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">Next</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="site-action btn-raised btn btn-success btn-floating" data-target="#addTopicForm"
+  data-toggle="modal" type="button">
+    <i class="icon wb-pencil" aria-hidden="true"></i>
+  </button>
+  <!-- Add Topic Form -->
+  <div class="modal fade" id="addTopicForm" aria-hidden="true" aria-labelledby="addTopicForm"
+  role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+          <h4 class="modal-title">Create New Topic</h4>
+        </div>
+        <div class="modal-body container-fluid">
+          <form>
+            <div class="form-group">
+              <label class="form-control-label m-b-15" for="topicTitle">Topic Title:</label>
+              <input type="text" class="form-control" id="topicTitle" name="title" placeholder="How To..."
+              />
+            </div>
+            <div class="form-group">
+              <textarea name="content" data-provide="markdown" data-iconlibrary="fa" rows="10"></textarea>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                  <label class="form-control-label m-b-15" for="topicCategory">Topic Category:</label>
+                  <select id="topicCategory" data-plugin="selectpicker">
+                    <option>PHP</option>
+                    <option>Javascript</option>
+                    <option>HTML</option>
+                    <option>CSS</option>
+                    <option>Ruby</option>
+                  </select>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                  <label class="form-control-label m-b-15" for="topic_tags">Topic Tags:</label>
+                  <select id="topic_tags" data-plugin="selectpicker">
+                    <option>PHP</option>
+                    <option>Javascript</option>
+                    <option>HTML</option>
+                    <option>CSS</option>
+                    <option>Ruby</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer text-xs-left">
+          <button class="btn btn-primary" data-dismiss="modal" type="submit">Create</button>
+          <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block extra_js %}
+    <script src="/static/js/BaseApp.js"></script>
+    <script src="/static/js/App/Forum.js"></script>
+    <script src="/static/js/apps/forum.js"></script>
+{% endblock %}

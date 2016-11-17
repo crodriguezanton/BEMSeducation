@@ -39,10 +39,11 @@ class IncidentListView(ListView):
         context = super(IncidentListView, self).get_context_data(**kwargs)
 
         context['title'] = 'Incidents'
+        context['page_aside'] = True
 
-        context['activeincidents'] = Incident.objects.filter(teacher__teacherprofile__bemsuser__user=self.request.user, completed=False)
-        context['pendingincidents'] = Incident.objects.filter(teacher__teacherprofile__bemsuser__user=self.request.user, accepted=False)
-        context['archivedincidents'] = Incident.objects.filter(teacher__teacherprofile__bemsuser__user=self.request.user, completed=True)
+        context['activeincidents'] = Incident.objects.filter(teacher=self.request.profile, completed=False)
+        context['pendingincidents'] = Incident.objects.filter(teacher=self.request.profile, accepted=False)
+        context['archivedincidents'] = Incident.objects.filter(teacher=self.request.profile, completed=True)
 
         return context
 

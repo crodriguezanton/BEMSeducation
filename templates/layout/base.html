@@ -67,6 +67,7 @@
     </script>
 {% analytical_head_bottom %}
 </head>
+{% block body %}
 <body class="{% block body_args %}{% endblock %}">
 {% analytical_body_top %}
 <!--[if lt IE 8]>
@@ -371,32 +372,32 @@
             <h1 class="page-title">{% block page_title %}Title{% endblock page_title %}</h1>
             <ol class="breadcrumb">
                 {% block breadcrumb %}
-                    <li><a href="../index.html">Home</a></li>
-                    <li class="active">You are Here</li>
+                    <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+                    <li class="breadcrumb-item active">You are Here</li>
                 {% endblock breadcrumb %}
             </ol>
             <div class="page-header-actions">
                 {% block page_header_actions %}
-                    <div class="row no-space width-250 hidden-xs">
-                        <div class="col-xs-4">
-                            <div class="counter">
-                                <span class="counter-number font-weight-medium">8371</span>
-                                <div class="counter-label">Purchases</div>
-                            </div>
-                        </div>
-                        <div class="col-xs-4">
-                            <div class="counter">
-                                <span class="counter-number font-weight-medium">1024</span>
-                                <div class="counter-label">Members</div>
-                            </div>
-                        </div>
-                        <div class="col-xs-4">
-                            <div class="counter">
-                                <span class="counter-number font-weight-medium">$38,823</span>
-                                <div class="counter-label">Today Profit</div>
-                            </div>
-                        </div>
+                    <div class="row no-space w-250 hidden-sm-down">
+                    <div class="col-sm-4 col-xs-12">
+                      <div class="counter">
+                        <span class="counter-number font-weight-medium">8371</span>
+                        <div class="counter-label">Purchases</div>
+                      </div>
                     </div>
+                    <div class="col-sm-4 col-xs-12">
+                      <div class="counter">
+                        <span class="counter-number font-weight-medium">1024</span>
+                        <div class="counter-label">Members</div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
+                      <div class="counter">
+                        <span class="counter-number font-weight-medium">$38,823</span>
+                        <div class="counter-label">Today Profit</div>
+                      </div>
+                    </div>
+                  </div>
                 {% endblock page_header_actions %}
             </div>
         </div>
@@ -420,4 +421,5 @@
 {% block extra_js %}{% endblock %}
 {% analytical_body_bottom %}
 </body>
+{% endblock body %}
 </html>
