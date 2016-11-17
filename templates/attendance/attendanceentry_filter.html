@@ -12,7 +12,7 @@
             <h5 class="page-aside-title">{% trans "Grade" %}</h5>
             {% for grade in grades %}
                 <a class="list-group-item" href="#unit-{{ unit.pk }}"><span
-                        class="label label-outline label-dark">{{ grade.short_name }}</span>&nbsp;&nbsp;{{ grade.name }}
+                        class="tag tag-outline tag-dark">{{ grade.short_name }}</span>&nbsp;&nbsp;{{ grade.name }}
                 </a>
             {% endfor %}
         </section>
@@ -21,7 +21,7 @@
             <div class="list-group">
                 {% for stage in stages %}
                     <a class="list-group-item" href="#unit-{{ unit.pk }}"><span
-                            class="label label-outline label-dark">{{ stage.short_name }}</span>&nbsp;&nbsp;{{ stage.name }}
+                            class="tag tag-outline tag-dark">{{ stage.short_name }}</span>&nbsp;&nbsp;{{ stage.name }}
                     </a>
                 {% endfor %}
             </div>
@@ -108,7 +108,7 @@
                         <b>{{ entry.student.last_name }}</b>, {{ entry.student.first_name }}
                     </td>
                     <td><span
-                            class="label label-outline label-primary">{{ entry.timetable_entry.weekly_timetable_entry.subject.short_name }}</span>
+                            class="tag tag-outline tag-primary">{{ entry.timetable_entry.weekly_timetable_entry.subject.short_name }}</span>
                         <small>{{ entry.timetable_entry.weekly_timetable_entry.subject.name }}</small>
                     </td>
                     <td class="cell-300">{{ entry.timetable_entry.date|date:"d/m/Y" }} {{ entry.timetable_entry.weekly_timetable_entry.unit.start|time:"H:i" }}</td>

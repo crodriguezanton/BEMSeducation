@@ -33,7 +33,7 @@
           <h5 class="page-aside-title">{% trans 'Classes' %}</h5>
           <div class="list-group">
               {% for te in timetableentry_list %}
-            <a class="list-group-item" href="#unit-{{ te.pk }}"><span class="label label-outline label-dark">{{ te.weekly_timetable_entry.unit.start|time:"H:i" }}</span>&nbsp;&nbsp;{{ te.weekly_timetable_entry.subject.short_name }} <small>{{ te.weekly_timetable_entry.group }}</small></a>
+            <a class="list-group-item" href="#unit-{{ te.pk }}"><span class="tag tag-outline tag-dark">{{ te.weekly_timetable_entry.unit.start|time:"H:i" }}</span>&nbsp;&nbsp;{{ te.weekly_timetable_entry.subject.short_name }} <small>{{ te.weekly_timetable_entry.group }}</small></a>
               {% endfor %}
           </div>
         </section>
@@ -87,7 +87,7 @@
           {% for te in timetableentry_list %}
         <div class="panel panel-bordered" id="unit-{{ unit.pk }}" style="max-width: 900px; margin-right: auto; margin-left: auto;">
           <div class="panel-heading">
-            <h3 class="panel-title"><span class="label label-danger" style="margin: 0 10px 0 0">{{ te.weekly_timetable_entry.subject.short_name }}</span>  {{ te.weekly_timetable_entry.subject.name }}  <small>{{ te.weekly_timetable_entry.group }}</small></h3>
+            <h3 class="panel-title"><span class="tag tag-danger" style="margin: 0 10px 0 0">{{ te.weekly_timetable_entry.subject.short_name }}</span>  {{ te.weekly_timetable_entry.subject.name }}  <small>{{ te.weekly_timetable_entry.group }}</small></h3>
               <div class="panel-actions">
               <i class="icon wb-map" aria-hidden="true"></i> {{ te.weekly_timetable_entry.classroom.name }} &nbsp&nbsp
               <i class="icon wb-time" aria-hidden="true"></i> {{ te.weekly_timetable_entry.unit.start|time:"H:i" }} - {{ te.weekly_timetable_entry.unit.end|time:"H:i" }}
