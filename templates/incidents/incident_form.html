@@ -56,8 +56,8 @@
                             <input name="{{ form.students.html_name }}" id="{{ form.students.id_for_label }}" hidden>
                         </div>
                     </div>
-                    {% if user.is_superuser %}
-                    <div class="row form-group">
+
+                    <div class="row form-group" {% if not perms.incident.can_change_incident %}style="display: none;" {% endif %}>
                         <label class="control-label col-sm-2">Professor/a</label>
                         <div class="col-sm-10">
                             <select class="form-control" data-plugin="select2" data-placeholder="Cerca" name="{{ form.teacher.html_name }}" id="{{ form.teacher.id_for_label }}">
@@ -72,7 +72,7 @@
                         </div>
 
                     </div>
-                    {% endif %}
+
                     <div class="row form-group">
                         <label class="control-label col-sm-2">Dia</label>
                         <div class="col-sm-5">
@@ -99,7 +99,7 @@
                             <textarea class="form-control" name="{{ form.comments.html_name }}" id="{{ form.comments.id_for_label }}" rows="5"></textarea>
                         </div>
                     </div>
-                    {% if user.is_superuser %}
+                    {% if not perms.incident.can_change_incident %}
                     <hr>
                      <div class="row form-group">
                         <label class="control-label col-sm-2">Categoria</label>
