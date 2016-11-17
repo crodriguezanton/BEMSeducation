@@ -99,7 +99,7 @@
                             <textarea class="form-control" name="{{ form.comments.html_name }}" id="{{ form.comments.id_for_label }}" rows="5"></textarea>
                         </div>
                     </div>
-                    {% if not perms.incident.can_change_incident %}
+                    {% if perms.incident.can_change_incident %}
                     <hr>
                      <div class="row form-group">
                         <label class="control-label col-sm-2">Categoria</label>
@@ -112,7 +112,7 @@
                              </div>
                      </div>
                     {% endif %}
-                    {% if user.is_superuser %}
+                    {% if perms.incident.can_change_incident %}
                     <div class="row form-group">
                         <label class="control-label col-sm-2">Opcions</label>
                         <div class="col-sm-1"></div>
