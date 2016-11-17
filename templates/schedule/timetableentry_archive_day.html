@@ -85,7 +85,7 @@
 {% block page_content %}
     <div class="page-content" style="height: -webkit-calc(100vh - 110px);height: -o-calc(100vh - 110px); /* opera */height: -moz-calc(100vh - 110px); overflow: auto;">
           {% for te in timetableentry_list %}
-        <div class="panel panel-bordered" id="unit-{{ unit.pk }}" style="max-width: 900px; margin-right: auto; margin-left: auto;">
+        <div class="panel panel-bordered" id="unit-{{ te.pk }}" style="max-width: 900px; margin-right: auto; margin-left: auto;">
           <div class="panel-heading">
             <h3 class="panel-title"><span class="tag tag-danger" style="margin: 0 10px 0 0">{{ te.weekly_timetable_entry.subject.short_name }}</span>  {{ te.weekly_timetable_entry.subject.name }}  <small>{{ te.weekly_timetable_entry.group }}</small></h3>
               <div class="panel-actions">

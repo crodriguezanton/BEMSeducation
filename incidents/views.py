@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.views.generic import CreateView
+from django.views.generic import DetailView
 from django.views.generic import FormView
 from django.views.generic import ListView
 
@@ -62,3 +63,7 @@ class ReviewIncidentListView(IncidentListView):
 
         return context
 
+
+class IncidentCardView(DetailView):
+    template_name = 'incidents/incident_card.html'
+    model= Incident

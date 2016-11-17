@@ -37,17 +37,23 @@
         <div class="col-lg-8 col-md-12">
 
           <div class="row">
-               <div class="col-md-6">
-              <div class="panel panel-bordered panel-warning">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Avís!</h3>
+              <a href="{% url "attendance:call-today" %}">
+                <div class="col-md-6">
+                    <div class="card card-block p-35 clearfix">
+                <div class="pull-xs-left white">
+                  <i class="icon icon-circle icon-2x wb-check bg-red-600" aria-hidden="true"></i>
                 </div>
-                <div class="panel-body">Degut a una errada a la configuració de les assignatures de modalitat no apareixen els alumnes correctes.
-                A partir de <b>divendres 18</b> ja es podrà utilitzar BEMS amb normalitat.</div>
+                <div class="counter counter-md counter text-xs-right pull-xs-right">
+                  <div class="counter-number-group">
+                      <span class="counter-number-related text-capitalize">Passar llista</span>
+                    </div>
+                    <div class="counter-label text-capitalize font-size-16">(Funcionalitats limitades)</div>
+                </div>
               </div>
             </div>
+              </a>
 
-              <a href="{% url "attendance:call-today" %}">
+              <a href="{% url "incidents:create" %}">
                 <div class="col-md-6">
                     <div class="card card-block p-35 clearfix">
                 <div class="pull-xs-left white">
@@ -55,9 +61,9 @@
                 </div>
                 <div class="counter counter-md counter text-xs-right pull-xs-right">
                   <div class="counter-number-group">
-                      <span class="counter-number-related text-capitalize">Passar llista</span>
+                      <span class="counter-number-related text-capitalize">Crear Incidència</span>
                     </div>
-                    <div class="counter-label text-capitalize font-size-16">(Funcionalitats limitades)</div>
+                    <div class="counter-label text-capitalize font-size-16">Afegeix una incidència nova</div>
                 </div>
               </div>
             </div>

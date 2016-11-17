@@ -102,11 +102,11 @@
           <table class="table is-indent">
             <tbody>
             {% for incident in incident_list %}
-              <tr data-url="panel.tpl" data-toggle="slidePanel">
+              <tr data-url="{% url 'incidents:card' pk=incident.pk %}" data-toggle="slidePanel">
                 <td class="pre-cell"></td>
                 <td class="cell-60 responsive-hide">
                   <a class="avatar" href="javascript:void(0)">
-                    <img class="img-fluid" src="{{ user.bemsuser.get_profile_image }}" alt="...">
+                    <img class="img-fluid" src="{{ incident.student.get_profile_image }}" alt="...">
                   </a>
                 </td>
                 <td>

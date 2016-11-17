@@ -62,7 +62,7 @@
                         <div class="col-sm-10">
                             <select class="form-control" data-plugin="select2" data-placeholder="Cerca" name="{{ form.teacher.html_name }}" id="{{ form.teacher.id_for_label }}">
                                 {% for teacher in form.fields.teacher.queryset %}
-                                    {% if teacher == profile %}
+                                    {% if teacher.pk == profile.pk %}
                                     <option value="{{teacher.pk}}" selected>{{teacher.first_name}} {{ teacher.last_name }}</option>
                                     {% else %}
                                     <option value="{{teacher.pk}}">{{teacher.first_name}} {{ teacher.last_name }}</option>
@@ -154,6 +154,8 @@
     <script src="/static/js/Plugin/bootstrap-datepicker.js"></script>
     <script>
         var students = $('#{{ form.students.id_for_label }}_select2');
+
+        $('#{{ form.teacher.id_for_label }}').val("{{ request.profile.pk }}").trigger("change");
 
         students.on("change", function (e) {
             $('#{{ form.students.id_for_label }}').val(students.val());
