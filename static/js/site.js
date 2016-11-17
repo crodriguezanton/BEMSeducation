@@ -296,7 +296,7 @@
           loading: true,
           loadingClass: 'loader-overlay',
           loadingParentElement: 'html',
-          loadingInner: '\n      <div class="loader-content">\n        <img src="' + assets + '/images/logo@2x.png">\n        <h2>Remark</h2>\n        <div class="loader-index">\n          <div></div>\n          <div></div>\n          <div></div>\n          <div></div>\n          <div></div>\n          <div></div>\n        </div>\n      </div>',
+          loadingInner: '\n      <div class="loader-content">\n        <img src="/static/img/beatbcn.png" width="50">\n        <h2>BEMS.xyz</h2>\n        <div class="loader-index">\n          <div></div>\n          <div></div>\n          <div></div>\n          <div></div>\n          <div></div>\n          <div></div>\n        </div>\n      </div>',
           onLoadEvent: true
         });
       }

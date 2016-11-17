@@ -6,7 +6,7 @@ from django.db import models
 from model_utils.models import TimeStampedModel
 
 from education.models import Student, Teacher
-from schedule.models import TimetableEntry
+from schedule.models import TimetableEntry, ClassUnit
 
 
 class IncidentType(models.Model):
@@ -54,7 +54,7 @@ class Incident(TimeStampedModel):
     punishment = models.OneToOneField(Punishment, blank=True, null=True)
 
     date = models.DateField()
-    timetable_entry = models.ForeignKey(TimetableEntry, null=True, blank=True)
+    unit = models.ForeignKey(ClassUnit, null=True, blank=True)
     description = models.TextField()
     comments = models.TextField(blank=True, null=True)
 
@@ -65,4 +65,4 @@ class Incident(TimeStampedModel):
     created_by = models.ForeignKey(BEMSProfile, null=True, blank=True, related_name='incident_created_by')
 
     def __unicode__(self):
-        return self.pk + ": " + self.student.__unicode__() + " - " + self.type.name
+        return str(self.pk) + ": " + self.student.__unicode__() + " - " + self.type.name
