@@ -1,11 +1,12 @@
 # coding=utf-8
+from django.urls import reverse
 from django.views.generic import CreateView
-from django.views.generic import DetailView
-from django.views.generic import FormView
-from django.views.generic import ListView
+from django.views.generic import UpdateView
+from django_filters.views import FilterView
 
 from education.models import Student
-from incidents.forms import IncidentForm
+from incidents.filters import IncidentFilter
+from incidents.forms import IncidentForm, EditIncidentForm
 from incidents.models import Incident
 
 
@@ -33,8 +34,11 @@ class IncidentCreateView(CreateView):
         return context
 
 
-class IncidentListView(ListView):
+class IncidentListView(FilterView):
     model = Incident
+    filterset_class = IncidentFilter
+    template_name_suffix = '_list'
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         context = super(IncidentListView, self).get_context_data(**kwargs)
@@ -64,6 +68,33 @@ class ReviewIncidentListView(IncidentListView):
         return context
 
 
-class IncidentCardView(DetailView):
-    template_name = 'incidents/incident_card.html'
+class IncidentCardView(UpdateView):
+    template_name_suffix = '_card'
+    form_class = EditIncidentForm
     model= Incident
+    success_url = '/incidents/list/'
+
+    def get_success_url(self):
+        return reverse('incidents:list') + "#" + str(self.object.pk)
+
+
+def incident_status(request, pk=None, status=None, value='True'):
+
+    if value == 'True':
+        value = True
+    else:
+        value = False
+
+    incident = Incident.objects.get(pk=pk)
+
+    if status == 'accepted':
+        incident.accepted = value
+    elif status == 'returned':
+        incident.returned = value
+    elif status == 'completed':
+        incident.completed = value
+
+    incident.save()
+
+
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])

@@ -64,7 +64,11 @@
 }
 
 .app-forum .slidePanel-header {
-  background-color: #9ece67;
+  background-color: #f96868;
+}
+
+.app-forum .slidePanel-header.editing {
+  background-color: #62a8ea;
 }
 
 .app-forum .slidePanel-header::after {

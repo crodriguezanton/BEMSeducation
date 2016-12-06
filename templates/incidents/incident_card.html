@@ -4,17 +4,18 @@
 
     <div class="btn-group actions-bottom" role="group">
 
-      <a href="/incidents/edit/{{ object.pk }}/" class="btn btn-pure btn-inverse icon wb-edit" aria-hidden="true"></a>
+      <button id="edit-button" class="btn btn-pure btn-inverse icon wb-edit" aria-hidden="true" onclick="showForm();"></button>
         {% if object.type.name == "Sanció" %}
-      <a href="/incidents/report/pdf/{{ object.pk }}/" target="_blank" class="btn btn-pure btn-inverse icon wb-print" aria-hidden="true"></a>
+      <a href="/incidents/report/pdf/{{ object.pk }}/" target="_blank" class="btn btn-pure btn-inverse icon wb-print" id="print-button" aria-hidden="true"></a>
         {% else %}
-      <a href="/incidents/advertiment/pdf/{{ object.pk }}/" target="_blank" class="btn btn-pure btn-inverse icon wb-print" aria-hidden="true"></a>
+      <a href="/incidents/advertiment/pdf/{{ object.pk }}/" target="_blank" class="btn btn-pure btn-inverse icon wb-print" id="print-button" aria-hidden="true"></a>
         {% endif %}
     </div>
   </div>
-  <h1><b>{{object.type.name}}:</b> {{object.student}}</h1>
+  <h1><b>{{object.type.name}}</b> <small>{{object.pk}}</small></h1>
+<h1><small>{{ object.student }}</small></h1>
 </header>
-<div class="slidePanel-inner">
+<div class="slidePanel-inner" id="incident-detail">
   <section class="slidePanel-inner-section">
     <div class="forum-header">
       <a class="avatar" href="javascript:void(0)">
@@ -26,24 +27,29 @@
     <div class="forum-content">
       <p>{{object.description}}</p>
     </div>
-    <div class="forum-metas">
-      <div class="button-group tags">
-        <div class="tags">
-        <a href="/incidents/changestatus/{{ object.pk }}/accepted/True/" class="btn btn-icon btn-default btn-outline tooltip-primary" data-toggle="tooltip"
-                data-placement="bottom" data-original-title="Perfil"><i class="icon wb-user" aria-hidden="true"></i> {% trans "Accepted" %}</a>
-          <a href="/incidents/changestatus/{{ object.pk }}/returned/True/" class="btn btn-icon btn-default btn-outline tooltip-info" data-toggle="tooltip"
-                data-placement="bottom" data-original-title="Informes"><i class="icon wb-order" aria-hidden="true"></i> {% trans "Returned" %}</a>
-        <a href="/incidents/changestatus/{{ object.pk }}/completed/True/" class="btn btn-icon btn-default btn-outline tooltip-warning" data-toggle="tooltip"
-                data-placement="bottom" data-original-title="Edita"><i class="icon wb-edit" aria-hidden="true"></i> {% trans "Completed" %}</a>
-      </div>
-      </div>
-    </div>
+      <div class="row form-group">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <input type="checkbox" class="to-labelauty"  data-plugin="labelauty"
+                    data-labelauty="Pendent|Acceptat" {% if object.accepted %}checked{% endif %} disabled/>
+                  </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <input type="checkbox" class="to-labelauty"  data-plugin="labelauty"
+                    data-labelauty="No retornat|Retornat" {% if object.returned %}checked{% endif %} disabled/>
+                  </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <input type="checkbox" class="to-labelauty" data-plugin="labelauty"
+                    data-labelauty="No completat|Completat" {% if object.completed %}checked{% endif %} disabled/>
+                  </div>
+            </div>
+        </div>
   </section>
   <section class="slidePanel-inner-section">
     <div class="forum-header">
-      <div class="pull-right">#
-        <span class="floor">1</span>
-      </div>
 
       <span class="name"><b>Càstig proposat</b></span>
       <span class="time"></span>
@@ -52,11 +58,9 @@
       <p>{{object.comments|default:'Sense comentaris'}}</p>
     </div>
   </section>
+{% if object.punishment %}
     <section class="slidePanel-inner-section">
     <div class="forum-header">
-      <div class="pull-right">#
-        <span class="floor">1</span>
-      </div>
 
       <span class="name"><b>Càstig</b></span>
       <span class="time"></span>
@@ -67,8 +71,82 @@
       <p>{{object.punishment.start|default:''}} - {{object.punishment.end|default:''}}</p>
     </div>
   </section>
+{% endif %}
   <!--<div class="slidePanel-comment">
     <textarea class="maxlength-textarea form-control mb-sm margin-bottom-20" rows="4"></textarea>
     <button class="btn btn-primary" data-dismiss="modal" type="button">Reply</button>
   </div>-->
 </div>
+<form class="slidePanel-inner" id="incident-form" style="display: none;" method="post" action="{% url 'incidents:card' pk=incident.pk %}">
+{% csrf_token %}
+  <section class="slidePanel-inner-section">
+    <div class="forum-header">
+      <a class="avatar" href="javascript:void(0)">
+        <img src="{{object.teacher.get_profile_image }}" alt="...">
+      </a>
+      <span class="name text-middle">{{object.teacher}}</span>
+      <span class="time">{{object.date|date:'d M Y'}} a les {{object.unit.start|time:'H:i'}}</span>
+        <button type="submit" class="btn btn-primary pull-right">Envia</button>
+    </div>
+    <div class="forum-content">
+        <div class="row form-group">
+            <div class="col-sm-12">
+                <textarea class="form-control" name="{{ form.description.html_name }}" id="{{ form.description.id_for_label }}" rows="5">{{ object.description }}</textarea>
+            </div>
+        </div>
+    </div>
+      <div class="row form-group">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <input type="checkbox" class="to-labelauty" name="{{ form.accepted.html_name }}" id="{{ form.accepted.id_for_label }}" data-plugin="labelauty"
+                    data-labelauty="Pendent|Acceptat" {% if object.accepted %}checked{% endif %}/>
+                  </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <input type="checkbox" class="to-labelauty" name="{{ form.returned.html_name }}" id="{{ form.returned.id_for_label }}" data-plugin="labelauty"
+                    data-labelauty="No retornat|Retornat" {% if object.returned %}checked{% endif %}/>
+                  </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <input type="checkbox" class="to-labelauty" name="{{ form.completed.html_name }}" id="{{ form.completed.id_for_label }}" data-plugin="labelauty"
+                    data-labelauty="No completat|Completat" {% if object.completed %}checked{% endif %}/>
+                  </div>
+            </div>
+        </div>
+  </section>
+  <section class="slidePanel-inner-section">
+    <div class="forum-header">
+
+      <span class="name"><b>Càstig proposat</b></span>
+      <span class="time"></span>
+    </div>
+    <div class="forum-content">
+        <div class="row form-group">
+            <div class="col-sm-12">
+                <textarea class="form-control" name="{{ form.comments.html_name }}" id="{{ form.comments.id_for_label }}" rows="5">{{ object.comments }}</textarea>
+            </div>
+        </div>
+    </div>
+  </section>
+{% if object.punishment %}
+    <section class="slidePanel-inner-section">
+    <div class="forum-header">
+
+      <span class="name"><b>Càstig</b></span>
+      <span class="time"></span>
+    </div>
+    <div class="forum-content">
+      <p>{{object.punishment.type.name|default:'Sense càstig'}}</p>
+      <p>{{object.punishment.day|default:''}}</p>
+      <p>{{object.punishment.start|default:''}} - {{object.punishment.end|default:''}}</p>
+    </div>
+  </section>
+{% endif %}
+
+  <!--<div class="slidePanel-comment">
+    <textarea class="maxlength-textarea form-control mb-sm margin-bottom-20" rows="4"></textarea>
+    <button class="btn btn-primary" data-dismiss="modal" type="button">Reply</button>
+  </div>-->
+</form>

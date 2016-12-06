@@ -42,3 +42,9 @@ class IncidentForm(ModelForm):
             student_list.append(instance.pk)
 
         return Incident.objects.filter(pk__in=student_list)
+
+
+class EditIncidentForm(ModelForm):
+    class Meta:
+        model = Incident
+        fields = ['description', 'comments', 'accepted', 'returned', 'completed']
