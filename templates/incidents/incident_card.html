@@ -3,8 +3,9 @@
   <div class="slidePanel-actions" aria-label="actions" role="group">
 
     <div class="btn-group actions-bottom" role="group">
-
+        {% if perms.incident.can_change_incident %}
       <button id="edit-button" class="btn btn-pure btn-inverse icon wb-edit" aria-hidden="true" onclick="showForm();"></button>
+        {% endif %}
         {% if object.type.name == "Sanció" %}
       <a href="/incidents/report/pdf/{{ object.pk }}/" target="_blank" class="btn btn-pure btn-inverse icon wb-print" id="print-button" aria-hidden="true"></a>
         {% else %}

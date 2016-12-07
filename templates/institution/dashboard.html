@@ -37,75 +37,30 @@
         <div class="col-lg-8 col-md-12">
 
           <div class="row">
-              <a href="{% url "attendance:call-today" %}">
-                <div class="col-md-6">
-                    <div class="card card-block p-35 clearfix">
-                <div class="pull-xs-left white">
-                  <i class="icon icon-circle icon-2x wb-check bg-red-600" aria-hidden="true"></i>
-                </div>
-                <div class="counter counter-md counter text-xs-right pull-xs-right">
-                  <div class="counter-number-group">
-                      <span class="counter-number-related text-capitalize">Passar llista</span>
-                    </div>
-                    <div class="counter-label text-capitalize font-size-16">(Funcionalitats limitades)</div>
-                </div>
-              </div>
-            </div>
-              </a>
-
-              <a href="{% url "incidents:create" %}">
-                <div class="col-md-6">
-                    <div class="card card-block p-35 clearfix">
-                <div class="pull-xs-left white">
-                  <i class="icon icon-circle icon-2x wb-clipboard bg-red-600" aria-hidden="true"></i>
-                </div>
-                <div class="counter counter-md counter text-xs-right pull-xs-right">
-                  <div class="counter-number-group">
-                      <span class="counter-number-related text-capitalize">Crear Incidència</span>
-                    </div>
-                    <div class="counter-label text-capitalize font-size-16">Afegeix una incidència nova</div>
-                </div>
-              </div>
-            </div>
-              </a>
-
-          </div>
-        </div>
-    </div>
-    <div class="row">
         <ul class="nav-quick nav-quick-bordered row">
-            <li class="nav-item col-md-2 col-xs-4">
-              <a class="nav-link" href="javascript:void(0)">
-                <i class="icon wb-settings" aria-hidden="true"></i> Settings
+            <li class="nav-item col-md-3 col-xs-6">
+              <a class="nav-link" href="{% url 'attendance:call-today' %}"">
+                <i class="icon wb-check" aria-hidden="true"></i> Passar Llista
               </a>
             </li>
-            <li class="nav-item col-md-2 col-xs-4">
-              <a class="nav-link" href="javascript:void(0)">
-                <i class="icon wb-user" aria-hidden="true"></i> User list
-                <span class="tag tag-success">8</span>
+            <li class="nav-item col-md-3 col-xs-6">
+              <a class="nav-link" href="{% url 'incidents:create' %}">
+                <i class="icon wb-plus" aria-hidden="true"></i> Crear Incidència
               </a>
             </li>
-            <li class="nav-item col-md-2 col-xs-4">
-              <a class="nav-link" href="javascript:void(0)">
-                <i class="icon wb-wrench" aria-hidden="true"></i> Admin tools
+            <li class="nav-item col-md-3 col-xs-6">
+              <a class="nav-link" href="{% url 'incidents:list' %}">
+                <i class="icon wb-list" aria-hidden="true"></i> Veure Incidències
               </a>
             </li>
-            <li class="nav-item col-md-2 col-xs-4">
-              <a class="nav-link" href="javascript:void(0)">
-                <i class="icon wb-upload" aria-hidden="true"></i> Upload
-                <span class="tag tag-danger">13</span>
-              </a>
-            </li>
-            <li class="nav-item col-md-2 col-xs-4">
-              <a class="nav-link" href="javascript:void(0)">
-                <i class="icon wb-lock" aria-hidden="true"></i> Lock
-              </a>
-            </li>
-            <li class="nav-item col-md-2 col-xs-4">
-              <a class="nav-link" href="javascript:void(0)">
-                <i class="icon wb-search" aria-hidden="true"></i> Search
+            <li class="nav-item col-md-3 col-xs-6">
+              <a class="nav-link" href="/accounts/logout">
+                <i class="icon wb-power" aria-hidden="true"></i> Logout
               </a>
             </li>
           </ul>
+
+          </div>
+        </div>
     </div>
 {% endblock content %}

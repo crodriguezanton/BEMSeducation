@@ -46,26 +46,18 @@ class IncidentListView(FilterView):
         context['title'] = 'Incidents'
         context['page_aside'] = True
 
-        context['activeincidents'] = Incident.objects.filter(teacher=self.request.profile, completed=False)
-        context['pendingincidents'] = Incident.objects.filter(teacher=self.request.profile, accepted=False)
-        context['archivedincidents'] = Incident.objects.filter(teacher=self.request.profile, completed=True)
-
         return context
-
 
 class ReviewIncidentListView(IncidentListView):
-    model = Incident
+    pass
 
-    def get_context_data(self, **kwargs):
-        context = super(ReviewIncidentListView, self).get_context_data(**kwargs)
 
-        if 'q' in self.request.GET:
-            if self.request.GET['q'] != '*':
-                context['newincidents'] = context['newincidents'].filter(student__pk=self.request.GET['q'])
-                context['activeincidents'] = context['activeincidents'].filter(student__pk=self.request.GET['q'])
-                context['archivedincidents'] = context['archivedincidents'].filter(student__pk=self.request.GET['q'])
+class MyIncidentListView(IncidentListView):
 
-        return context
+    def get_queryset(self):
+        queryset = super(IncidentListView, self).get_queryset()
+
+        return queryset.filter(teacher=self.request.profile)
 
 
 class IncidentCardView(UpdateView):
@@ -75,26 +67,4 @@ class IncidentCardView(UpdateView):
     success_url = '/incidents/list/'
 
     def get_success_url(self):
-        return reverse('incidents:list') + "#" + str(self.object.pk)
-
-
-def incident_status(request, pk=None, status=None, value='True'):
-
-    if value == 'True':
-        value = True
-    else:
-        value = False
-
-    incident = Incident.objects.get(pk=pk)
-
-    if status == 'accepted':
-        incident.accepted = value
-    elif status == 'returned':
-        incident.returned = value
-    elif status == 'completed':
-        incident.completed = value
-
-    incident.save()
-
-
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+        return reverse('incidents:review') + "#" + str(self.object.pk)
