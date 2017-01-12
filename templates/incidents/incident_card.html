@@ -3,7 +3,7 @@
   <div class="slidePanel-actions" aria-label="actions" role="group">
 
     <div class="btn-group actions-bottom" role="group">
-        {% if perms.incident.change_incident %}
+        {% if perms.incidents.can_change_incident %}
       <button id="edit-button" class="btn btn-pure btn-inverse icon wb-edit" aria-hidden="true" onclick="showForm();"></button>
         {% endif %}
         {% if object.type.name == "Sanció" %}
