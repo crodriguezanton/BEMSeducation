@@ -11,7 +11,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, '../static_server/static/')
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['.bems.cat']
 
 SESSION_COOKIE_DOMAIN = '.bems.cat'
