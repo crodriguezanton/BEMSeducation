@@ -4,15 +4,20 @@ from datetime import datetime
 
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
-from django.views.generic.dates import DayArchiveView, TodayArchiveView, _date_from_string
+from django.views.generic.dates import DayArchiveView, TodayArchiveView, _date_from_string, WeekArchiveView
 
 from attendance.models import AttendanceEntry
 from education.models import Teacher, Student
 from schedule.models import TimetableEntry, ClassUnit, ClassDay
 
 
-class TimetableView(TemplateView):
-    pass
+class TimetableView(WeekArchiveView):
+    model = TimetableEntry
+    week_format = '%W'
+    date_field = 'date'
+    allow_future = True
+
+
 
 
 class MyTimetableView(TimetableView):
@@ -46,6 +51,7 @@ class CallView(DayArchiveView):
             self.kwargs['year'] = now.strftime('%Y')
             self.kwargs['month'] = now.strftime('%m')
             self.kwargs['day'] = now.strftime('%d')
+
         return super(CallView, self).dispatch(request, *args, **kwargs)
 
     def get_dated_items(self):
