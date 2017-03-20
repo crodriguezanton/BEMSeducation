@@ -72,7 +72,7 @@ class Group(models.Model):
         verbose_name = _('Group')
         verbose_name_plural = _('Groups')
 
-    instance = models.ForeignKey(BEMSeducationInstance)
+    instance = models.ForeignKey(BEMSeducationInstance, related_name='school_group')
     institution = models.ForeignKey(Institution, blank=True, null=True)
     name = models.CharField(max_length=200)
     short_name = models.CharField(max_length=20)
