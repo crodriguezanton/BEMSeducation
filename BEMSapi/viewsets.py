@@ -30,7 +30,7 @@ class CallViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         timetable_entry = get_object_or_404(TimetableEntry, pk=self.request.GET.get('timetable_entry', 0))
-        students = Student.objects.filter(group=timetable_entry.weekly_timetable_entry.group)
+        students = Student.objects.filter(yearenroll__group=timetable_entry.weekly_timetable_entry.group)
         for stu in students:
             stu.status = stu.attendanceentry_set.filter(timetable_entry=timetable_entry).first()
 
