@@ -11,6 +11,6 @@ class StandardResultsSetPagination(PageNumberPagination):
     max_page_size = 1000
 
 class TimetableEntryViewSet(viewsets.ModelViewSet):
-    queryset = TimetableEntry.objects.all()
+    queryset = TimetableEntry.objects.filter(weekly_timetable_entry__teacher__pk="d1864d7e-b772-4aae-bb30-cd02a1a275c8")
     serializer_class = TimetableEntrySerializer
     pagination_class = StandardResultsSetPagination
