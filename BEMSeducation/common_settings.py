@@ -58,6 +58,7 @@ ADDON_APPS = [
     'polymorphic',
     'django_extensions',
     'analytical',
+    'corsheaders',
     # 'easy_thumbnails',
     # 'filer',
     # 'mptt',
@@ -77,6 +78,7 @@ INSTALLED_APPS = DJANGO_APPS + BEMS_APPS + ADDON_APPS + LOCAL_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -187,3 +189,7 @@ ACCOUNT_ADAPTER = 'BEMSeducation.adapters.AccountAdapter'
 
 MIXPANEL_API_TOKEN = "eaca9e120564d78a73c803435fd03710"
 GOOGLE_ANALYTICS_PROPERTY_ID = "UA-87367950-1"
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:4200',
+)
