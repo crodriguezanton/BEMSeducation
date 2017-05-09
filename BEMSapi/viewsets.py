@@ -17,5 +17,5 @@ class TimetableEntryViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         te = TimetableEntry.objects.filter(weekly_timetable_entry__teacher__pk="d1864d7e-b772-4aae-bb30-cd02a1a275c8")
-        te = te.filter(date__gte=self.request.GET.get('start', ''), date__lte=self.request.GET.get('end', ''))
+        te = te.filter(date__gte=self.request.GET.get('start', 'START'), date__lte=self.request.GET.get('end', 'END'))
         return te
