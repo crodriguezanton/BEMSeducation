@@ -1,9 +1,12 @@
 import datetime
+
+from django.shortcuts import get_object_or_404
 from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 
-from BEMSapi.serializers import TimetableEntrySerializer
+from BEMSapi.serializers import TimetableEntrySerializer, StudentStatusSerializer
+from education.models import Student
 from schedule.models import TimetableEntry
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -19,3 +22,16 @@ class TimetableEntryViewSet(viewsets.ModelViewSet):
         te = TimetableEntry.objects.filter(weekly_timetable_entry__teacher__pk="d1864d7e-b772-4aae-bb30-cd02a1a275c8")
         te = te.filter(date__gte=datetime.datetime.fromtimestamp(int(self.request.GET.get('start', ''))), date__lte=datetime.datetime.fromtimestamp(int(self.request.GET.get('end', ''))))
         return te
+
+
+class CallViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = StudentStatusSerializer
+    pagination_class = StandardResultsSetPagination
+
+    def get_queryset(self):
+        timetable_entry = get_object_or_404(TimetableEntry, pk=self.request.GET.get('timetable_entry', 0))
+        students = Student.objects.filter(group=timetable_entry.weekly_timetable_entry.group)
+        for stu in students:
+            stu.status = stu.attendanceentry_set.filter(timetable_entry=timetable_entry).first()
+
+        return students

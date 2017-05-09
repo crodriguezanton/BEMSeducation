@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from education.models import Teacher
+from attendance.models import AttendanceEntry
+from education.models import Teacher, Student
 from institution.models import Group, Classroom
 from schedule.models import TimetableEntry, WeeklyTimetableEntry, Subject, ClassDay, ClassUnit
 
@@ -59,3 +60,17 @@ class TimetableEntrySerializer(serializers.ModelSerializer):
         fields = ('pk', 'weekly_timetable_entry', 'date', 'active')
 
     weekly_timetable_entry = WeeklyTimetableEntrySerializer()
+
+
+class AttendanceEntrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AttendanceEntry
+        fields = ('pk', 'type', 'created', 'modified')
+
+
+class StudentStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ('pk', 'first_name', 'last_name', 'bemsuser', 'status')
+
+    status = AttendanceEntrySerializer(read_only=True)
