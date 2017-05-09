@@ -30,7 +30,7 @@ class TimetableDayViewSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
 
     def get_queryset(self):
-        te = TimetableEntry.objects.filter(weekly_timetable_entry__teacher__pk="d1864d7e-b772-4aae-bb30-cd02a1a275c8")
+        te = TimetableEntry.objects.filter(weekly_timetable_entry__teacher__pk="d1864d7e-b772-4aae-bb30-cd02a1a275c8").order_by('weekly_timetable_entry__unit__start')
         te = te.filter(date=self.request.GET.get('day', ''))
         return te
 
@@ -41,7 +41,7 @@ class CallViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         timetable_entry = get_object_or_404(TimetableEntry, pk=self.request.GET.get('timetable_entry', 0))
-        students = Student.objects.filter(yearenroll__group=timetable_entry.weekly_timetable_entry.group)
+        students = Student.objects.filter(yearenroll__group=timetable_entry.weekly_timetable_entry.group).order_by('last_name', 'first_name')
         for stu in students:
             stu.status = stu.attendanceentry_set.filter(timetable_entry=timetable_entry).first()
 
