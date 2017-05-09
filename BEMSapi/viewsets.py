@@ -14,6 +14,7 @@ class StandardResultsSetPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = 1000
 
+
 class TimetableEntryViewSet(viewsets.ModelViewSet):
     serializer_class = TimetableEntrySerializer
     pagination_class = StandardResultsSetPagination
@@ -21,6 +22,16 @@ class TimetableEntryViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         te = TimetableEntry.objects.filter(weekly_timetable_entry__teacher__pk="d1864d7e-b772-4aae-bb30-cd02a1a275c8")
         te = te.filter(date__gte=datetime.datetime.fromtimestamp(int(self.request.GET.get('start', ''))), date__lte=datetime.datetime.fromtimestamp(int(self.request.GET.get('end', ''))))
+        return te
+
+
+class TimetableDayViewSet(viewsets.ModelViewSet):
+    serializer_class = TimetableEntrySerializer
+    pagination_class = StandardResultsSetPagination
+
+    def get_queryset(self):
+        te = TimetableEntry.objects.filter(weekly_timetable_entry__teacher__pk="d1864d7e-b772-4aae-bb30-cd02a1a275c8")
+        te = te.filter(date=self.request.GET.get('start', ''))
         return te
 
 
