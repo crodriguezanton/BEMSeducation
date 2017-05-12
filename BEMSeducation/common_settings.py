@@ -53,6 +53,7 @@ ADDON_APPS = [
     'debug_toolbar',
     'model_utils',
     'rest_framework',
+    'rest_framework.authtoken',
     'raven.contrib.django.raven_compat',
     'rosetta',
     'polymorphic',

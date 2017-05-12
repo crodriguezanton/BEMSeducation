@@ -1,6 +1,4 @@
 from django.conf.urls import url
+from rest_framework.authtoken import views
 
-from BEMSapi.views import ProfileResourceReservationCreateView, ProfileResourceReservationUpdateView, \
-    GroupResourceReservationCreateView, GroupResourceReservationUpdateView
-
-urlpatterns = []
+urlpatterns = [url(r'^auth/', views.obtain_auth_token)]
