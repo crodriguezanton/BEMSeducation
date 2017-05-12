@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('BEMSauth.urls')),
+    url(r'^api/', include('BEMSapi.urls')),
     url(r'^api/', include(default_router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^$', DashboardView.as_view(), name='index'),
