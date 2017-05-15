@@ -23,7 +23,7 @@ class TimetableEntryViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
-        te = TimetableEntry.objects.filter(weekly_timetable_entry__teacher__pk="d1864d7e-b772-4aae-bb30-cd02a1a275c8")
+        te = TimetableEntry.objects.filter(weekly_timetable_entry__teacher__bemsuser=self.request.user.bemsuser)
         te = te.filter(date__gte=datetime.datetime.fromtimestamp(int(self.request.GET.get('start', ''))), date__lte=datetime.datetime.fromtimestamp(int(self.request.GET.get('end', ''))))
         return te
 
@@ -35,7 +35,7 @@ class TimetableDayViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
-        te = TimetableEntry.objects.filter(weekly_timetable_entry__teacher__pk="d1864d7e-b772-4aae-bb30-cd02a1a275c8").order_by('weekly_timetable_entry__unit__start')
+        te = TimetableEntry.objects.filter(weekly_timetable_entry__teacher__bemsuser=self.request.user.bemsuser).order_by('weekly_timetable_entry__unit__start')
         te = te.filter(date=self.request.GET.get('day', ''))
         return te
 
